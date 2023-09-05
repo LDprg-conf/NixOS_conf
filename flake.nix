@@ -61,21 +61,15 @@
           modules = [
             # > Our main nixos configuration file <
             ./nixos/configuration.nix
-          ];
-        };
-      };
-
-      # Standalone home-manager configuration entrypoint
-      # Available through 'home-manager --flake .#your-username@your-hostname'
-      homeConfigurations = {
-        # FIXME replace with your username@hostname
-        "ld@LD-Laptop" = home-manager.lib.homeManagerConfiguration {
-          pkgs =
-            nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
-          extraSpecialArgs = { inherit inputs outputs; };
-          modules = [
-            # > Our main home-manager configuration file <
-            ./home-manager/home.nix
+            home-manager.nixosModules.home-manager
+            { # Home-Manager module that is used.
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.extraSpecialArgs = { inherit inputs outputs; };
+              home-manager.users.ld = {
+                imports = [ ./home-manager/home.nix ];
+              };
+            }
           ];
         };
       };
