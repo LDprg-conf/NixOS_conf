@@ -50,7 +50,8 @@
 
     # This will additionally add your inputs to the system's legacy channels
     # Making legacy nix commands consistent as well, awesome!
-    nixPath = lib.mapAttrsToList (key: value: "${key}=${value.to.path}") config.nix.registry;
+    nixPath = lib.mapAttrsToList (key: value: "${key}=${value.to.path}")
+      config.nix.registry;
 
     settings = {
       # Enable flakes and new 'nix' command
@@ -138,31 +139,19 @@
       ];
       # TODO: Be sure to add any other groups you need (such as networkmanager, audio, docker, etc)
       extraGroups = [ "networkmanager" "wheel" ];
-      packages = with pkgs; [
-        firefox
-        gparted
-        kate
-        thunderbird
-        vscode
-        nixfmt
-      ];
+      packages = with pkgs; [ firefox gparted kate thunderbird vscode nixfmt ];
     };
   };
 
-   environment.systemPackages = with pkgs; [
-     vim
-     wget
-     git
-     gh
-  ];
+  environment.systemPackages = with pkgs; [ vim wget git gh ];
 
   # This setups a SSH server. Very important if you're setting up a headless system.
   # Feel free to remove if you don't need it.
   #services.openssh = {
   #  enable = true;
-    # Forbid root login through SSH.
+  # Forbid root login through SSH.
   #  permitRootLogin = "no";
-    # Use keys only. Remove if you want to SSH using password (not recommended)
+  # Use keys only. Remove if you want to SSH using password (not recommended)
   #  passwordAuthentication = false;
   #};
 
