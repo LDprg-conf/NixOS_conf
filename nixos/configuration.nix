@@ -143,6 +143,8 @@
         gparted
         kate
         thunderbird
+        vscode
+        nixfmt
       ];
     };
   };
