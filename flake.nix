@@ -47,10 +47,10 @@
       # Available through 'nixos-rebuild --flake .#your-hostname'
       nixosConfigurations = {
         LD-Laptop = let
-          user = "LD";
+          user = "ld";
           host = "LD-Laptop";
         in nixpkgs.lib.nixosSystem {
-          specialArgs = { inherit inputs outputs; };
+          specialArgs = { inherit inputs outputs user host; };
           modules = [
             ./hosts
             ./hosts/${host}
@@ -58,7 +58,9 @@
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs = { inherit inputs outputs; };
+              home-manager.extraSpecialArgs = {
+                inherit inputs outputs user host;
+              };
               home-manager.users.${user} = {
                 imports = [ ./hosts/home.nix ./hosts/${host}/home.nix ];
               };
