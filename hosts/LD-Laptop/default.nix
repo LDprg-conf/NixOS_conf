@@ -4,10 +4,10 @@
 { inputs, outputs, user, host, lib, config, pkgs, ... }: {
   # You can import other NixOS modules here
   imports = [
-    ../../modules/default-apps.nix
-    ../../modules/systemd-boot.nix
-    ../../modules/plasma.nix
-    ../../modules/pipewire.nix
+    ../../modules/nixos/default-apps.nix
+    ../../modules/nixos/systemd-boot.nix
+    ../../modules/nixos/plasma.nix
+    ../../modules/nixos/pipewire.nix
 
     ./hardware.nix
   ];
