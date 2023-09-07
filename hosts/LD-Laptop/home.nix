@@ -14,6 +14,9 @@
       helvum
       easyeffects
       steam
+      protonup-qt
+      whatsapp-for-linux
+      signal-desktop
     ];
   };
 }
