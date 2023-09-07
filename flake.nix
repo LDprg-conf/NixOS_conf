@@ -1,5 +1,5 @@
 {
-  description = "Your new nix config";
+  description = "A Nixos config";
 
   inputs = {
     # Nixpkgs
@@ -46,21 +46,21 @@
       # NixOS configuration entrypoint
       # Available through 'nixos-rebuild --flake .#your-hostname'
       nixosConfigurations = {
-        LD-Laptop = nixpkgs.lib.nixosSystem {
+        LD-Laptop = let
+          user = "LD";
+          host = "LD-Laptop";
+        in nixpkgs.lib.nixosSystem {
           specialArgs = { inherit inputs outputs; };
           modules = [
             ./hosts
-            ./hosts/LD-Laptop
+            ./hosts/${host}
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.extraSpecialArgs = { inherit inputs outputs; };
-              home-manager.users.ld = {
-                imports = [ 
-                  ./hosts/home.nix
-                  ./hosts/LD-Laptop/home.nix
-                ];
+              home-manager.users.${user} = {
+                imports = [ ./hosts/home.nix ./hosts/${host}/home.nix ];
               };
             }
           ];
