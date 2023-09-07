@@ -49,7 +49,7 @@
         LD-Laptop = nixpkgs.lib.nixosSystem {
           specialArgs = { inherit inputs outputs; };
           modules = [
-            ./nixos/configuration.nix
+            ./hosts/LD-Laptop
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
