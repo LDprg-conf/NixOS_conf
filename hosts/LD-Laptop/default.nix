@@ -8,9 +8,23 @@
     ../../modules/nixos/systemd-boot.nix
     ../../modules/nixos/plasma.nix
     ../../modules/nixos/pipewire.nix
+    ../../modules/nixos/fish.nix
 
     ./hardware.nix
   ];
 
-  users.users = { ld = { description = "LD"; }; };
+  users.users.ld = {
+    description = "LD";
+    shell = pkgs.fish;
+  };
+
+  services = {
+    asusd = {
+      enable = true;
+      enableUserService = true;
+    };
+  };
+
+  users.defaultUserShell = pkgs.fish;
+  environment.shells = with pkgs; [ fish ];
 }
