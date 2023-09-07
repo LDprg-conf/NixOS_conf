@@ -49,6 +49,7 @@
         LD-Laptop = nixpkgs.lib.nixosSystem {
           specialArgs = { inherit inputs outputs; };
           modules = [
+            ./hosts
             ./hosts/LD-Laptop
             home-manager.nixosModules.home-manager
             {
@@ -56,7 +57,10 @@
               home-manager.useUserPackages = true;
               home-manager.extraSpecialArgs = { inherit inputs outputs; };
               home-manager.users.ld = {
-                imports = [ ./hosts/home.nix ];
+                imports = [ 
+                  ./hosts/home.nix
+                  ./hosts/LD-Laptop/home.nix
+                ];
               };
             }
           ];
