@@ -46,7 +46,7 @@
     username = "ld";
     homeDirectory = lib.mkDefault "/home/ld";
 
-    packages = with pkgs; [ firefox gparted kate thunderbird vscode nixfmt 
+    packages = with pkgs; [ firefox gparted kate thunderbird vscode nixfmt discord
     #steam 
     ];
   };
