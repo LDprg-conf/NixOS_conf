@@ -56,7 +56,7 @@
               home-manager.useUserPackages = true;
               home-manager.extraSpecialArgs = { inherit inputs outputs; };
               home-manager.users.ld = {
-                imports = [ ./home-manager/home.nix ];
+                imports = [ ./hosts/home.nix ];
               };
             }
           ];
