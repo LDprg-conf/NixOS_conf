@@ -12,5 +12,6 @@
     protonup-qt
     whatsapp-for-linux
     signal-desktop
+    quickemu
   ];
 }

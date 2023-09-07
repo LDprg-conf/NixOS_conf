@@ -9,6 +9,7 @@
     ../../modules/nixos/plasma.nix
     ../../modules/nixos/pipewire.nix
     ../../modules/nixos/fish.nix
+    ../../modules/nixos/rust.nix
 
     ./hardware.nix
   ];
