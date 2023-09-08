@@ -64,6 +64,7 @@
     neofetch
     ranger
     lshw
+    nvtop
   ];
 
   services.fwupd.enable = true;

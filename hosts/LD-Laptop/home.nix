@@ -13,5 +13,6 @@
     whatsapp-for-linux
     signal-desktop
     quickemu
+    element-desktop
   ];
 }
