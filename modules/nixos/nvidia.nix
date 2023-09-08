@@ -8,7 +8,11 @@
   };
 
   # Load nvidia driver for Xorg and Wayland
-  services.xserver.videoDrivers = [ "nvidia" ];
+  #sudoservices.xserver.videoDrivers = [ "amdgpu" "nvidia" ];
+
+  boot.initrd.kernelModules = [ "nvidia" ];
+  boot.extraModulePackages = [ config.boot.kernelPackages.nvidia_x11 ];
+  #boot.kernelParams = [ "module_blacklist=amdgpu" ];
 
   hardware.nvidia = {
 

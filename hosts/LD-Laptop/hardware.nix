@@ -7,7 +7,7 @@
   imports = [
     # Or modules from other flakes (such as nixos-hardware):
     inputs.hardware.nixosModules.common-cpu-amd
-    #inputs.hardware.nixosModules.common-gpu-nvidia
+    inputs.hardware.nixosModules.common-gpu-nvidia
     inputs.hardware.nixosModules.common-pc-laptop
     inputs.hardware.nixosModules.common-pc-laptop-ssd
 
@@ -47,6 +47,4 @@
   # networking.interfaces.wlp3s0.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-  hardware.cpu.amd.updateMicrocode =
-    lib.mkDefault config.hardware.enableRedistributableFirmware;
 }
