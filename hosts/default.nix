@@ -1,7 +1,7 @@
 # This is your system's configuration file.
 # Use this to configure your system environment (it replaces /etc/nixos/configuration.nix)
 
-{ inputs, outputs, user, host, lib, config, pkgs, ... }: {
+{ inputs, outputs, self, user, host, lib, config, pkgs, ... }: {
   nixpkgs = {
     # Configure your nixpkgs instance
     config = {
@@ -68,6 +68,7 @@
     zip
     curl
     htop
+    killall
   ];
 
   services.fwupd.enable = true;

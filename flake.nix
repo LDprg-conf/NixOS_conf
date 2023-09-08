@@ -58,7 +58,7 @@
           user = "ld";
           host = "LD-Laptop";
         in nixpkgs.lib.nixosSystem {
-          specialArgs = { inherit inputs outputs user host; };
+          specialArgs = { inherit inputs outputs user host self; };
           modules = [
             ./hosts
             ./hosts/${host}

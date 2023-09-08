@@ -1,4 +1,4 @@
-{ inputs, outputs, user, host, lib, config, pkgs, ... }: {
+{ inputs, outputs, self, user, host, lib, config, pkgs, ... }: {
   imports = [
     inputs.nix-gaming.nixosModules.pipewireLowLatency
   ];
