@@ -40,17 +40,17 @@
         "utils": "utils"
       },
       "locked": {
-        "lastModified": 1692023956,
-        "narHash": "sha256-1vvrRyMu0ApJO+e6ow8fy3HP0S5HVCDvzpQyqSEebv4=",
+        "lastModified": 1690548022,
+        "narHash": "sha256-ypu+IQW+4p+D8Vnx76BSvIShsTZ8AxMNqEUCS5/kLnc=",
         "owner": "GermanBread",
         "repo": "declarative-flatpak",
-        "rev": "b9c8b1fab20ba01ee2dc1da46c832a1e8f914b66",
+        "rev": "fb31283f55f06b489f2baf920201e8eb73c9a0d3",
         "type": "github"
       },
       "original": {
         "owner": "GermanBread",
-        "ref": "stable",
         "repo": "declarative-flatpak",
+        "rev": "fb31283f55f06b489f2baf920201e8eb73c9a0d3",
         "type": "github"
       }
     },

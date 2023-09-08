@@ -17,4 +17,10 @@
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
+
+  xdg.portal = {
+    enable = true;
+    extraPortals = with pkgs; [ xdg-desktop-portal-kde ];
+  };
+
 }

@@ -36,10 +36,6 @@
   #];
 
   services.flatpak.enable = true;
-  xdg.portal = {
-    enable = true;
-    extraPortals = with pkgs; [ xdg-desktop-portal-kde ];
-  };
 
   hardware.nvidia.prime = {
     amdgpuBusId = "PCI:6:0:0";
