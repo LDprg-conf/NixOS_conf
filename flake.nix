@@ -20,6 +20,8 @@
     home-manager.url = "github:nix-community/home-manager/master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
+    flatpaks.url = "github:GermanBread/declarative-flatpak/stable";
+
     hardware.url = "github:nixos/nixos-hardware";
 
     # Shameless plug: looking for a way to nixify your themes and make
@@ -60,6 +62,7 @@
         in nixpkgs.lib.nixosSystem {
           specialArgs = { inherit inputs outputs user host self; };
           modules = [
+            inputs.flatpaks.homeManagerModules.default
             ./hosts
             ./hosts/${host}
             home-manager.nixosModules.home-manager

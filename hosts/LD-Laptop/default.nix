@@ -30,10 +30,16 @@
   users.defaultUserShell = pkgs.fish;
   environment.shells = with pkgs; [ fish ];
 
-  environment.systemPackages = with self.packages.${pkgs.system}; [
-    #nvtop
-    spotify-client
-  ];
+  #environment.systemPackages = with self.packages.${pkgs.system}; [
+  #nvtop
+  #  spotify-client
+  #];
+
+  services.flatpak.enable = true;
+  xdg.portal = {
+    enable = true;
+    extraPortals = with pkgs; [ xdg-desktop-portal-kde ];
+  };
 
   hardware.nvidia.prime = {
     amdgpuBusId = "PCI:6:0:0";
