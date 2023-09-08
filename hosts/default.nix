@@ -64,7 +64,9 @@
     neofetch
     ranger
     lshw
-    nvtop
+    unzip
+    zip
+    curl
   ];
 
   services.fwupd.enable = true;

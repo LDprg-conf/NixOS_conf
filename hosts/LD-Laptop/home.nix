@@ -14,5 +14,6 @@
     signal-desktop
     quickemu
     element-desktop
+    gitkraken
   ];
 }

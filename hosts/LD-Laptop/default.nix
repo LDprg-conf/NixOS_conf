@@ -30,6 +30,10 @@
   users.defaultUserShell = pkgs.fish;
   environment.shells = with pkgs; [ fish ];
 
+  environment.systemPackages = with pkgs; [
+    #nvtop
+  ];
+
   hardware.nvidia.prime = {
     amdgpuBusId = "PCI:6:0:0";
     nvidiaBusId = "PCI:1:0:0";
