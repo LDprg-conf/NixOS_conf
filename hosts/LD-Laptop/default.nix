@@ -32,6 +32,7 @@
 
   environment.systemPackages = with pkgs; [
     #nvtop
+    spotify-client
   ];
 
   hardware.nvidia.prime = {

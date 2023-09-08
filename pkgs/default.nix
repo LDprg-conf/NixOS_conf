@@ -3,5 +3,5 @@
 
 { pkgs ? (import ../nixpkgs.nix) { } }:
 {
-  # example = pkgs.callPackage ./example { };
+  spotify-client = pkgs.callPackage ./spotify-client { };
 }

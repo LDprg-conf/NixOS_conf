@@ -67,6 +67,7 @@
     unzip
     zip
     curl
+    htop
   ];
 
   services.fwupd.enable = true;
