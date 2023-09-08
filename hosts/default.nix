@@ -49,6 +49,8 @@
     LC_TIME = "de_AT.UTF-8";
   };
 
+  console.keyMap = "de";
+
   users.users.${user} = {
     isNormalUser = true;
     extraGroups = [ "networkmanager" "wheel" ];
