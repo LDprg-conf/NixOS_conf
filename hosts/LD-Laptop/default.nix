@@ -10,6 +10,7 @@
     ../../modules/nixos/pipewire.nix
     ../../modules/nixos/fish.nix
     ../../modules/nixos/nvidia.nix
+    ../../modules/nixos/kernel-latest.nix
 
     ./hardware.nix
   ];
@@ -29,8 +30,8 @@
   users.defaultUserShell = pkgs.fish;
   environment.shells = with pkgs; [ fish ];
 
-  hardware.nvidia.prime = {
-    amdBusId = "PCI:6:0:0";
-    nvidiaBusId = "PCI:1:0:0";
-  };
+  #hardware.nvidia.prime = {
+  #  amdBusId = "PCI:6:0:0";
+  #  nvidiaBusId = "PCI:1:0:0";
+  #};
 }
