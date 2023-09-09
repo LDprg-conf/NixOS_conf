@@ -31,10 +31,7 @@
   environment.shells = with pkgs; [ fish ];
 
   environment.systemPackages = with pkgs;
-    [
-      nvtop
-      lutris
-    ] ++ (with self.packages.${pkgs.system}; [ fdm ]);
+    [ nvtop lutris ] ++ (with self.packages.${pkgs.system}; [ fdm ]);
 
   services.flatpak.enable = true;
   services.flatpak = {
@@ -45,10 +42,8 @@
     };
   };
 
-  hardware.video.hidpi.enable = true;
   hardware.nvidia.prime = {
-    sync.enable = true; 
-
+    sync.enable = true;
 
     amdgpuBusId = "PCI:6:0:0";
     nvidiaBusId = "PCI:1:0:0";
