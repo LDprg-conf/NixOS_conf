@@ -1,50 +1,34 @@
-{ lib
-, stdenv
-, fetchurl
-, dpkg
-, wrapGAppsHook
-, autoPatchelfHook
-, udev
-, libdrm
-, libpqxx
-, unixODBC
-, gst_all_1
-}:
+{ lib, stdenv, fetchurl, dpkg, wrapGAppsHook, autoPatchelfHook, udev, libdrm
+, libpqxx, alsa-lib, libpulseaudio, qt5, unixODBC, gst_all_1 }:
 
 stdenv.mkDerivation rec {
   pname = "fdm";
   version = "6.19.0";
 
   src = fetchurl {
-    url = "https://files2.freedownloadmanager.org/6/latest/freedownloadmanager.deb";
-    hash = lib.fakeHash;
+    url =
+      "https://files2.freedownloadmanager.org/6/latest/freedownloadmanager.deb";
+    hash = "sha256-3KmNhkEEOzW5qiK6e4ZPI9wbTdA2EFWUH5Z1K8kdXWw=";
   };
 
   unpackPhase = "dpkg-deb -x $src .";
 
-  nativeBuildInputs = [
-    dpkg
-    wrapGAppsHook
-    autoPatchelfHook
-  ];
+  nativeBuildInputs =
+    [ dpkg wrapGAppsHook autoPatchelfHook qt5.wrapQtAppsHook ];
 
-  buildInputs = [
-    libdrm
-    libpqxx
-    unixODBC
-    stdenv.cc.cc
-  ] ++ (with gst_all_1; [
-    gstreamer
-    gst-libav
-    gst-plugins-base
-    gst-plugins-good
-    gst-plugins-bad
-    gst-plugins-ugly
-  ]);
+  buildInputs = [ libdrm libpqxx alsa-lib libpulseaudio qt5.qtbase unixODBC stdenv.cc.cc ]
+    ++ (with gst_all_1; [
+      gstreamer
+      gst-libav
+      gst-plugins-base
+      gst-plugins-good
+      gst-plugins-bad
+      gst-plugins-ugly
+    ]);
 
-  runtimeDependencies = [
-    (lib.getLib udev)
-  ];
+  dontWrapQtApps = true;
+
+  runtimeDependencies = [ (lib.getLib udev) ];
 
   installPhase = ''
     mkdir -p $out/bin
@@ -60,9 +44,10 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "A smart and fast internet download manager";
     homepage = "https://www.freedownloadmanager.org";
-    license = licenses.unfree;
+    # License cant be set to unfree in flakes so just imagine fdm beeing unfree
+    # license = licenses.unfree;
     platforms = [ "x86_64-linux" ];
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    maintainers = with maintainers; [  ];
+    maintainers = with maintainers; [ ];
   };
 }

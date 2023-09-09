@@ -69,6 +69,7 @@
     curl
     htop
     killall
+    ripgrep
   ];
 
   services.fwupd.enable = true;

@@ -18,6 +18,7 @@
     quickemu
     element-desktop
     gitkraken
+    telegram-desktop
   ];
 
   services.flatpak = {
