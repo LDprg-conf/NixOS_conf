@@ -32,7 +32,7 @@
 
   environment.systemPackages = with pkgs;
     [
-      #nvtop
+      nvtop
       lutris
     ] ++ (with self.packages.${pkgs.system}; [ fdm ]);
 
@@ -46,6 +46,13 @@
   };
 
   hardware.nvidia.prime = {
+    #offload = {
+    #  enable = true;
+    #  enableOffloadCmd = true;
+    #}
+    sync.enable = true; 
+
+
     amdgpuBusId = "PCI:6:0:0";
     nvidiaBusId = "PCI:1:0:0";
   };
