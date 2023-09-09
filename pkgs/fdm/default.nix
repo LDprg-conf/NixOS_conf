@@ -1,5 +1,5 @@
-{ lib, stdenv, fetchurl, dpkg, wrapGAppsHook, autoPatchelfHook, udev, libdrm
-, libpqxx, alsa-lib, libpulseaudio, qt5, unixODBC, gst_all_1 }:
+{ lib, stdenv, fetchurl, dpkg, wrapGAppsHook, autoPatchelfHook, makeWrapper, udev, libdrm
+, libpqxx, openssl, ffmpeg, xdg-utils, libtorrent-rasterbar, alsa-lib, libpulseaudio, qt5, unixODBC, gst_all_1 }:
 
 stdenv.mkDerivation rec {
   pname = "fdm";
@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs =
     [ dpkg wrapGAppsHook autoPatchelfHook qt5.wrapQtAppsHook ];
 
-  buildInputs = [ libdrm libpqxx alsa-lib libpulseaudio qt5.qtbase unixODBC stdenv.cc.cc ]
+  buildInputs = [ makeWrapper libdrm libpqxx alsa-lib libpulseaudio unixODBC stdenv.cc.cc openssl ffmpeg xdg-utils libtorrent-rasterbar ]
     ++ (with gst_all_1; [
       gstreamer
       gst-libav
@@ -26,9 +26,7 @@ stdenv.mkDerivation rec {
       gst-plugins-ugly
     ]);
 
-  dontWrapQtApps = true;
-
-  runtimeDependencies = [ (lib.getLib udev) ];
+  runtimeDependencies = [ (lib.getLib udev) openssl ffmpeg xdg-utils libtorrent-rasterbar ];
 
   installPhase = ''
     mkdir -p $out/bin
@@ -39,6 +37,10 @@ stdenv.mkDerivation rec {
     substituteInPlace $out/share/applications/freedownloadmanager.desktop \
       --replace 'Exec=/opt/freedownloadmanager/fdm' 'Exec=${pname}' \
       --replace "Icon=/opt/freedownloadmanager/icon.png" "Icon=$out/freedownloadmanager/icon.png"
+  '';
+
+  postInstall = ''
+    wrapProgram "$out/bin/fdm" --set QT_QPA_PLATFORM xcb"
   '';
 
   meta = with lib; {

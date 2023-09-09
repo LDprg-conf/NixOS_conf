@@ -30,11 +30,11 @@
   users.defaultUserShell = pkgs.fish;
   environment.shells = with pkgs; [ fish ];
 
-  #environment.systemPackages = with pkgs; [
-  #nvtop
-  #];
-
-  #environment.systemPackages = with self.packages.${pkgs.system}; [ fdm ];
+  environment.systemPackages = with pkgs;
+    [
+      #nvtop
+      lutris
+    ] ++ (with self.packages.${pkgs.system}; [ fdm ]);
 
   services.flatpak.enable = true;
   services.flatpak = {

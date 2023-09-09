@@ -20,6 +20,13 @@
     nixPath = lib.mapAttrsToList (key: value: "${key}=${value.to.path}")
       config.nix.registry;
 
+    # Grabage Collector
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 30d";
+    };
+
     settings = {
       # Enable flakes and new 'nix' command
       experimental-features = "nix-command flakes";
@@ -70,6 +77,7 @@
     htop
     killall
     ripgrep
+    tree
   ];
 
   services.fwupd.enable = true;
