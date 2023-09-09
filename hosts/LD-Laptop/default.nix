@@ -5,7 +5,7 @@
   # You can import other NixOS modules here
   imports = [
     ../../modules/nixos/default-apps.nix
-    ../../modules/nixos/systemd-boot.nix
+    ../../modules/nixos/grub.nix
     ../../modules/nixos/plasma.nix
     ../../modules/nixos/pipewire.nix
     ../../modules/nixos/fish.nix
