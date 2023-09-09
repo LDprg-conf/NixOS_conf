@@ -45,11 +45,8 @@
     };
   };
 
+  hardware.video.hidpi.enable = true;
   hardware.nvidia.prime = {
-    #offload = {
-    #  enable = true;
-    #  enableOffloadCmd = true;
-    #}
     sync.enable = true; 
 
 
