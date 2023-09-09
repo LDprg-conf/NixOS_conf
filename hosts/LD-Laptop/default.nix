@@ -48,4 +48,24 @@
     amdgpuBusId = "PCI:6:0:0";
     nvidiaBusId = "PCI:1:0:0";
   };
+
+  fonts = {
+    enableDefaultPackages = true;
+    fontDir.enable = true;
+
+    packages = with pkgs; [
+      ubuntu_font_family
+
+      fira-code
+      fira-code-symbols
+    ];
+
+    fontconfig = {
+      defaultFonts = {
+        serif = [ "Ubuntu" ];
+        sansSerif = [ "Ubuntu" ];
+        monospace = [ "Ubuntu" ];
+      };
+    };
+  };
 }
