@@ -23,22 +23,22 @@
   boot.blacklistedKernelModules = [ "iTCO_wdt" "sp5100_tco" "uvcvideo" ];
 
   fileSystems."/" = {
-    device = "/dev/disk/by-uuid/a28aad4e-2610-4ccc-934a-e9316eb40231";
+    device = "/dev/disk/by-label/nixos";
     fsType = "ext4";
   };
 
   fileSystems."/home" = {
-    device = "/dev/disk/by-uuid/c57734ba-a763-48b7-95c4-c57f32018e1a";
+    device = "/dev/disk/by-label/data";
     fsType = "ext4";
   };
 
   fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/41A3-D31D";
+    device = "/dev/disk/by-label/BOOTy";
     fsType = "vfat";
   };
 
   swapDevices =
-    [{ device = "/dev/disk/by-uuid/d7146027-6ea0-43ff-904f-6ac1f96263b3"; }];
+    [{ device = "/dev/disk/by-label/swap"; }];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
