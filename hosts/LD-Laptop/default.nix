@@ -30,12 +30,20 @@
   users.defaultUserShell = pkgs.fish;
   environment.shells = with pkgs; [ fish ];
 
-  #environment.systemPackages = with self.packages.${pkgs.system}; [
+  environment.systemPackages = with pkgs; [
   #nvtop
-  #  spotify-client
-  #];
+  ];
 
   services.flatpak.enable = true;
+  services.flatpak = {
+    packages = [
+      "flathub:org.kde.index//stable"
+    ];
+    remotes = {
+      "flathub" = "https://flathub.org/repo/flathub.flatpakrepo";
+      "flathub-beta" = "https://flathub.org/beta-repo/flathub-beta.flatpakrepo";
+    };
+  };
 
   hardware.nvidia.prime = {
     amdgpuBusId = "PCI:6:0:0";

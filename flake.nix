@@ -1,12 +1,12 @@
 {
   description = "A Nixos config";
 
-  #nixConfig = {
-  #  extra-substituters = [ "https://nix-community.cachix.org" ];
-  #  extra-trusted-public-keys = [
-  #    "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-  #  ];
-  #};
+  nixConfig = {
+    extra-substituters = [ "https://nix-community.cachix.org" ];
+    extra-trusted-public-keys = [
+      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+    ];
+  };
 
   inputs = {
     # Nixpkgs
@@ -31,7 +31,7 @@
     nix-gaming.url = "github:fufexan/nix-gaming";
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }@inputs:
+  outputs = { self, nixpkgs, flatpaks, home-manager, ... }@inputs:
     let
       inherit (self) outputs;
       forAllSystems = nixpkgs.lib.genAttrs [
@@ -62,7 +62,7 @@
         in nixpkgs.lib.nixosSystem {
           specialArgs = { inherit inputs outputs user host self; };
           modules = [
-            inputs.flatpaks.nixosModules.default
+            flatpaks.nixosModules.default
             ./hosts
             ./hosts/${host}
             home-manager.nixosModules.home-manager
@@ -70,7 +70,7 @@
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.extraSpecialArgs = {
-                inherit inputs outputs user host;
+                inherit inputs outputs flatpaks user host;
               };
               home-manager.users.${user} = {
                 imports = [ ./hosts/home.nix ./hosts/${host}/home.nix ];
