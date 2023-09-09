@@ -64,8 +64,26 @@
       defaultFonts = {
         serif = [ "Ubuntu" ];
         sansSerif = [ "Ubuntu" ];
-        monospace = [ "Ubuntu" ];
+        monospace = [ "FiraCode" ];
       };
+    };
+  };
+
+  powerManagement.enable = true;
+  programs.gamemode.enable = true;
+
+  services.ananicy.package = pkgs.ananicy-cpp;
+  services.ananicy.enable = true;
+
+  services.auto-cpufreq.enable = true;
+  services.auto-cpufreq.settings = {
+    battery = {
+      governor = "powersave";
+      turbo = "never";
+    };
+    charger = {
+      governor = "performance";
+      turbo = "auto";
     };
   };
 }

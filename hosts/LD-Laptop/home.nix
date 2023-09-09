@@ -23,6 +23,7 @@
     qtcreator
     qbittorrent
     motrix
+    nextcloud-client
   ];
 
   programs.brave.enable = true;
