@@ -19,7 +19,7 @@
   boot.initrd.kernelModules = [ "nvidia" ];
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
-  boot.kernelParams = [ "nowatchdog" "nmi_watchdog=0" ];
+  boot.kernelParams = [ "nowatchdog" "nmi_watchdog=0" "quiet" ];
   boot.blacklistedKernelModules = [ "iTCO_wdt" "sp5100_tco" "uvcvideo" ];
 
   fileSystems."/" = {
