@@ -77,6 +77,10 @@
   #powerManagement.enable = true;
   programs.gamemode.enable = true;
 
+  hardware.bluetooth.enable = true;
+
   services.ananicy.package = pkgs.ananicy-cpp;
   services.ananicy.enable = true;
+
+  programs.java = { enable = true; package = pkgs.openjdk19; };
 }

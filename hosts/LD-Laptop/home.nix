@@ -47,7 +47,6 @@
       "flathub:org.kde.index//stable"
       "flathub:com.spotify.Client/x86_64/stable"
       "flathub:com.axosoft.GitKraken/x86_64/stable"
-      "flathub:org.jdownloader.JDownloader/x86_64/stable"
     ];
     remotes = {
       "flathub" = "https://flathub.org/repo/flathub.flatpakrepo";

@@ -7,5 +7,10 @@
       true; # Open ports in the firewall for Source Dedicated Server
   };
 
-  environment.systemPackages = with pkgs; [ xdotool xwinfo yad ];
+  environment.systemPackages = with pkgs; [
+    xdotool
+    xorg.xwininfo
+    yad
+    protontricks
+  ];
 }
