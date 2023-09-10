@@ -12,6 +12,7 @@
     ../../modules/nixos/nvidia.nix
     ../../modules/nixos/kernel-latest.nix
     ../../modules/nixos/rust.nix
+    ../../modules/nixos/cpp.nix
 
     ./hardware.nix
   ];

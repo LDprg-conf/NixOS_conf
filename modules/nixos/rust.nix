@@ -1,8 +1,8 @@
 { inputs, outputs, self, user, host, lib, config, pkgs, ... }: {
-  nixpkgs.overlays = [ fenix.overlays.default ];
+  nixpkgs.overlays = [ inputs.fenix.overlays.default ];
   environment.systemPackages = with pkgs;
     [ rust-analyzer-nightly ]
-    ++ (with fenix.packages.${pkgs.system}.minimal.toolchain;
+    ++ (with inputs.fenix.packages.${pkgs.system}.minimal.toolchain;
       [
         (fenix.complete.withComponents [
           "cargo"
