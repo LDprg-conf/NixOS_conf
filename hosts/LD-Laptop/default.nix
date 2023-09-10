@@ -13,6 +13,7 @@
     ../../modules/nixos/kernel-latest.nix
     ../../modules/nixos/rust.nix
     ../../modules/nixos/cpp.nix
+    ../../modules/nixos/lutris.nix
 
     ./hardware.nix
   ];
@@ -33,7 +34,7 @@
   environment.shells = with pkgs; [ fish ];
 
   environment.systemPackages = with pkgs;
-    [ nvtop lutris ] ++ (with self.packages.${pkgs.system}; [ fdm ]);
+    [ nvtop ] ++ (with self.packages.${pkgs.system}; [ fdm ]);
 
   services.flatpak.enable = true;
   services.flatpak = {
