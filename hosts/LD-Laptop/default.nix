@@ -42,6 +42,8 @@
     };
   };
 
+  boot.loader.timeout = 3;
+
   hardware.nvidia.prime = {
     sync.enable = true;
 
@@ -69,7 +71,7 @@
     };
   };
 
-  powerManagement.enable = true;
+  #powerManagement.enable = true;
   programs.gamemode.enable = true;
 
   services.ananicy.package = pkgs.ananicy-cpp;
