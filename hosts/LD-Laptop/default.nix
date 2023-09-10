@@ -13,7 +13,6 @@
     ../../modules/nixos/kernel-latest.nix
     ../../modules/nixos/rust.nix
     ../../modules/nixos/cpp.nix
-    ../../modules/nixos/lutris.nix
 
     ./hardware.nix
   ];
