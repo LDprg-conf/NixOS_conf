@@ -24,6 +24,7 @@
     qbittorrent
     motrix
     nextcloud-client
+    freerdp
   ];
 
   programs.brave.enable = true;
