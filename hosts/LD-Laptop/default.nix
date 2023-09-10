@@ -34,7 +34,8 @@
   environment.shells = with pkgs; [ fish ];
 
   environment.systemPackages = with pkgs;
-    [ nvtop ] ++ (with self.packages.${pkgs.system}; [ fdm ]);
+    [ nvtop mangohud ] ++ (with self.packages.${pkgs.system}; [ fdm ]);
+  programs.gamescope.enable = true;
 
   services.flatpak.enable = true;
   services.flatpak = {
