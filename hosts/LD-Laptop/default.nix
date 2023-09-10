@@ -11,6 +11,7 @@
     ../../modules/nixos/fish.nix
     ../../modules/nixos/nvidia.nix
     ../../modules/nixos/kernel-latest.nix
+    ../../modules/nixos/rust.nix
 
     ./hardware.nix
   ];
