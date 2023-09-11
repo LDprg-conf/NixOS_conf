@@ -73,6 +73,8 @@
     lshw
     unzip
     zip
+    unrar
+    rar
     curl
     htop
     killall

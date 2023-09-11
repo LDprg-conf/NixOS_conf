@@ -31,10 +31,10 @@ in {
 
     # Enable power management (do not disable this unless you have a reason to).
     # Likely to cause problems on laptops and with screen tearing if disabled.
-    powerManagement = {
-      enable = true;
+    #powerManagement = {
+      #enable = true;
       #finegrained = true;
-    };
+    #};
 
     # Use the NVidia open source kernel module (not to be confused with the
     # independent third-party "nouveau" open source driver).

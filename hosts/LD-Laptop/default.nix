@@ -60,10 +60,10 @@
   #services.xserver.autorun = false;
 
   fonts = {
-    enableDefaultPackages = true;
+    enableDefaultFonts = true;
     fontDir.enable = true;
 
-    packages = with pkgs; [
+    fonts = with pkgs; [
       ubuntu_font_family
 
       fira-code
