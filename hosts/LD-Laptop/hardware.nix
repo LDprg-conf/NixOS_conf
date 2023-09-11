@@ -6,7 +6,7 @@
 {
   imports = [
     # Or modules from other flakes (such as nixos-hardware):
-    inputs.hardware.nixosModules.common-cpu-amd
+    inputs.hardware.nixosModules.common-cpu-amd-pstate
     #inputs.hardware.nixosModules.common-gpu-nvidia
     inputs.hardware.nixosModules.common-pc-laptop
     inputs.hardware.nixosModules.common-pc-laptop-ssd
@@ -20,7 +20,7 @@
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
   boot.kernelParams = [ "nowatchdog" "nmi_watchdog=0" ];
-  boot.blacklistedKernelModules = [ "iTCO_wdt" "sp5100_tco" "uvcvideo" ];
+  boot.blacklistedKernelModules = [ "iTCO_wdt" "sp5100_tco" ];
 
   fileSystems."/" = {
     device = "/dev/disk/by-label/nixos";

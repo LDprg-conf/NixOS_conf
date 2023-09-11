@@ -33,7 +33,8 @@
   environment.shells = with pkgs; [ fish ];
 
   environment.systemPackages = with pkgs;
-    [ nvtop mangohud ] ++ (with self.packages.${pkgs.system}; [ fdm ]);
+    [ nvtop mangohud git pre-commit python3 ]
+    ++ (with self.packages.${pkgs.system}; [ fdm ]);
   programs.gamescope.enable = true;
 
   services.flatpak.enable = true;
@@ -49,10 +50,14 @@
 
   hardware.nvidia.prime = {
     sync.enable = true;
+    #offload.enable = true;
+    #offload.enableOffloadCmd = true;
 
     amdgpuBusId = "PCI:6:0:0";
     nvidiaBusId = "PCI:1:0:0";
   };
+
+  #services.xserver.autorun = false;
 
   fonts = {
     enableDefaultPackages = true;
@@ -74,7 +79,7 @@
     };
   };
 
-  #powerManagement.enable = true;
+  powerManagement.enable = true;
   programs.gamemode.enable = true;
 
   hardware.bluetooth.enable = true;
@@ -82,5 +87,8 @@
   services.ananicy.package = pkgs.ananicy-cpp;
   services.ananicy.enable = true;
 
-  programs.java = { enable = true; package = pkgs.openjdk19; };
+  programs.java = {
+    enable = true;
+    package = pkgs.openjdk19;
+  };
 }

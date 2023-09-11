@@ -1,4 +1,13 @@
-{ config, lib, pkgs, ... }: {
+{ config, lib, pkgs, ... }: 
+let
+  nvidia-offload = pkgs.writeShellScriptBin "nvidia-offload" ''
+    export __NV_PRIME_RENDER_OFFLOAD=1
+    export __NV_PRIME_RENDER_OFFLOAD_PROVIDER=NVIDIA-G0
+    export __GLX_VENDOR_LIBRARY_NAME=nvidia
+    export __VK_LAYER_NV_optimus=NVIDIA_only
+    exec "$@"
+  '';
+in {
 
   # Enable OpenGL
   hardware.opengl = {
@@ -7,8 +16,13 @@
     driSupport32Bit = true;
   };
 
+  hardware.opengl.extraPackages = with pkgs; [
+    vaapiVdpau
+  ];
+
   # Load nvidia driver for Xorg and Wayland
   services.xserver.videoDrivers = [ "nvidia" ];
+  #environment.systemPackages = [ nvidia-offload ];
 
   hardware.nvidia = {
 
@@ -17,7 +31,10 @@
 
     # Enable power management (do not disable this unless you have a reason to).
     # Likely to cause problems on laptops and with screen tearing if disabled.
-    powerManagement.enable = true;
+    powerManagement = {
+      enable = true;
+      #finegrained = true;
+    };
 
     # Use the NVidia open source kernel module (not to be confused with the
     # independent third-party "nouveau" open source driver).

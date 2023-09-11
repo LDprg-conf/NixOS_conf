@@ -25,6 +25,7 @@
     motrix
     nextcloud-client
     freerdp
+    esptool
   ];
 
   programs.brave.enable = true;
