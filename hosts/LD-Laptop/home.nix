@@ -25,7 +25,9 @@
     motrix
     nextcloud-client
     freerdp
-    esptool
+    bitwarden
+    android-tools
+    vivaldi
   ];
 
   programs.brave.enable = true;

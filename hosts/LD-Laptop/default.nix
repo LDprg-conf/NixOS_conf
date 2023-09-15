@@ -33,7 +33,7 @@
   environment.shells = with pkgs; [ fish ];
 
   environment.systemPackages = with pkgs;
-    [ nvtop mangohud git pre-commit python3 ]
+    [ nvtop mangohud git pre-commit python3 esptool ]
     ++ (with self.packages.${pkgs.system}; [ fdm ]);
   programs.gamescope.enable = true;
 
@@ -60,10 +60,10 @@
   #services.xserver.autorun = false;
 
   fonts = {
-    enableDefaultFonts = true;
+    enableDefaultPackages = true;
     fontDir.enable = true;
 
-    fonts = with pkgs; [
+    packages = with pkgs; [
       ubuntu_font_family
 
       fira-code
@@ -79,13 +79,13 @@
     };
   };
 
-  powerManagement.enable = true;
+  #powerManagement.enable = true;
   programs.gamemode.enable = true;
 
   hardware.bluetooth.enable = true;
 
-  services.ananicy.package = pkgs.ananicy-cpp;
-  services.ananicy.enable = true;
+  #services.ananicy.package = pkgs.ananicy-cpp;
+  #services.ananicy.enable = true;
 
   programs.java = {
     enable = true;

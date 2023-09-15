@@ -12,5 +12,8 @@
     xorg.xwininfo
     yad
     protontricks
+    vulkan-headers
+    vulkan-loader
+    vulkan-tools
   ];
 }
