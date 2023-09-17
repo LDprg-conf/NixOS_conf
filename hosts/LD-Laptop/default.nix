@@ -6,7 +6,8 @@
   imports = [
     ../../modules/nixos/default-apps.nix
     ../../modules/nixos/grub.nix
-    ../../modules/nixos/plasma.nix
+    #../../modules/nixos/plasma.nix
+    ../../modules/nixos/hyprland.nix
     ../../modules/nixos/pipewire.nix
     ../../modules/nixos/fish.nix
     ../../modules/nixos/nvidia.nix
