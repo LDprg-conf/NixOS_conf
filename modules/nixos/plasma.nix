@@ -14,6 +14,8 @@
   services.xserver.displayManager.sddm.enable = true;
   services.xserver.desktopManager.plasma5.enable = true;
 
+  services.xserver.displayManager.defaultSession = "plasmawayland";
+
   programs.kdeconnect.enable = true;
 
   # Configure keymap in X11
@@ -24,6 +26,12 @@
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
+  services.printing.browsing = true;
+  services.avahi.enable = true;
+  services.avahi.nssmdns = true;
+  services.avahi.openFirewall = true;
+  services.avahi.publish.enable = true;
+  services.avahi.publish.userServices = true;
 
   xdg.portal = {
     enable = true;
