@@ -7,7 +7,7 @@
     ../../modules/nixos/default-apps.nix
     ../../modules/nixos/grub.nix
     #../../modules/nixos/plasma.nix
-    ../../modules/nixos/hyprland.nix
+    #../../modules/nixos/hyprland.nix
     ../../modules/nixos/pipewire.nix
     ../../modules/nixos/fish.nix
     ../../modules/nixos/nvidia.nix
@@ -17,6 +17,22 @@
 
     ./hardware.nix
   ];
+
+  specialisation = {
+    plasma.configuration = {
+      imports = [ ../../modules/nixos/plasma.nix ];
+    };
+
+    hyprland.configuration = {
+      system.nixos.tags = [ "hyprland" ];
+      imports = [ ../../modules/nixos/hyprland.nix ];
+    };
+  };
+
+  xdg.portal = {
+    enable = true;
+    extraPortals = with pkgs; [ xdg-desktop-portal-kde xdg-desktop-portal-gtk ];
+  };
 
   users.users.ld = {
     description = "LD";

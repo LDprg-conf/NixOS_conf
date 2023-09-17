@@ -37,7 +37,7 @@
     hyprland.url = "github:hyprwm/Hyprland";
   };
 
-  outputs = { self, nixpkgs, flatpaks, fenix, home-manager, hyprland, ... }@inputs:
+  outputs = { self, nixpkgs, flatpaks, fenix, home-manager, ... }@inputs:
     let
       inherit (self) outputs;
       forAllSystems = nixpkgs.lib.genAttrs [

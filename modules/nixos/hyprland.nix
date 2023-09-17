@@ -1,6 +1,10 @@
-{inputs, pkgs, ...}: {
+{inputs, pkgs, ...}: {  
+  imports = [ ./xorg.nix ];
+
+  services.xserver.displayManager.gdm.enable = true;
+
   programs.hyprland = {
     enable = true;
-    package = hyprland.packages.${pkgs.system}.hyprland;
+    package = inputs.hyprland.packages.${pkgs.system}.hyprland;
   };
 }
