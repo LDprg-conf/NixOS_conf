@@ -19,6 +19,7 @@
   boot.initrd.kernelModules = [ "nvidia" ];
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
+  boot.kernelParams = [ "nouveau.modeset=0" "module_blacklist=nouveau" ];
 
   fileSystems."/" = {
     device = "/dev/disk/by-label/nixos";
