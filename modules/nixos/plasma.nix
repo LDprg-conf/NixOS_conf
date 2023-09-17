@@ -6,11 +6,11 @@
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
+  services.xserver.libinput.enable = true;
 
   services.xserver.dpi = 96;
 
   # Enable the KDE Plasma Desktop Environment.
-  #services.xserver.displayManager.startx.enable = true;
   services.xserver.displayManager.sddm.enable = true;
   services.xserver.desktopManager.plasma5.enable = true;
 

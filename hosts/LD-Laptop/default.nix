@@ -57,13 +57,11 @@
     nvidiaBusId = "PCI:1:0:0";
   };
 
-  #services.xserver.autorun = false;
-
   fonts = {
-    enableDefaultPackages = true;
+    enableDefaultFonts = true;
     fontDir.enable = true;
 
-    packages = with pkgs; [
+    fonts = with pkgs; [
       ubuntu_font_family
 
       fira-code
@@ -79,13 +77,13 @@
     };
   };
 
-  #powerManagement.enable = true;
+  powerManagement.enable = true;
   programs.gamemode.enable = true;
 
   hardware.bluetooth.enable = true;
 
-  #services.ananicy.package = pkgs.ananicy-cpp;
-  #services.ananicy.enable = true;
+  services.ananicy.package = pkgs.ananicy-cpp;
+  services.ananicy.enable = true;
 
   programs.java = {
     enable = true;

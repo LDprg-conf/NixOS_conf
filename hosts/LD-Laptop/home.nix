@@ -28,6 +28,7 @@
     bitwarden
     android-tools
     vivaldi
+    mongodb-compass
   ];
 
   programs.brave.enable = true;
