@@ -49,9 +49,9 @@
   boot.loader.timeout = 3;
 
   hardware.nvidia.prime = {
-    sync.enable = true;
-    #offload.enable = true;
-    #offload.enableOffloadCmd = true;
+    #sync.enable = true;
+    offload.enable = true;
+    offload.enableOffloadCmd = true;
 
     amdgpuBusId = "PCI:6:0:0";
     nvidiaBusId = "PCI:1:0:0";

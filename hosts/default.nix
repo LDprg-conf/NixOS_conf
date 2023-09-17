@@ -86,6 +86,7 @@
   services.irqbalance.enable = true;
 
   hardware.enableAllFirmware = true;
+  hardware.enableRedistributableFirmware = true;
 
   zramSwap.enable = true;
 

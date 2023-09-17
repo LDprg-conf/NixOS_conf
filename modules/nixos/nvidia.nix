@@ -22,7 +22,7 @@ in {
 
   # Load nvidia driver for Xorg and Wayland
   services.xserver.videoDrivers = [ "nvidia" ];
-  #environment.systemPackages = [ nvidia-offload ];
+  environment.systemPackages = [ nvidia-offload ];
 
   hardware.nvidia = {
 
