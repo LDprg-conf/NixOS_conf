@@ -6,23 +6,20 @@
   imports = [
     ../../modules/nixos/default-apps.nix
     ../../modules/nixos/grub.nix
-    #../../modules/nixos/plasma.nix
-    #../../modules/nixos/hyprland.nix
     ../../modules/nixos/pipewire.nix
     ../../modules/nixos/fish.nix
     ../../modules/nixos/nvidia.nix
     ../../modules/nixos/kernel-latest.nix
     ../../modules/nixos/rust.nix
     ../../modules/nixos/cpp.nix
+    ../../modules/nixos/libreoffice.nix
 
     ./hardware.nix
+
+    ../../modules/nixos/plasma.nix
   ];
 
   specialisation = {
-    plasma.configuration = {
-      imports = [ ../../modules/nixos/plasma.nix ];
-    };
-
     hyprland.configuration = {
       system.nixos.tags = [ "hyprland" ];
       imports = [ ../../modules/nixos/hyprland.nix ];
@@ -99,8 +96,8 @@
 
   hardware.bluetooth.enable = true;
 
-  services.ananicy.package = pkgs.ananicy-cpp;
-  services.ananicy.enable = true;
+  #services.ananicy.package = pkgs.ananicy-cpp;
+  #services.ananicy.enable = true;
 
   programs.java = {
     enable = true;
