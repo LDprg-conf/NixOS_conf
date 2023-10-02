@@ -96,8 +96,10 @@
 
   hardware.bluetooth.enable = true;
 
-  #services.ananicy.package = pkgs.ananicy-cpp;
-  #services.ananicy.enable = true;
+  services.ananicy.package = pkgs.ananicy-cpp;
+  services.ananicy.enable = true;
+
+  services.joycond.enable = true;
 
   programs.java = {
     enable = true;

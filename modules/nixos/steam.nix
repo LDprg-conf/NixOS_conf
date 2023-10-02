@@ -7,6 +7,8 @@
       true; # Open ports in the firewall for Source Dedicated Server
   };
 
+  hardware.steam-hardware.enable = true;
+
   environment.systemPackages = with pkgs; [
     xdotool
     xorg.xwininfo
