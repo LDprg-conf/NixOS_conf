@@ -47,7 +47,7 @@
   environment.shells = with pkgs; [ fish ];
 
   environment.systemPackages = with pkgs;
-    [ nvtop mangohud git pre-commit python3 esptool ]
+    [ nvtop mangohud git pre-commit python3 esptool antimicrox ]
     ++ (with self.packages.${pkgs.system}; [ fdm ]);
   programs.gamescope.enable = true;
 
@@ -98,6 +98,11 @@
 
   services.ananicy.package = pkgs.ananicy-cpp;
   services.ananicy.enable = true;
+
+  services.ananicy.extraRules = [{
+    name = "eldenring.exe";
+    type = "Game";
+  }];
 
   services.joycond.enable = true;
 
