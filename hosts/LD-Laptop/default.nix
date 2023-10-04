@@ -47,7 +47,7 @@
   environment.shells = with pkgs; [ fish ];
 
   environment.systemPackages = with pkgs;
-    [ nvtop mangohud git pre-commit python3 esptool antimicrox ]
+    [ nvtop mangohud git pre-commit python3 esptool antimicrox libnotify ]
     ++ (with self.packages.${pkgs.system}; [ fdm ]);
   programs.gamescope.enable = true;
 
@@ -93,16 +93,45 @@
 
   powerManagement.enable = true;
   programs.gamemode.enable = true;
+  programs.gamemode.settings = {
+    general = {
+      renice = 0;
+      ioprio = ''"off"'';
+    };
+
+    custom = {
+      start = "${pkgs.libnotify}/bin/notify-send 'GameMode started'";
+      end = "${pkgs.libnotify}/bin/notify-send 'GameMode ended'";
+    };
+  };
 
   hardware.bluetooth.enable = true;
 
   services.ananicy.package = pkgs.ananicy-cpp;
   services.ananicy.enable = true;
 
-  services.ananicy.extraRules = [{
-    name = "eldenring.exe";
-    type = "Game";
-  }];
+  services.ananicy.extraRules = [
+    {
+      name = "eldenring.exe";
+      type = "Game";
+    }
+    {
+      name = "Steam.exe";
+      type = "BG_CPUIO";
+    }
+    {
+      name = "steamwebhelper.exe";
+      type = "BG_CPUIO";
+    }
+    {
+      name = "steam";
+      type = "IN_DIFF";
+    }
+    {
+      name = "steamwebhelper";
+      type = "BG_CPUIO";
+    }
+  ];
 
   services.joycond.enable = true;
 
