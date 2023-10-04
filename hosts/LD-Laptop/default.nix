@@ -13,6 +13,7 @@
     ../../modules/nixos/rust.nix
     ../../modules/nixos/cpp.nix
     ../../modules/nixos/libreoffice.nix
+    ../../modules/nixos/firewall.nix
 
     ./hardware.nix
 
@@ -100,8 +101,8 @@
     };
 
     custom = {
-      start = "${pkgs.libnotify}/bin/notify-send 'GameMode started'";
-      end = "${pkgs.libnotify}/bin/notify-send 'GameMode ended'";
+      start = "notify-send 'GameMode started'";
+      end = "notify-send 'GameMode ended'";
     };
   };
 
