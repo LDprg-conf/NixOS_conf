@@ -20,13 +20,6 @@
   };
 
   services.ananicy.extraRules = [
-    # Type definitions
-    #{
-    #  type = "game";
-    #  nice = -7;
-    #  ioclass = "best-effort";
-    #  latency_nice = -7;
-    #}
     # CGroups
     {
       cgroup = "cpu90";
