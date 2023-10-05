@@ -29,6 +29,7 @@
     android-tools
     vivaldi
     mongodb-compass
+    wireshark
   ];
 
   programs.brave.enable = true;
