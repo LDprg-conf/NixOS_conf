@@ -38,6 +38,10 @@
       name = "eldenring.exe";
       type = "game";
     }
+    {
+      name = "AoE2DE_s.exe";
+      type = "game";
+    }
     # Game related stuff
     {
       name = "Steam.exe";

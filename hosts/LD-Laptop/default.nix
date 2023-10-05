@@ -98,12 +98,7 @@
   programs.gamemode.settings = {
     general = {
       renice = 0;
-      ioprio = ''"off"'';
-    };
-
-    custom = {
-      start = "notify-send 'GameMode started'";
-      end = "notify-send 'GameMode ended'";
+      ioprio = "\"off\"";
     };
   };
 
