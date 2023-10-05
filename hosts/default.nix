@@ -80,6 +80,7 @@
     killall
     ripgrep
     tree
+    iftop
   ];
 
   services.fwupd.enable = true;
