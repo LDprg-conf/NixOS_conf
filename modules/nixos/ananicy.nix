@@ -35,6 +35,10 @@
     }
     # Games
     {
+      name = "DarkSoulsRemastered.exe";
+      type = "game";
+    }
+    {
       name = "eldenring.exe";
       type = "game";
     }
