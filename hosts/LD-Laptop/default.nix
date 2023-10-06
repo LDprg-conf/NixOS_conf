@@ -50,7 +50,9 @@
   environment.shells = with pkgs; [ fish ];
 
   environment.systemPackages = with pkgs;
-    [ nvtop mangohud git pre-commit python3 esptool antimicrox libnotify ]
+    [ 
+      #nvtop
+       mangohud git pre-commit python3 esptool antimicrox libnotify ]
     ++ (with self.packages.${pkgs.system}; [ fdm ]);
   programs.gamescope.enable = true;
 

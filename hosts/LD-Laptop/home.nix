@@ -22,7 +22,6 @@
     yarn
     qtcreator
     qbittorrent
-    motrix
     nextcloud-client
     freerdp
     bitwarden
