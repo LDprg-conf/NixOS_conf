@@ -15,6 +15,7 @@
     ../../modules/nixos/libreoffice.nix
     ../../modules/nixos/firewall.nix
     ../../modules/nixos/ananicy.nix
+    ../../modules/nixos/apparmor.nix
 
     ./hardware.nix
 
