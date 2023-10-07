@@ -1,7 +1,7 @@
 # This is your system's configuration file.
 # Use this to configure your system environment (it replaces /etc/nixos/configuration.nix)
 
-{ inputs, outputs, self, user, host, lib, config, pkgs, ... }: {
+{ inputs, outputs, self, user, host, lib, config, pkgs, nix-your-shell, ... }: {
   # You can import other NixOS modules here
   imports = [
     ../../modules/nixos/default-apps.nix
@@ -29,6 +29,8 @@
     };
   };
 
+  nixpkgs.overlays = [ nix-your-shell.overlays.default ];
+
   xdg.portal = {
     enable = true;
     extraPortals = with pkgs; [ xdg-desktop-portal-kde xdg-desktop-portal-gtk ];
@@ -50,10 +52,17 @@
   environment.shells = with pkgs; [ fish ];
 
   environment.systemPackages = with pkgs;
-    [ 
+    [
       #nvtop
-       mangohud git pre-commit python3 esptool antimicrox libnotify ]
-    ++ (with self.packages.${pkgs.system}; [ fdm ]);
+      mangohud
+      git
+      pre-commit
+      python3
+      esptool
+      antimicrox
+      libnotify
+      nix-your-shell
+    ] ++ (with self.packages.${pkgs.system}; [ fdm ]);
   programs.gamescope.enable = true;
 
   services.flatpak.enable = true;
@@ -101,7 +110,7 @@
   programs.gamemode.settings = {
     general = {
       renice = 0;
-      ioprio = "\"off\"";
+      ioprio = ''"off"'';
     };
   };
 

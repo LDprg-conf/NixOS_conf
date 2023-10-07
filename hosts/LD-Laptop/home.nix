@@ -29,6 +29,7 @@
     vivaldi
     mongodb-compass
     wireshark
+    nix-your-shell
   ];
 
   programs.brave.enable = true;
@@ -45,6 +46,13 @@
     EDITOR = "code";
     BROWSER = "firefox";
     TERMINAL = "kitty";
+  };
+
+  programs.fish = {
+    enable = true;
+    interactiveShellInit = ''
+      set fish_greeting # Disable greeting
+    '';
   };
 
   services.flatpak = {

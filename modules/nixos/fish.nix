@@ -1,4 +1,4 @@
-{ inputs, outputs, self, user, host, lib, config, pkgs, ... }: {
+{ inputs, outputs, self, user, host, lib, config, pkgs, nix-your-shell, ... }: {
   environment.systemPackages = with pkgs; [
     fishPlugins.done
     fishPlugins.fzf-fish
@@ -9,5 +9,10 @@
     grc
   ];
 
-  programs.fish.enable = true;
+  programs.fish = {
+    enable = true;
+    promptInit = ''
+      nix-your-shell fish | source
+    '';
+  };
 }

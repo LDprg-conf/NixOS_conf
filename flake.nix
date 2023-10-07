@@ -2,7 +2,8 @@
   description = "A Nixos config";
 
   nixConfig = {
-    extra-substituters = [ "https://nix-community.cachix.org" "https://hyprland.cachix.org" ];
+    extra-substituters =
+      [ "https://nix-community.cachix.org" "https://hyprland.cachix.org" ];
     extra-trusted-public-keys = [
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
@@ -32,12 +33,18 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nix-your-shell = {
+      url = "github:MercuryTechnologies/nix-your-shell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nix-gaming.url = "github:fufexan/nix-gaming";
 
     hyprland.url = "github:hyprwm/Hyprland";
   };
 
-  outputs = { self, nixpkgs, flatpaks, fenix, home-manager, ... }@inputs:
+  outputs = { self, nixpkgs, flatpaks, fenix, home-manager, nix-your-shell, ...
+    }@inputs:
     let
       inherit (self) outputs;
       forAllSystems = nixpkgs.lib.genAttrs [
@@ -51,11 +58,8 @@
       # Your custom packages
       # Acessible through 'nix build', 'nix shell', etc
       packages = forAllSystems (system:
-        let
-          pkgs = nixpkgs.legacyPackages.${system};
-        in import ./pkgs {
-          inherit pkgs;
-        });
+        let pkgs = nixpkgs.legacyPackages.${system};
+        in import ./pkgs { inherit pkgs; });
       # Devshell for bootstrapping
       # Acessible through 'nix develop' or 'nix-shell' (legacy)
       devShells = forAllSystems (system:
@@ -69,7 +73,9 @@
           user = "ld";
           host = "LD-Laptop";
         in nixpkgs.lib.nixosSystem {
-          specialArgs = { inherit inputs outputs user host self; };
+          specialArgs = {
+            inherit inputs outputs user host self nix-your-shell;
+          };
           modules = [
             flatpaks.nixosModules.default
             ./hosts
@@ -79,7 +85,7 @@
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.extraSpecialArgs = {
-                inherit inputs outputs flatpaks user host;
+                inherit inputs outputs flatpaks user host nix-your-shell;
               };
               home-manager.users.${user} = {
                 imports = [ ./hosts/home.nix ./hosts/${host}/home.nix ];
