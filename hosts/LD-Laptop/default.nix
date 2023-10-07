@@ -16,6 +16,7 @@
     ../../modules/nixos/firewall.nix
     ../../modules/nixos/ananicy.nix
     ../../modules/nixos/apparmor.nix
+    ../../modules/nixos/docker.nix
 
     ./hardware.nix
 

@@ -60,7 +60,7 @@
 
   users.users.${user} = {
     isNormalUser = true;
-    extraGroups = [ "networkmanager" "wheel" "wireshark" ];
+    extraGroups = [ "networkmanager" "wheel" "wireshark" "docker" ];
   };
 
   environment.systemPackages = with pkgs; [
