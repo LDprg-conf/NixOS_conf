@@ -62,6 +62,7 @@
       antimicrox
       libnotify
       nix-your-shell
+      direnv
     ] ++ (with self.packages.${pkgs.system}; [ fdm ]);
   programs.gamescope.enable = true;
 
