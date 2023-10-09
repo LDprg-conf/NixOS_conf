@@ -153,6 +153,10 @@
     }
     # Compiles
     {
+      name = "nix";
+      type = "compiler";
+    }
+    {
       name = "cmake";
       type = "compiler";
     }
