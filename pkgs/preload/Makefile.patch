@@ -1,0 +1,14 @@
+diff --git a/configure.ac b/configure.ac
+index 70ae7aa..693fd49 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -65,9 +65,6 @@ AC_SUBST(pkgdocdir)
+ AC_SUBST(initddir)
+ AC_SUBST(sysconfigdir)
+ AC_SUBST(logrotatedir)
+-AC_SUBST(logdir)
+-AC_SUBST(subsysdir)
+-AC_SUBST(pkglocalstatedir)
+ 
+ # Generate output
+ AC_CONFIG_FILES([Makefile

@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchurl, sysctl, autoconf, automake, pkg-config, bash, glib }:
+{ lib, stdenv, fetchurl, autoconf, automake, pkg-config, bash, glib }:
 
 stdenv.mkDerivation rec {
   pname = "preload";
@@ -10,18 +10,13 @@ stdenv.mkDerivation rec {
     hash = "sha256-0KVY6DyymlHZ2Wc27zn0tOVeQ6WJrRrsWUoEjKIvgWs=";
   };
 
-  patch = [ ./Makefile.in.patch ];
+  patches = [ ./Makefile.patch ];
 
-  nativeBuildInputs = [ autoconf automake pkg-config sysctl ];
+  nativeBuildInputs = [ autoconf automake pkg-config ];
   buildInputs = [ bash glib ];
-
-  doCheck = false;
 
   configureFlags = [
     "--localstatedir=/var"
-    "--with-preload-home=/var/lib/preload"
-    "--with-logdir=/var/log/preload"
-    "--with-logfile=/var/log/preload/preload.log"
   ];
 
   postInstall = ''
