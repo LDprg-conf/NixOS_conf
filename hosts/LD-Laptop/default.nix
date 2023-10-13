@@ -24,12 +24,12 @@
     ../../modules/nixos/plasma.nix
   ];
 
-  specialisation = {
-    hyprland.configuration = {
-      system.nixos.tags = [ "hyprland" ];
-      imports = [ ../../modules/nixos/hyprland.nix ];
-    };
-  };
+  # specialisation = {
+  #   hyprland.configuration = {
+  #     system.nixos.tags = [ "hyprland" ];
+  #     imports = [ ../../modules/nixos/hyprland.nix ];
+  #   };
+  # };
 
   nixpkgs.overlays = [ nix-your-shell.overlays.default ];
 
@@ -66,7 +66,7 @@
       nix-your-shell
       direnv
     ] ++ (with self.packages.${pkgs.system}; [ fdm ]);
-  
+
   services.preload.enable = true;
 
   programs.gamescope.enable = true;

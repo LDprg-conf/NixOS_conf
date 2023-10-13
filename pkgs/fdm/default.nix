@@ -1,6 +1,6 @@
-{ lib, stdenv, fetchurl, dpkg, wrapGAppsHook, autoPatchelfHook
-, makeWrapper, udev, libdrm, libpqxx, openssl, ffmpeg, xdg-utils
-, libtorrent-rasterbar, alsa-lib, libpulseaudio, qt6, unixODBC, gst_all_1 }:
+{ lib, stdenv, fetchurl, dpkg, wrapGAppsHook, autoPatchelfHook, makeWrapper
+, udev, libdrm, libpqxx, openssl, ffmpeg, xdg-utils, libtorrent-rasterbar
+, alsa-lib, libpulseaudio, qt5, unixODBC, gst_all_1 }:
 
 stdenv.mkDerivation rec {
   pname = "fdm";
@@ -21,7 +21,10 @@ stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs =
-    [ dpkg wrapGAppsHook autoPatchelfHook qt6.wrapQtAppsHook ];
+    [ dpkg wrapGAppsHook autoPatchelfHook qt5.wrapQtAppsHook ];
+
+  #dontWrapQtApps = true;
+  #autoPatchelfIgnoreMissingDeps = [ "libQt5WaylandCompositor.so.5" ];
 
   buildInputs = [
     makeWrapper
@@ -35,8 +38,10 @@ stdenv.mkDerivation rec {
     ffmpeg
     xdg-utils
     libtorrent-rasterbar
-    qt6.qtbase
-    qt6.qt5compat
+    qt5.qtbase
+    qt5.qtmultimedia
+    qt5.qtwayland
+    qt5.qtdeclarative
   ] ++ (with gst_all_1; [
     gstreamer
     gst-libav
@@ -52,12 +57,16 @@ stdenv.mkDerivation rec {
     ffmpeg
     xdg-utils
     libtorrent-rasterbar
-    qt6.qtbase
-    qt6.qt5compat
+    qt5.qtbase
+    qt5.qtmultimedia
+    qt5.qtwayland
+    qt5.qtdeclarative
   ];
 
   installPhase = ''
     runHook preInstall
+
+    #rm -R opt/freedownloadmanager/lib
 
     mkdir -p $out/bin
     cp -r opt/freedownloadmanager $out
