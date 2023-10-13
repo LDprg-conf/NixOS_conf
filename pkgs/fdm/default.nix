@@ -1,9 +1,10 @@
-{ lib, stdenv, fetchurl, dpkg, wrapGAppsHook, autoPatchelfHook, makeWrapper, udev, libdrm
-, libpqxx, openssl, ffmpeg, xdg-utils, libtorrent-rasterbar, alsa-lib, libpulseaudio, qt5, unixODBC, gst_all_1 }:
+{ lib, stdenv, fetchurl, dpkg, wrapGAppsHook, autoPatchelfHook
+, makeWrapper, udev, libdrm, libpqxx, openssl, ffmpeg, xdg-utils
+, libtorrent-rasterbar, alsa-lib, libpulseaudio, qt6, unixODBC, gst_all_1 }:
 
 stdenv.mkDerivation rec {
   pname = "fdm";
-  version = "6.19.0";
+  version = "6.19.1";
 
   src = fetchurl {
     url =
@@ -11,28 +12,49 @@ stdenv.mkDerivation rec {
     hash = "sha256-3KmNhkEEOzW5qiK6e4ZPI9wbTdA2EFWUH5Z1K8kdXWw=";
   };
 
-  unpackPhase = "
+  unpackPhase = ''
     runHook preUnpack
 
     dpkg-deb -x $src .
 
     runHook postUnpack
-    ";
+  '';
 
   nativeBuildInputs =
-    [ dpkg wrapGAppsHook autoPatchelfHook qt5.wrapQtAppsHook ];
+    [ dpkg wrapGAppsHook autoPatchelfHook qt6.wrapQtAppsHook ];
 
-  buildInputs = [ makeWrapper libdrm libpqxx alsa-lib libpulseaudio unixODBC stdenv.cc.cc openssl ffmpeg xdg-utils libtorrent-rasterbar ]
-    ++ (with gst_all_1; [
-      gstreamer
-      gst-libav
-      gst-plugins-base
-      gst-plugins-good
-      gst-plugins-bad
-      gst-plugins-ugly
-    ]);
+  buildInputs = [
+    makeWrapper
+    libdrm
+    libpqxx
+    alsa-lib
+    libpulseaudio
+    unixODBC
+    stdenv.cc.cc
+    openssl
+    ffmpeg
+    xdg-utils
+    libtorrent-rasterbar
+    qt6.qtbase
+    qt6.qt5compat
+  ] ++ (with gst_all_1; [
+    gstreamer
+    gst-libav
+    gst-plugins-base
+    gst-plugins-good
+    gst-plugins-bad
+    gst-plugins-ugly
+  ]);
 
-  runtimeDependencies = [ (lib.getLib udev) openssl ffmpeg xdg-utils libtorrent-rasterbar ];
+  runtimeDependencies = [
+    (lib.getLib udev)
+    openssl
+    ffmpeg
+    xdg-utils
+    libtorrent-rasterbar
+    qt6.qtbase
+    qt6.qt5compat
+  ];
 
   installPhase = ''
     runHook preInstall
