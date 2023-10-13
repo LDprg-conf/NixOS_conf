@@ -4,4 +4,5 @@
 { pkgs ? (import ../nixpkgs.nix) { } }:
 {
   fdm = pkgs.callPackage ./fdm { };
+  preload = pkgs.callPackage ./preload { };
 }

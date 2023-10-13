@@ -64,7 +64,8 @@
       libnotify
       nix-your-shell
       direnv
-    ] ++ (with self.packages.${pkgs.system}; [ fdm ]);
+    ] ++ (with self.packages.${pkgs.system}; [ fdm preload ]);
+
   programs.gamescope.enable = true;
 
   services.flatpak.enable = true;
