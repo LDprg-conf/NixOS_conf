@@ -10,20 +10,22 @@ stdenv.mkDerivation rec {
     hash = "sha256-0KVY6DyymlHZ2Wc27zn0tOVeQ6WJrRrsWUoEjKIvgWs=";
   };
 
-  patches = [ ./preload.service.patch ];
+  patch = [ ./Makefile.in.patch ];
 
   nativeBuildInputs = [ autoconf automake pkg-config sysctl ];
   buildInputs = [ bash glib ];
 
-  configureFlags = [ "--localstatedir=/tmp" ];
+  doCheck = false;
+
+  configureFlags = [
+    "--localstatedir=/var"
+    "--with-preload-home=/var/lib/preload"
+    "--with-logdir=/var/log/preload"
+    "--with-logfile=/var/log/preload/preload.log"
+  ];
 
   postInstall = ''
-    mkdir -p $out/lib/systemd/system/
-    cp -rv ./a/preload.service $out/lib/systemd/system/
-
-    substituteInPlace "$out/lib/systemd/system/preload.service" \
-            --replace "/usr/" "$out/" \
-            --replace "/etc/" "$out/etc/"
+    make sysconfigdir=/$out/etc/conf.d install
   '';
 
   meta = with lib; {

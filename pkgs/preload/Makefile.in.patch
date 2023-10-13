@@ -1,0 +1,10 @@
+--- a/Makefile.in	2009-04-15 23:49:28.000000000 +0200
++++ b/Makefile.in	2023-10-13 15:06:50.278383604 +0200
+@@ -363,7 +363,6 @@
+ 	done
+ install-pkglocalstateDATA: $(pkglocalstate_DATA)
+ 	@$(NORMAL_INSTALL)
+-	test -z "$(pkglocalstatedir)" || $(MKDIR_P) "$(DESTDIR)$(pkglocalstatedir)"
+ 	@list='$(pkglocalstate_DATA)'; for p in $$list; do \
+ 	  if test -f "$$p"; then d=; else d="$(srcdir)/"; fi; \
+ 	  f=$(am__strip_dir) \

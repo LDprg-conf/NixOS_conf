@@ -5,26 +5,36 @@ with lib;
 
 let
   cfg = config.services.preload;
-  pkgs = self.packages.${pkgs.system};
+  preload = self.packages.${pkgs.system}.preload;
 in {
-  meta = {
-    maintainers = pkgs.preload.meta.maintainers;
-  };
+  meta = { maintainers = preload.meta.maintainers; };
 
   ###### interface
   options = {
-    services.preload = {
-      enable = mkEnableOption (lib.mdDoc "preload");
-    };
+    services.preload = { enable = mkEnableOption (lib.mdDoc "preload"); };
   };
- 
+
   ###### implementation
   config = mkIf cfg.enable {
 
-    environment.systemPackages = [ pkgs.preload ];
+    environment.systemPackages = [ preload ];
 
-    services.dbus.packages = [ pkgs.preload ];
+    systemd.packages = [ preload ];
 
-    systemd.packages = [ pkgs.preload ];
+    systemd.services.preload = {
+      description = "preload daemon";
+      wantedBy = [ "multi-user.target" ];
+
+      serviceConfig = {
+        EnvironmentFile = "${preload}/etc/conf.d/preload";
+        ExecStart = "${preload}/bin/preload --foreground $PRELOAD_OPTS";
+        Type = "simple";
+        IOSchedulingClass = 3;
+        StateDirectory = "preload";
+        StateDirectoryMode = "0750";
+        LogsDirectory = "preload";
+        LogsDirectoryMode = "0750";
+      };
+    };
   };
 }
