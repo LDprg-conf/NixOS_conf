@@ -17,6 +17,7 @@
     ../../modules/nixos/ananicy.nix
     ../../modules/nixos/apparmor.nix
     ../../modules/nixos/docker.nix
+    ../../modules/nixos/preload.nix
 
     ./hardware.nix
 
@@ -64,7 +65,9 @@
       libnotify
       nix-your-shell
       direnv
-    ] ++ (with self.packages.${pkgs.system}; [ fdm preload ]);
+    ] ++ (with self.packages.${pkgs.system}; [ fdm ]);
+  
+  services.preload.enable = true;
 
   programs.gamescope.enable = true;
 

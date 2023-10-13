@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchurl, dpkg, autoPatchelfHook, makeWrapper, udev, libdrm
+{ lib, stdenv, fetchurl, dpkg, wrapGAppsHook, autoPatchelfHook, makeWrapper, udev, libdrm
 , libpqxx, openssl, ffmpeg, xdg-utils, libtorrent-rasterbar, alsa-lib, libpulseaudio, qt5, unixODBC, gst_all_1 }:
 
 stdenv.mkDerivation rec {
@@ -11,10 +11,16 @@ stdenv.mkDerivation rec {
     hash = "sha256-3KmNhkEEOzW5qiK6e4ZPI9wbTdA2EFWUH5Z1K8kdXWw=";
   };
 
-  unpackPhase = "dpkg-deb -x $src .";
+  unpackPhase = "
+    runHook preUnpack
+
+    dpkg-deb -x $src .
+
+    runHook postUnpack
+    ";
 
   nativeBuildInputs =
-    [ dpkg autoPatchelfHook qt5.wrapQtAppsHook ];
+    [ dpkg wrapGAppsHook autoPatchelfHook qt5.wrapQtAppsHook ];
 
   buildInputs = [ makeWrapper libdrm libpqxx alsa-lib libpulseaudio unixODBC stdenv.cc.cc openssl ffmpeg xdg-utils libtorrent-rasterbar ]
     ++ (with gst_all_1; [
@@ -29,6 +35,8 @@ stdenv.mkDerivation rec {
   runtimeDependencies = [ (lib.getLib udev) openssl ffmpeg xdg-utils libtorrent-rasterbar ];
 
   installPhase = ''
+    runHook preInstall
+
     mkdir -p $out/bin
     cp -r opt/freedownloadmanager $out
     cp -r usr/share $out
@@ -37,6 +45,8 @@ stdenv.mkDerivation rec {
     substituteInPlace $out/share/applications/freedownloadmanager.desktop \
       --replace 'Exec=/opt/freedownloadmanager/fdm' 'Exec=${pname}' \
       --replace "Icon=/opt/freedownloadmanager/icon.png" "Icon=$out/freedownloadmanager/icon.png"
+
+    runHook postInstall
   '';
 
   postInstall = ''

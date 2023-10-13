@@ -17,19 +17,14 @@ stdenv.mkDerivation rec {
 
   configureFlags = [ "--localstatedir=/tmp" ];
 
-  # postInstall = ''
-  #   ln -s $out/sbin/sysctl ${sysctl}/bin/sysctl 
-  # '';
+  postInstall = ''
+    mkdir -p $out/lib/systemd/system/
+    cp -rv ./a/preload.service $out/lib/systemd/system/
 
-  buildPhase = ''
-    install -Dm644 preload.service "$out/usr/lib/systemd/system/preload.service"
+    substituteInPlace "$out/lib/systemd/system/preload.service" \
+            --replace "/usr/" "$out/" \
+            --replace "/etc/" "$out/etc/"
   '';
-
-  #./configure --prefix=$out \
-  #          --localstatedir=/var \
-  #          --mandir=$out/share/man \
-  #          --sbindir=$out/bin \
-  #          --sysconfdir=$out/etc
 
   meta = with lib; {
     description =
