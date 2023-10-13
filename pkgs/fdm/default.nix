@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchurl, dpkg, wrapGAppsHook, autoPatchelfHook, makeWrapper, udev, libdrm
+{ lib, stdenv, fetchurl, dpkg, autoPatchelfHook, makeWrapper, udev, libdrm
 , libpqxx, openssl, ffmpeg, xdg-utils, libtorrent-rasterbar, alsa-lib, libpulseaudio, qt5, unixODBC, gst_all_1 }:
 
 stdenv.mkDerivation rec {
@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
   unpackPhase = "dpkg-deb -x $src .";
 
   nativeBuildInputs =
-    [ dpkg wrapGAppsHook autoPatchelfHook qt5.wrapQtAppsHook ];
+    [ dpkg autoPatchelfHook qt5.wrapQtAppsHook ];
 
   buildInputs = [ makeWrapper libdrm libpqxx alsa-lib libpulseaudio unixODBC stdenv.cc.cc openssl ffmpeg xdg-utils libtorrent-rasterbar ]
     ++ (with gst_all_1; [
@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
   '';
 
   postInstall = ''
-    wrapProgram "$out/bin/fdm" --set QT_QPA_PLATFORM xcb"
+    wrapProgram "$out/bin/fdm" --set QT_QPA_PLATFORM xcb
   '';
 
   meta = with lib; {

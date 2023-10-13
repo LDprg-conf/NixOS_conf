@@ -1,0 +1,15 @@
+diff -urN ./a/preload.service ./b/preload.service
+--- ./a/preload.service	1970-01-01 01:00:00.000000000 +0100
++++ ./b/preload.service	2023-10-13 12:15:26.142480117 +0200
+@@ -0,0 +1,11 @@
++[Unit]
++Description=Adaptive readahead daemon
++
++[Service]
++Type=simple
++IOSchedulingClass=3
++EnvironmentFile=/etc/conf.d/preload
++ExecStart=/usr/bin/preload --foreground $PRELOAD_OPTS
++
++[Install]
++WantedBy=multi-user.target

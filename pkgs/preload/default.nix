@@ -1,22 +1,35 @@
-{ lib, stdenv, fetchurl, bash, glib2 }:
+{ lib, stdenv, fetchurl, sysctl, autoconf, automake, pkg-config, bash, glib }:
 
 stdenv.mkDerivation rec {
   pname = "preload";
-  version = "0.6.4-9";
+  version = "0.6.4";
 
   src = fetchurl {
     url =
-      "http://downloads.sourceforge.net/sourceforge/preload/${finalAttrs.version}.tar.gz";
-    hash = "sha256-vSbj3YlyCs4bADpDqxAkcSC1VsoQZ2j+jIKe577WtDU=";
+      "http://downloads.sourceforge.net/sourceforge/${pname}/${pname}-${version}.tar.gz";
+    hash = "sha256-0KVY6DyymlHZ2Wc27zn0tOVeQ6WJrRrsWUoEjKIvgWs=";
   };
 
-  buildInputs = [ bash glib2s ];
+  patches = [ ./preload.service.patch ];
 
-  installPhase = ''
-    tar xvzf $src
-    mkdir -p "$out/bin"
-    cp preload $out/bin
+  nativeBuildInputs = [ autoconf automake pkg-config sysctl ];
+  buildInputs = [ bash glib ];
+
+  configureFlags = [ "--localstatedir=/tmp" ];
+
+  # postInstall = ''
+  #   ln -s $out/sbin/sysctl ${sysctl}/bin/sysctl 
+  # '';
+
+  buildPhase = ''
+    install -Dm644 preload.service "$out/usr/lib/systemd/system/preload.service"
   '';
+
+  #./configure --prefix=$out \
+  #          --localstatedir=/var \
+  #          --mandir=$out/share/man \
+  #          --sbindir=$out/bin \
+  #          --sysconfdir=$out/etc
 
   meta = with lib; {
     description =
