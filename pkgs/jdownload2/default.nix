@@ -1,5 +1,5 @@
 { stdenv, lib, fetchurl, writeScript, makeDesktopItem, copyDesktopItems, jre
-, imagemagick, coreutils }:
+, graphicsmagick, coreutils }:
 
 let
 
@@ -31,7 +31,7 @@ in stdenv.mkDerivation rec {
 
   dontUnpack = true;
 
-  nativeBuildInputs = [ jre imagemagick copyDesktopItems ];
+  nativeBuildInputs = [ jre graphicsmagick copyDesktopItems ];
 
   desktopItems = [
     (makeDesktopItem rec {
@@ -48,13 +48,10 @@ in stdenv.mkDerivation rec {
   installPhase = ''
     mkdir -pv $out/bin $out/share/applications
     cp ${src} $out/bin/JDownloader.jar
-    
-    # create icons
-    for size in 16 32 48 64 72 96 128 192 512 1024; do
+
+    for size in 16 24 32 48 64 128 256 512; do
       mkdir -p $out/share/icons/hicolor/"$size"x"$size"/apps
-      convert -resize "$size"x"$size" \
-        ${icon} \
-        $out/share/icons/hicolor/"$size"x"$size"/apps/jdownloader.png
+      gm convert -resize "$size"x"$size" ${icon} $out/share/icons/hicolor/"$size"x"$size"/apps/jdownloader.png
     done
 
     copyDesktopItems
@@ -66,6 +63,6 @@ in stdenv.mkDerivation rec {
     description = "Free, open-source download management tool";
     license = licenses.gpl3Plus;
     platforms = platforms.unix;
-    maintainers = with maintainers; [  ];
+    maintainers = with maintainers; [ ];
   };
 }
