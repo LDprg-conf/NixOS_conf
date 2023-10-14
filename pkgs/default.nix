@@ -4,4 +4,5 @@
 { pkgs ? (import ../nixpkgs.nix) { } }:
 {
   preload = pkgs.callPackage ./preload { };
+  jdownload2 = pkgs.callPackage ./jdownload2 { };
 }

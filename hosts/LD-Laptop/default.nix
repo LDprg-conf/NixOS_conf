@@ -65,7 +65,7 @@
       libnotify
       nix-your-shell
       direnv
-    ];
+    ] ++ (with self.packages.${pkgs.system}; [ jdownload2 ]);
 
   services.preload.enable = true;
 
