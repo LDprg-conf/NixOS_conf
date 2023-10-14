@@ -71,13 +71,13 @@
 
   programs.gamescope.enable = true;
 
-  services.flatpak.enable = true;
+  services.flatpak = { enable = true; };
+
   services.flatpak = {
-    packages = [ "flathub:org.kde.index//stable" ];
-    remotes = {
-      "flathub" = "https://flathub.org/repo/flathub.flatpakrepo";
-      "flathub-beta" = "https://flathub.org/beta-repo/flathub-beta.flatpakrepo";
-    };
+    packages = [
+      "flathub:app/org.kde.index//stable"
+    ];
+    remotes = { "flathub" = "https://flathub.org/repo/flathub.flatpakrepo"; };
   };
 
   boot.loader.timeout = 3;
@@ -123,9 +123,4 @@
   hardware.bluetooth.enable = true;
 
   services.joycond.enable = true;
-
-  # programs.java = {
-  #   enable = true;
-  #   package = pkgs.openjdk19;
-  # };
 }

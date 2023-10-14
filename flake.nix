@@ -23,8 +23,7 @@
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-    flatpaks.url =
-      "github:GermanBread/declarative-flatpak/fb31283f55f06b489f2baf920201e8eb73c9a0d3";
+    flatpaks.url = "github:GermanBread/declarative-flatpak/stable";
 
     hardware.url = "github:nixos/nixos-hardware";
 
@@ -88,7 +87,11 @@
                 inherit inputs outputs flatpaks user host nix-your-shell;
               };
               home-manager.users.${user} = {
-                imports = [ ./hosts/home.nix ./hosts/${host}/home.nix ];
+                imports = [
+                  flatpaks.homeManagerModules.default
+                  ./hosts/home.nix
+                  ./hosts/${host}/home.nix
+                ];
               };
             }
           ];
