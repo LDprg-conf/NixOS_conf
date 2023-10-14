@@ -1,4 +1,5 @@
-{ stdenv, lib, fetchurl, writeScript, makeDesktopItem, copyDesktopItems, jre, imagemagick, coreutils }:
+{ stdenv, lib, fetchurl, writeScript, makeDesktopItem, copyDesktopItems, jre
+, imagemagick, coreutils }:
 
 let
 
@@ -33,14 +34,14 @@ in stdenv.mkDerivation rec {
   nativeBuildInputs = [ imagemagick copyDesktopItems ];
 
   desktopItems = [
-    (makeDesktopItem {
+    (makeDesktopItem rec {
       name = "JDownloader 2";
       exec = wrapper;
       icon = "jdownloader";
       comment = "Free, open-source download management tool.";
       desktopName = "JDownloader 2";
       genericName = "JDownloader 2";
-      categories = "Network;";
+      categories = [ "Network" ];
     })
   ];
 
