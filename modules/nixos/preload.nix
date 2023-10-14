@@ -29,7 +29,6 @@ in {
         EnvironmentFile = "${preload}/etc/conf.d/preload";
         ExecStart = "${preload}/bin/preload --foreground $PRELOAD_OPTS";
         Type = "simple";
-        IOSchedulingClass = 3;
         StateDirectory = "preload";
         StateDirectoryMode = "0750";
         LogsDirectory = "preload";
