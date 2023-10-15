@@ -53,6 +53,7 @@
   };
 
   services.flatpak = {
+    deduplicate = false;
     packages = [
       "flathub:app/org.kde.index//stable"
       "flathub:app/com.spotify.Client/x86_64/stable"

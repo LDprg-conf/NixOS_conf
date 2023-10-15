@@ -71,6 +71,7 @@
   services.flatpak = { enable = true; };
 
   services.flatpak = {
+    deduplicate = false;
     packages = [ "flathub:app/org.kde.index//stable" ];
     remotes = { "flathub" = "https://flathub.org/repo/flathub.flatpakrepo"; };
   };
