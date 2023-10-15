@@ -10,8 +10,8 @@
     ../../modules/nixos/fish.nix
     ../../modules/nixos/nvidia.nix
     ../../modules/nixos/kernel-latest.nix
-    ../../modules/nixos/rust.nix
-    ../../modules/nixos/cpp.nix
+    #../../modules/nixos/rust.nix
+    #../../modules/nixos/cpp.nix
     ../../modules/nixos/libreoffice.nix
     ../../modules/nixos/firewall.nix
     ../../modules/nixos/ananicy.nix
@@ -59,12 +59,9 @@
       mangohud
       git
       pre-commit
-      python3
       esptool
       antimicrox
-      libnotify
       nix-your-shell
-      direnv
     ] ++ (with self.packages.${pkgs.system}; [ jdownload2 ]);
 
   services.preload.enable = true;
