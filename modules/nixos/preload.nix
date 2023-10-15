@@ -1,5 +1,4 @@
-# flatpak service.
-{ self, config, lib, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -16,18 +15,13 @@ in {
 
   ###### implementation
   config = mkIf cfg.enable {
-
-    environment.systemPackages = [ preload ];
-
-    systemd.packages = [ preload ];
-
     systemd.services.preload = {
       description = "preload daemon";
       wantedBy = [ "multi-user.target" ];
 
       serviceConfig = {
         EnvironmentFile = "${preload}/etc/conf.d/preload";
-        ExecStart = "${preload}/bin/preload --foreground $PRELOAD_OPTS";
+        ExecStart = "${getExe preload} --foreground $PRELOAD_OPTS";
         Type = "simple";
         IOSchedulingClass = 3;
         StateDirectory = "preload";

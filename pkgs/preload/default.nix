@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchurl, autoconf, automake, pkg-config, bash, glib }:
+{ lib, stdenv, fetchurl, autoconf, automake, pkg-config, glib }:
 
 stdenv.mkDerivation rec {
   pname = "preload";
@@ -13,22 +13,21 @@ stdenv.mkDerivation rec {
   patches = [ ./Makefile.patch ];
 
   nativeBuildInputs = [ autoconf automake pkg-config ];
-  buildInputs = [ bash glib ];
+  buildInputs = [ glib ];
 
-  configureFlags = [
-    "--localstatedir=/var"
-  ];
+  configureFlags = [ "--localstatedir=/var" ];
 
   postInstall = ''
-    make sysconfigdir=/$out/etc/conf.d install
+    make sysconfigdir=$out/etc/conf.d install
   '';
 
   meta = with lib; {
     description =
       "Makes applications run faster by prefetching binaries and shared objects";
     homepage = "http://sourceforge.net/projects/preload";
-    license = licenses.gpl2;
+    license = licenses.gpl2Only;
     platforms = lib.platforms.unix;
+    mainProgram = "preload";
     maintainers = with maintainers; [ ];
   };
 }
