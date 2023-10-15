@@ -12,14 +12,13 @@
       name = "AoE2DE_s.exe";
       type = "game";
     }
-    
+
     # Compiles
     {
       name = "nix";
       type = "compiler";
     }
   ];
-  
 
   environment.systemPackages = with pkgs; [ ananicy-rules-cachyos ];
 }

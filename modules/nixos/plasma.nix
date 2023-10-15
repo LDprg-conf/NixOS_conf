@@ -7,7 +7,7 @@
   services.xserver.displayManager.sddm.enable = true;
 
   services.xserver.displayManager.sddm.settings = {
-   General = { DisplayServer = "wayland"; };
+    General = { DisplayServer = "wayland"; };
   };
 
   services.xserver.displayManager.sessionCommands = ''

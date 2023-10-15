@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }: 
+{ config, lib, pkgs, ... }:
 let
   nvidia-offload = pkgs.writeShellScriptBin "nvidia-offload" ''
     export __NV_PRIME_RENDER_OFFLOAD=1
@@ -16,9 +16,7 @@ in {
     driSupport32Bit = true;
   };
 
-  hardware.opengl.extraPackages = with pkgs; [
-    vaapiVdpau
-  ];
+  hardware.opengl.extraPackages = with pkgs; [ vaapiVdpau ];
 
   # Load nvidia driver for Xorg and Wayland
   services.xserver.videoDrivers = [ "nvidia" ];

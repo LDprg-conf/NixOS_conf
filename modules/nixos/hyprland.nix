@@ -1,4 +1,4 @@
-{inputs, pkgs, ...}: {  
+{ inputs, pkgs, ... }: {
   imports = [ ./xorg.nix ];
 
   services.xserver.displayManager.gdm.enable = true;

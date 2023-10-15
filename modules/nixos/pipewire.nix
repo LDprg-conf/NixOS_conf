@@ -1,7 +1,5 @@
 { inputs, outputs, self, user, host, lib, config, pkgs, ... }: {
-  imports = [
-    inputs.nix-gaming.nixosModules.pipewireLowLatency
-  ];
+  imports = [ inputs.nix-gaming.nixosModules.pipewireLowLatency ];
 
   # Enable sound with pipewire.
   sound.enable = true;
@@ -13,7 +11,7 @@
     alsa.support32Bit = true;
     pulse.enable = true;
 
-    lowLatency = {     
+    lowLatency = {
       enable = true;
       quantum = 64;
       rate = 48000;
