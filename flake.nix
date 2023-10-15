@@ -2,7 +2,7 @@
   description = "A Nixos config";
 
   nixConfig = {
-    extra-substituters =
+    extra-trusted-substituters =
       [ "https://nix-community.cachix.org" "https://hyprland.cachix.org" ];
     extra-trusted-public-keys = [
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
@@ -42,7 +42,14 @@
     hyprland.url = "github:hyprwm/Hyprland";
   };
 
-  outputs = { self, nixpkgs, flatpaks, fenix, home-manager, nix-your-shell, ...
+  outputs =
+    { self
+    , nixpkgs
+    , flatpaks
+    , fenix
+    , home-manager
+    , nix-your-shell
+    , ...
     }@inputs:
     let
       inherit (self) outputs;
@@ -53,7 +60,8 @@
         "aarch64-darwin"
         "x86_64-darwin"
       ];
-    in rec {
+    in
+    rec {
       # Your custom packages
       # Acessible through 'nix build', 'nix shell', etc
       packages = forAllSystems (system:
@@ -71,34 +79,36 @@
       # NixOS configuration entrypoint
       # Available through 'nixos-rebuild --flake .#your-hostname'
       nixosConfigurations = {
-        LD-Laptop = let
-          user = "ld";
-          host = "LD-Laptop";
-        in nixpkgs.lib.nixosSystem {
-          specialArgs = {
-            inherit inputs outputs user host self nix-your-shell;
+        LD-Laptop =
+          let
+            user = "ld";
+            host = "LD-Laptop";
+          in
+          nixpkgs.lib.nixosSystem {
+            specialArgs = {
+              inherit inputs outputs user host self nix-your-shell;
+            };
+            modules = [
+              flatpaks.nixosModules.default
+              ./hosts
+              ./hosts/${host}
+              home-manager.nixosModules.home-manager
+              {
+                home-manager.useGlobalPkgs = true;
+                home-manager.useUserPackages = true;
+                home-manager.extraSpecialArgs = {
+                  inherit inputs outputs flatpaks user host nix-your-shell;
+                };
+                home-manager.users.${user} = {
+                  imports = [
+                    flatpaks.homeManagerModules.default
+                    ./hosts/home.nix
+                    ./hosts/${host}/home.nix
+                  ];
+                };
+              }
+            ];
           };
-          modules = [
-            flatpaks.nixosModules.default
-            ./hosts
-            ./hosts/${host}
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs = {
-                inherit inputs outputs flatpaks user host nix-your-shell;
-              };
-              home-manager.users.${user} = {
-                imports = [
-                  flatpaks.homeManagerModules.default
-                  ./hosts/home.nix
-                  ./hosts/${host}/home.nix
-                ];
-              };
-            }
-          ];
-        };
       };
     };
 }

@@ -17,7 +17,6 @@
     telegram-desktop
     nodejs
     yarn
-    qtcreator
     qbittorrent
     nextcloud-client
     freerdp
