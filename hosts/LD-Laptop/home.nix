@@ -26,6 +26,7 @@
     mongodb-compass
     wireshark
     nix-your-shell
+    webcord
   ];
 
   programs.brave.enable = true;
@@ -61,6 +62,6 @@
     ];
     remotes = { "flathub" = "https://flathub.org/repo/flathub.flatpakrepo"; };
     postInitCommand =
-      "bash <(curl -sSL https://raw.githubusercontent.com/SpotX-CLI/SpotX-Linux/main/install.sh) -P ~/.local/share/flatpak/app/com.spotify.Client/x86_64/stable/active/files/extra/share/spotify/ -cef";
+      "bash -c \"bash <(curl -sSL https://raw.githubusercontent.com/SpotX-CLI/SpotX-Linux/main/install.sh) -P ~/.local/share/flatpak/app/com.spotify.Client/x86_64/stable/active/files/extra/share/spotify/ -cef\"";
   };
 }

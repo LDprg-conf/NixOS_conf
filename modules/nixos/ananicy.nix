@@ -5,6 +5,18 @@
   services.ananicy.extraRules = [
     # Games
     {
+      name = "AssassinsCreed_Dx10.exe";
+      type = "game";
+    }
+    {
+      name = "AssassinsCreed_Dx9.exe";
+      type = "game";
+    }
+    {
+      name = "AssassinsCreed_Game.exe";
+      type = "game";
+    }
+    {
       name = "eldenring.exe";
       type = "game";
     }
