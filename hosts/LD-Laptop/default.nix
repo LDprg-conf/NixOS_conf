@@ -62,6 +62,7 @@
       esptool
       antimicrox
       nix-your-shell
+      spotify
     ] ++ (with self.packages.${pkgs.system}; [ jdownload2 ]);
 
   services.preload.enable = true;
