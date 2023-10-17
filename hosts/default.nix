@@ -8,6 +8,25 @@
       # Disable if you don't want unfree packages
       allowUnfree = true;
     };
+    overlays = [
+      (final: prev: {
+        spotify = prev.spotify.overrideAttrs (attrs:
+          let
+            patchScript = prev.fetchurl {
+              url =
+                "https://raw.githubusercontent.com/SpotX-CLI/SpotX-Linux/main/install.sh";
+              hash = "sha256-QmV3Fln/EhzAqTn1Zhcz1NDprhClUoFFmETA644+lUA=";
+            };
+          in {
+            buildInputs = [ prev.perl prev.unzip prev.zip ];
+            postInstall = (attrs.postInstall or "") + ''
+                  cp ${patchScript} install.sh
+                  chmod +x install.sh
+              	  bash install.sh -P $out/share/spotify/ -cef
+              	'';
+          });
+      })
+    ];
   };
 
   nix = {

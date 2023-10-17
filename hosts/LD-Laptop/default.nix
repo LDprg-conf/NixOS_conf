@@ -1,7 +1,8 @@
 # This is your system's configuration file.
 # Use this to configure your system environment (it replaces /etc/nixos/configuration.nix)
 
-{ inputs, outputs, self, user, host, lib, config, pkgs, nix-your-shell, ... }: {
+{ inputs, outputs, self, user, host, lib, config, pkgs, nix-your-shell, ... }:
+{
   # You can import other NixOS modules here
   imports = [
     ../../modules/nixos/default-apps.nix
@@ -71,11 +72,11 @@
 
   services.flatpak = { enable = true; };
 
-  services.flatpak = {
-    deduplicate = false;
-    packages = [ "flathub:app/org.kde.index//stable" ];
-    remotes = { "flathub" = "https://flathub.org/repo/flathub.flatpakrepo"; };
-  };
+  # services.flatpak = {
+  #   deduplicate = false;
+  #   packages = [ "flathub:app/org.kde.index//stable" ];
+  #   remotes = { "flathub" = "https://flathub.org/repo/flathub.flatpakrepo"; };
+  # };
 
   boot.loader.timeout = 3;
 
