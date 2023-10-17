@@ -27,6 +27,7 @@
     wireshark
     nix-your-shell
     webcord
+    spotify
   ];
 
   programs.brave.enable = true;
@@ -56,12 +57,9 @@
     deduplicate = false;
     packages = [
       "flathub:app/org.kde.index//stable"
-      #"flathub:app/com.spotify.Client/x86_64/stable"
       "flathub:app/com.axosoft.GitKraken/x86_64/stable"
       "flathub:app/org.freedownloadmanager.Manager/x86_64/stable"
     ];
     remotes = { "flathub" = "https://flathub.org/repo/flathub.flatpakrepo"; };
-    #postInitCommand =
-    #  "bash -c \"bash <(curl -sSL https://raw.githubusercontent.com/SpotX-CLI/SpotX-Linux/main/install.sh) -P ~/.local/share/flatpak/app/com.spotify.Client/x86_64/stable/active/files/extra/share/spotify/ -cef\"";
   };
 }
