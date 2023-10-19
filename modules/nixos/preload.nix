@@ -5,8 +5,7 @@ with lib;
 let
   cfg = config.services.preload;
   preload = self.packages.${pkgs.system}.preload;
-in
-{
+in {
   meta = { maintainers = preload.meta.maintainers; };
 
   ###### interface

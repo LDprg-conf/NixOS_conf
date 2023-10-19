@@ -1,13 +1,5 @@
-{ stdenv
-, lib
-, fetchurl
-, writeScript
-, makeDesktopItem
-, copyDesktopItems
-, jre
-, graphicsmagick
-, coreutils
-}:
+{ stdenv, lib, fetchurl, writeScript, makeDesktopItem, copyDesktopItems, jre
+, graphicsmagick, coreutils }:
 
 let
 
@@ -31,8 +23,7 @@ let
     ${jre}/bin/java -jar ''${JDJAR} "''${@}"
   '';
 
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   inherit src;
 
   pname = "jdownloader2";

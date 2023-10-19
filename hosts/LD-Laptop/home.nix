@@ -55,10 +55,8 @@
   };
 
   services.flatpak = {
-    deduplicate = false;
     packages = [
       "flathub:app/org.kde.index//stable"
-      #"flathub:app/com.axosoft.GitKraken/x86_64/stable"
       "flathub:app/org.freedownloadmanager.Manager/x86_64/stable"
     ];
     remotes = { "flathub" = "https://flathub.org/repo/flathub.flatpakrepo"; };

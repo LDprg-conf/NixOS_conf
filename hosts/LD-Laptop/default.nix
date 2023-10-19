@@ -1,9 +1,4 @@
-# This is your system's configuration file.
-# Use this to configure your system environment (it replaces /etc/nixos/configuration.nix)
-
-{ inputs, outputs, self, user, host, lib, config, pkgs, nix-your-shell, ... }:
-{
-  # You can import other NixOS modules here
+{ inputs, outputs, self, user, host, lib, config, pkgs, nix-your-shell, ... }: {
   imports = [
     ../../modules/nixos/default-apps.nix
     ../../modules/nixos/grub.nix
@@ -11,8 +6,6 @@
     ../../modules/nixos/fish.nix
     ../../modules/nixos/nvidia.nix
     ../../modules/nixos/kernel-latest.nix
-    #../../modules/nixos/rust.nix
-    #../../modules/nixos/cpp.nix
     ../../modules/nixos/libreoffice.nix
     ../../modules/nixos/firewall.nix
     ../../modules/nixos/ananicy.nix
@@ -24,13 +17,6 @@
 
     ../../modules/nixos/plasma.nix
   ];
-
-  # specialisation = {
-  #   hyprland.configuration = {
-  #     system.nixos.tags = [ "hyprland" ];
-  #     imports = [ ../../modules/nixos/hyprland.nix ];
-  #   };
-  # };
 
   nixpkgs.overlays = [ nix-your-shell.overlays.default ];
 
@@ -55,34 +41,19 @@
   environment.shells = with pkgs; [ fish ];
 
   environment.systemPackages = with pkgs;
-    [
-      #nvtop
-      mangohud
-      git
-      pre-commit
-      esptool
-      antimicrox
-      nix-your-shell
-    ] ++ (with self.packages.${pkgs.system}; [ jdownload2 ]);
+    [ mangohud git pre-commit esptool antimicrox nix-your-shell ]
+    ++ (with self.packages.${pkgs.system}; [ jdownload2 ]);
 
   services.preload.enable = true;
 
   programs.gamescope.enable = true;
 
-  services.flatpak = { enable = true; };
-
-  # services.flatpak = {
-  #   deduplicate = false;
-  #   packages = [ "flathub:app/org.kde.index//stable" ];
-  #   remotes = { "flathub" = "https://flathub.org/repo/flathub.flatpakrepo"; };
-  # };
+  services.flatpak.enable = true;
 
   boot.loader.timeout = 3;
 
   hardware.nvidia.prime = {
     sync.enable = true;
-    #offload.enable = true;
-    #offload.enableOffloadCmd = true;
 
     amdgpuBusId = "PCI:6:0:0";
     nvidiaBusId = "PCI:1:0:0";
