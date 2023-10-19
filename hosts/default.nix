@@ -42,27 +42,18 @@
               prev.unzip
             ];
 
-            prePatch = ''
+            postFixup = (attrs.postFixup or "") + ''
               unzip ${patchScript} -d gitcracken-patch
+              cd gitcracken-patch/GitCracken-main
+
+              chmod 775 -R *
+
+              yarn build
+
+              chmod +w $out/share/gitkraken/resources
+
+              yarn run gitcracken patcher --asar $out/share/gitkraken/resources/app.asar >> /dev/null             
             '';
-
-            patches = [
-              ./gitcracken.patch
-            ];
-
-            postInstall = (attrs.postInstall or "") + ''
-                  cd gitcracken-patch/GitCracken-main
-
-                  chmod 775 -R *
-
-                  yarn build
-
-                  yarn run gitcracken patcher --asar $out/share/gitkraken/resources/app.asar
-
-                  #ls -al $out/share/gitkraken/resources
-
-                  exit 111
-              	'';
           });
       })
     ];
