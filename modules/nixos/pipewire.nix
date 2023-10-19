@@ -1,10 +1,10 @@
 { inputs, outputs, self, user, host, lib, config, pkgs, ... }: {
   imports = [ inputs.nix-gaming.nixosModules.pipewireLowLatency ];
 
-  # Enable sound with pipewire.
-  sound.enable = true;
-  hardware.pulseaudio.enable = false;
+  environment.systemPackages = with pkgs; [ pavucontrol ];
+
   security.rtkit.enable = true;
+
   services.pipewire = {
     enable = true;
     alsa.enable = true;
@@ -13,8 +13,9 @@
 
     lowLatency = {
       enable = true;
-      quantum = 64;
+      quantum = 96;
       rate = 48000;
     };
   };
+
 }

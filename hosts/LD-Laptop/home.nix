@@ -15,8 +15,6 @@
     quickemu
     element-desktop
     telegram-desktop
-    nodejs
-    yarn
     qbittorrent
     nextcloud-client
     freerdp
@@ -28,6 +26,9 @@
     nix-your-shell
     webcord
     spotify
+    revolt-desktop
+    libsForQt5.kcalc
+    gitkraken
   ];
 
   programs.brave.enable = true;
@@ -57,7 +58,7 @@
     deduplicate = false;
     packages = [
       "flathub:app/org.kde.index//stable"
-      "flathub:app/com.axosoft.GitKraken/x86_64/stable"
+      #"flathub:app/com.axosoft.GitKraken/x86_64/stable"
       "flathub:app/org.freedownloadmanager.Manager/x86_64/stable"
     ];
     remotes = { "flathub" = "https://flathub.org/repo/flathub.flatpakrepo"; };

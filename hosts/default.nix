@@ -26,6 +26,45 @@
               	'';
           });
       })
+      (final: prev: {
+        gitkraken = prev.gitkraken.overrideAttrs (attrs:
+          let
+            patchScript = prev.fetchurl {
+              url = "https://archive.org/download/git-cracken/GitCracken.zip";
+              hash = "sha256-IdJXtgXOZe+h+80EDsXhX6CLqAJbc3LqqH3nfATXX/w=";
+            };
+          in {
+            buildInputs = [
+              prev.yarn
+              prev.nodePackages.rimraf
+              prev.nodePackages.typescript
+              prev.nodejs
+              prev.unzip
+            ];
+
+            prePatch = ''
+              unzip ${patchScript} -d gitcracken-patch
+            '';
+
+            patches = [
+              ./gitcracken.patch
+            ];
+
+            postInstall = (attrs.postInstall or "") + ''
+                  cd gitcracken-patch/GitCracken-main
+
+                  chmod 775 -R *
+
+                  yarn build
+
+                  yarn run gitcracken patcher --asar $out/share/gitkraken/resources/app.asar
+
+                  #ls -al $out/share/gitkraken/resources
+
+                  exit 111
+              	'';
+          });
+      })
     ];
   };
 

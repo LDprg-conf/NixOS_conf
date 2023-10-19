@@ -18,10 +18,9 @@
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
+  services.printing.drivers = [ pkgs.brlaser pkgs.samsung-unified-linux-driver ];
   services.printing.browsing = true;
   services.avahi.enable = true;
   services.avahi.nssmdns = true;
   services.avahi.openFirewall = true;
-  services.avahi.publish.enable = true;
-  services.avahi.publish.userServices = true;
 }
