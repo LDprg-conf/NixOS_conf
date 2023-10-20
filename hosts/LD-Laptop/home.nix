@@ -29,6 +29,7 @@
     revolt-desktop
     libsForQt5.kcalc
     gitkraken
+    motrix
   ];
 
   programs.brave.enable = true;
@@ -54,11 +55,11 @@
     '';
   };
 
-  services.flatpak = {
-    packages = [
-      "flathub:app/org.kde.index//stable"
-      "flathub:app/org.freedownloadmanager.Manager/x86_64/stable"
-    ];
-    remotes = { "flathub" = "https://flathub.org/repo/flathub.flatpakrepo"; };
-  };
+  # services.flatpak = {
+  #   packages = [
+  #     "flathub:app/org.kde.index//stable"
+  #     "flathub:app/org.freedownloadmanager.Manager/x86_64/stable"
+  #   ];
+  #   remotes = { "flathub" = "https://flathub.org/repo/flathub.flatpakrepo"; };
+  # };
 }

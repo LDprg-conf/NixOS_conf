@@ -48,7 +48,7 @@
 
   programs.gamescope.enable = true;
 
-  services.flatpak.enable = true;
+  # services.flatpak.enable = true;
 
   boot.loader.timeout = 3;
 

@@ -7,7 +7,13 @@
   services.xserver.displayManager.sddm.enable = true;
 
   #services.xserver.displayManager.sddm.settings = {
-  #  General = { DisplayServer = "wayland"; };
+  #  General = {
+  #    DisplayServer = "wayland";
+  #    GreeterEnvironment = ''
+  #      QT_QPA_PLATFORM=wayland
+  #      QT_WAYLAND_SHELL_INTEGRATION=layer-shell
+  #    '';
+  #  };
   #};
 
   services.xserver.displayManager.sessionCommands = ''
