@@ -50,7 +50,7 @@
 
   # services.flatpak.enable = true;
 
-  boot.loader.timeout = 3;
+  boot.loader.timeout = 2;
 
   hardware.nvidia.prime = {
     sync.enable = true;

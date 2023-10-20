@@ -19,7 +19,7 @@
   boot.initrd.kernelModules = [ "nvidia" ];
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
-  boot.kernelParams = [ "nouveau.modeset=0" "module_blacklist=nouveau" ];
+  boot.kernelParams = [ "nouveau.modeset=0" "module_blacklist=nouveau" "reboot=acpi" ];
   boot.supportedFilesystems = [ "ntfs" ];
 
   fileSystems."/" = {
