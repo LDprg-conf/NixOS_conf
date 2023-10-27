@@ -1,15 +1,17 @@
 { inputs, outputs, self, user, host, lib, config, pkgs, ... }: {
   networking.firewall = {
     enable = true;
-    allowedTCPPorts = [ 80 443 4444 ];
-    allowedUDPPortRanges = [
-      {
-        from = 4000;
-        to = 4007;
+    allowedTCPPorts = [ 47624 ];
+    allowedTCPPortRanges = [
+       {
+        from = 2300;
+        to = 2400;
       }
-      {
-        from = 8000;
-        to = 8010;
+    ];
+    allowedUDPPortRanges = [
+       {
+        from = 2300;
+        to = 2400;
       }
     ];
   };
