@@ -26,8 +26,7 @@
     "nvidia_drm"
   ];
   boot.kernelModules = [ "kvm-amd" ];
-  boot.extraModulePackages = [ ];
-  boot.kernelParams = [ ];
+  boot.blacklistedKernelModules = [ "nouveau" ];
   boot.supportedFilesystems = [ "ntfs" ];
 
   fileSystems."/" = {

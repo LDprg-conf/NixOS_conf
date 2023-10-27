@@ -63,8 +63,6 @@
     nvidiaBusId = "PCI:1:0:0";
   };
 
-  services.acpid.enable = true;
-
   fonts = {
     enableDefaultPackages = true;
     fontDir.enable = true;
