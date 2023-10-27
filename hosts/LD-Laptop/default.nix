@@ -41,8 +41,12 @@
   environment.shells = with pkgs; [ fish ];
 
   environment.systemPackages = with pkgs;
-    [ mangohud git pre-commit esptool antimicrox nix-your-shell ]
+    [ openrgb mangohud git pre-commit esptool antimicrox nix-your-shell ]
     ++ (with self.packages.${pkgs.system}; [ jdownload2 ]);
+
+  services.udev.packages = [ pkgs.openrgb ];
+  boot.kernelModules = [ "i2c-dev" "i2c-piix4" ];
+  hardware.i2c.enable = true;
 
   services.preload.enable = true;
 

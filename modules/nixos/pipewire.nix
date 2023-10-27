@@ -1,9 +1,9 @@
 { inputs, outputs, self, user, host, lib, config, pkgs, ... }: {
-  imports = [ inputs.nix-gaming.nixosModules.pipewireLowLatency ];
+  #imports = [ inputs.nix-gaming.nixosModules.pipewireLowLatency ];
 
   environment.systemPackages = with pkgs; [ pavucontrol ];
 
-  security.rtkit.enable = true;
+  #security.rtkit.enable = true;
 
   services.pipewire = {
     enable = true;
@@ -11,11 +11,11 @@
     alsa.support32Bit = true;
     pulse.enable = true;
 
-    lowLatency = {
-      enable = true;
-      quantum = 512;
-      rate = 48000;
-    };
+    #lowLatency = {
+    #  enable = true;
+    #  quantum = 1024;
+    #  rate = 48000;
+    #};
   };
 
 }

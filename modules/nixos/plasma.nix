@@ -3,6 +3,8 @@
 
   # config = lib.mkIf (config.specialisation != { }) {
 
+  environment.systemPackages = with pkgs; [ wayland-utils clinfo ];
+
   # Enable the KDE Plasma Desktop Environment.
   services.xserver.displayManager.sddm.enable = true;
 

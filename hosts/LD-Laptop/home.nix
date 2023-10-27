@@ -29,7 +29,6 @@
     revolt-desktop
     libsForQt5.kcalc
     gitkraken
-    motrix
   ];
 
   programs.brave.enable = true;
