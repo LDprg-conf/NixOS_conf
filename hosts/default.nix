@@ -128,6 +128,7 @@
     rar
     curl
     htop
+    btop
     killall
     ripgrep
     tree
