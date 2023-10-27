@@ -25,12 +25,9 @@
     "nvidia_uvm"
     "nvidia_drm"
   ];
-  #boot.initrd.kernelModules =
-  #  [ "nvidia" "nvidia_modeset" "nvidia_uvm" "nvidia_drm" ];
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
-  boot.kernelParams =
-    [ "nouveau.modeset=0" "module_blacklist=nouveau" "reboot=acpi" ];
+  boot.kernelParams = [ ];
   boot.supportedFilesystems = [ "ntfs" ];
 
   fileSystems."/" = {
