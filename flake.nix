@@ -40,7 +40,7 @@
     hyprland.url = "github:hyprwm/Hyprland";
   };
 
-  outputs = { self, nixpkgs, flatpaks, fenix, home-manager, nix-your-shell, ...
+  outputs = { self, nixpkgs, fenix, home-manager, nix-your-shell, ...
     }@inputs:
     let
       inherit (self) outputs;
@@ -77,7 +77,6 @@
             inherit inputs outputs user host self nix-your-shell;
           };
           modules = [
-            flatpaks.nixosModules.default
             ./hosts
             ./hosts/${host}
             home-manager.nixosModules.home-manager
@@ -85,11 +84,10 @@
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.extraSpecialArgs = {
-                inherit inputs outputs flatpaks user host nix-your-shell;
+                inherit inputs outputs user host nix-your-shell;
               };
               home-manager.users.${user} = {
                 imports = [
-                  flatpaks.homeManagerModules.default
                   ./hosts/home.nix
                   ./hosts/${host}/home.nix
                 ];
