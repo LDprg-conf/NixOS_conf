@@ -7,7 +7,6 @@
   imports = [
     # Or modules from other flakes (such as nixos-hardware):
     inputs.hardware.nixosModules.common-cpu-amd-pstate
-    #inputs.hardware.nixosModules.common-gpu-nvidia
     inputs.hardware.nixosModules.common-pc-laptop
     inputs.hardware.nixosModules.common-pc-laptop-ssd
 
@@ -24,14 +23,11 @@
     "nvidia_modeset"
     "nvidia_uvm"
     "nvidia_drm"
-    "zstd"
-    "z3fold"
   ];
   boot.kernelModules = [ "kvm-amd" ];
   boot.blacklistedKernelModules = [ "nouveau" ];
   boot.supportedFilesystems = [ "ntfs" ];
-  boot.kernelParams =
-    [ "zswap.enabled=1" "zswap.compressor=zstd" "zswap.zpool=z3fold" ];
+  boot.kernelParams = [ "zswap.enabled=1" ];
 
   fileSystems."/" = {
     device = "/dev/disk/by-label/nixos";
