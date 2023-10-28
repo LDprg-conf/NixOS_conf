@@ -40,8 +40,7 @@
     hyprland.url = "github:hyprwm/Hyprland";
   };
 
-  outputs = { self, nixpkgs, fenix, home-manager, nix-your-shell, ...
-    }@inputs:
+  outputs = { self, nixpkgs, fenix, home-manager, nix-your-shell, ... }@inputs:
     let
       inherit (self) outputs;
       forAllSystems = nixpkgs.lib.genAttrs [
@@ -87,10 +86,7 @@
                 inherit inputs outputs user host nix-your-shell;
               };
               home-manager.users.${user} = {
-                imports = [
-                  ./hosts/home.nix
-                  ./hosts/${host}/home.nix
-                ];
+                imports = [ ./hosts/home.nix ./hosts/${host}/home.nix ];
               };
             }
           ];

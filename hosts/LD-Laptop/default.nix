@@ -41,8 +41,17 @@
   environment.shells = with pkgs; [ fish ];
 
   environment.systemPackages = with pkgs;
-    [ openrgb mangohud git pre-commit esptool antimicrox nix-your-shell cifs-utils samba ]
-    ++ (with self.packages.${pkgs.system}; [ jdownload2 ]);
+    [
+      openrgb
+      mangohud
+      git
+      pre-commit
+      esptool
+      antimicrox
+      nix-your-shell
+      cifs-utils
+      samba
+    ] ++ (with self.packages.${pkgs.system}; [ jdownload2 ]);
 
   services.udev.packages = [ pkgs.openrgb ];
   boot.kernelModules = [ "i2c-dev" "i2c-piix4" ];

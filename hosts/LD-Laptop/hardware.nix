@@ -30,7 +30,8 @@
   boot.kernelModules = [ "kvm-amd" ];
   boot.blacklistedKernelModules = [ "nouveau" ];
   boot.supportedFilesystems = [ "ntfs" ];
-  boot.kernelParams = [ "zswap.enabled=1" "zswap.compressor=zstd" "zswap.zpool=z3fold" ];
+  boot.kernelParams =
+    [ "zswap.enabled=1" "zswap.compressor=zstd" "zswap.zpool=z3fold" ];
 
   fileSystems."/" = {
     device = "/dev/disk/by-label/nixos";
