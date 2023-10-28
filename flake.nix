@@ -23,8 +23,6 @@
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-    flatpaks.url = "github:GermanBread/declarative-flatpak/stable";
-
     hardware.url = "github:nixos/nixos-hardware";
 
     fenix = {

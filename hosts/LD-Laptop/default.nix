@@ -41,7 +41,7 @@
   environment.shells = with pkgs; [ fish ];
 
   environment.systemPackages = with pkgs;
-    [ openrgb mangohud git pre-commit esptool antimicrox nix-your-shell ]
+    [ openrgb mangohud git pre-commit esptool antimicrox nix-your-shell cifs-utils samba ]
     ++ (with self.packages.${pkgs.system}; [ jdownload2 ]);
 
   services.udev.packages = [ pkgs.openrgb ];
@@ -51,8 +51,6 @@
   services.preload.enable = true;
 
   programs.gamescope.enable = true;
-
-  # services.flatpak.enable = true;
 
   boot.loader.timeout = 2;
 

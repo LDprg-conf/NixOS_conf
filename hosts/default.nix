@@ -111,7 +111,7 @@
 
   users.users.${user} = {
     isNormalUser = true;
-    extraGroups = [ "networkmanager" "wheel" "wireshark" "docker" ];
+    extraGroups = [ "networkmanager" "wheel" "wireshark" "docker" "dialout" ];
   };
 
   environment.systemPackages = with pkgs; [

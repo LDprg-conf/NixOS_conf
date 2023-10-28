@@ -8,14 +8,18 @@
   # Enable the KDE Plasma Desktop Environment.
   services.xserver.displayManager.sddm.enable = true;
 
-  #services.xserver.displayManager.sddm.settings = {
+  # services.xserver.displayManager.sddm.settings = {
   #  General = {
-  #    DisplayServer = "wayland";
-  #    GreeterEnvironment = ''
-  #      QT_QPA_PLATFORM=wayland
-  #      QT_WAYLAND_SHELL_INTEGRATION=layer-shell
-  #    '';
-  #  };
+  #   DisplayServer = "wayland";
+  #  GreeterEnvironment = ''
+  #   QT_QPA_PLATFORM=wayland
+  #  QT_WAYLAND_SHELL_INTEGRATION=layer-shell
+  #'';
+  #};
+  #Wayland = {
+  #  CompositorCommand =
+  #    "kwin_wayland --drm --no-lockscreen --no-global-shortcuts --locale1";
+  #};
   #};
 
   services.xserver.displayManager.sessionCommands = ''

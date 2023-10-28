@@ -20,7 +20,6 @@
     freerdp
     bitwarden
     android-tools
-    vivaldi
     mongodb-compass
     wireshark
     nix-your-shell
@@ -29,6 +28,7 @@
     revolt-desktop
     libsForQt5.kcalc
     gitkraken
+    ngrok
   ];
 
   programs.brave.enable = true;
@@ -53,12 +53,4 @@
       set fish_greeting # Disable greeting
     '';
   };
-
-  # services.flatpak = {
-  #   packages = [
-  #     "flathub:app/org.kde.index//stable"
-  #     "flathub:app/org.freedownloadmanager.Manager/x86_64/stable"
-  #   ];
-  #   remotes = { "flathub" = "https://flathub.org/repo/flathub.flatpakrepo"; };
-  # };
 }
