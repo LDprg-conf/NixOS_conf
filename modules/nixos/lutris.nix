@@ -5,5 +5,6 @@
     #wineWowPackages.stable
     wineWowPackages.staging
     #wineWowPackages.waylandFull
+    mesa
   ];
 }
