@@ -3,8 +3,9 @@
     lutris
     winetricks
     #wineWowPackages.stable
-    wineWowPackages.staging
-    #wineWowPackages.waylandFull
-    mesa
+    #wineWowPackages.stagingFull
+    #wineWowPackages.wayland
+    #wine 
+    #wine64
   ];
 }
