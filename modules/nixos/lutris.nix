@@ -2,8 +2,8 @@
   environment.systemPackages = with pkgs; [
     lutris
     winetricks
-    wineWowPackages.stable
+    #wineWowPackages.stable
     wineWowPackages.staging
-    wineWowPackages.waylandFull
+    #wineWowPackages.waylandFull
   ];
 }

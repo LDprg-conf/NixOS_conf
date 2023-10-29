@@ -61,7 +61,7 @@
 
   programs.gamescope.enable = true;
 
-  boot.loader.timeout = 0;
+  boot.loader.timeout = 2;
 
   hardware.nvidia.prime = {
     sync.enable = true;
