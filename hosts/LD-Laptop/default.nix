@@ -51,7 +51,7 @@
       nix-your-shell
       cifs-utils
       samba
-    ] ++ (with self.packages.${pkgs.system}; [ jdownload2 ]);
+    ] ++ (with self.packages.${pkgs.system}; [ jdownload2 wine-nine ]);
 
   services.udev.packages = [ pkgs.openrgb ];
   boot.kernelModules = [ "i2c-dev" "i2c-piix4" ];

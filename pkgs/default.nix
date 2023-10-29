@@ -4,9 +4,9 @@
 { pkgs ? (import ../nixpkgs.nix) { } }: {
   preload = pkgs.callPackage ./preload { };
   jdownload2 = pkgs.callPackage ./jdownload2 { };
-  wine-nine = callPackage ./wine-nine-standalone {
-    nine32 = pkgsi686Linux.wine-nine-standalone-unwrapped;
-    nine64 = wine-nine-standalone-unwrapped;
+  wine-nine = pkgs.callPackage ./wine-nine-standalone {
+    nine32 = pkgs.i686-linux.wine-nine-standalone-unwrapped;
+    nine64 = pkgs.x86_64-linux.wine-nine-standalone-unwrapped;
   };
-  wine-nine-standalone-unwrapped = callPackage ./wine-nine-standalone/nine.nix { };
+  wine-nine-standalone-unwrapped = pkgs.callPackage ./wine-nine-standalone/nine.nix { };
 }
