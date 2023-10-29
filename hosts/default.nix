@@ -14,15 +14,15 @@
           let
             patchScript = prev.fetchurl {
               url =
-                "https://raw.githubusercontent.com/SpotX-CLI/SpotX-Linux/main/install.sh";
-              hash = "sha256-QmV3Fln/EhzAqTn1Zhcz1NDprhClUoFFmETA644+lUA=";
+                "https://raw.githubusercontent.com/SpotX-Official/SpotX-Bash/main/spotx.sh";
+              hash = "sha256-uXWzNrX9LixGx9IwP7Y0VSiXXp6RTbjqqGfqsU5mPoM=";
             };
           in {
             buildInputs = [ prev.perl prev.unzip prev.zip ];
             postInstall = (attrs.postInstall or "") + ''
-                  cp ${patchScript} install.sh
-                  chmod +x install.sh
-              	  bash install.sh -P $out/share/spotify/ -cef
+                  cp ${patchScript} spotx.sh
+                  chmod +x spotx.sh
+              	  bash spotx.sh -P $out/share/spotify/ -ch
               	'';
           });
       })

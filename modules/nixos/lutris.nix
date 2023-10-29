@@ -3,7 +3,7 @@
     lutris
     winetricks
     #wineWowPackages.stable
-    #wineWowPackages.stagingFull
+    wineWowPackages.staging
     #wineWowPackages.wayland
     #wine 
     #wine64

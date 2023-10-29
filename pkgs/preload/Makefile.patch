@@ -52,16 +52,3 @@ index e4072e4..4a6b069 100644
  install-sysconfigDATA: $(sysconfig_DATA)
  	@$(NORMAL_INSTALL)
  	test -z "$(sysconfigdir)" || $(MKDIR_P) "$(DESTDIR)$(sysconfigdir)"
-diff --git a/configure.ac b/configure.ac
-index 70ae7aa..9a5d32c 100644
---- a/configure.ac
-+++ b/configure.ac
-@@ -58,7 +58,7 @@ pkgdocdir='${datadir}/doc/'${PACKAGE_NAME}-${PACKAGE_VERSION}
- initddir='${sysconfdir}/rc.d/init.d'
- sysconfigdir='${sysconfdir}/sysconfig'
- logrotatedir='${sysconfdir}/logrotate.d'
--logdir='${localstatedir}/log'
-+logdir='${localstatedir}/log/'${PACKAGE_NAME}
- subsysdir='${localstatedir}/lock/subsys'
- pkglocalstatedir='${localstatedir}/lib/'${PACKAGE_NAME}
- AC_SUBST(pkgdocdir)

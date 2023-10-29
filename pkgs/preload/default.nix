@@ -10,7 +10,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-0KVY6DyymlHZ2Wc27zn0tOVeQ6WJrRrsWUoEjKIvgWs=";
   };
 
-  patches = [ ./Makefile.patch ];
+  patches = [
+    #Prevents creation of /var directories on build
+    ./Makefile.patch
+  ];
 
   nativeBuildInputs = [ autoconf automake pkg-config ];
   buildInputs = [ glib ];
