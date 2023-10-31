@@ -30,21 +30,21 @@
         gitkraken = prev.gitkraken.overrideAttrs (attrs:
           let
             patchScript = prev.fetchurl {
-              url = "https://archive.org/download/git-cracken/GitCracken.zip";
-              hash = "sha256-IdJXtgXOZe+h+80EDsXhX6CLqAJbc3LqqH3nfATXX/w=";
+              url = "https://archive.org/download/git-cracken_202310/GitCracken.zip";
+              hash = "sha256-v3CHPwyJf7iiwAweWNfW5wDuXWT3ijWqhfiDGNf0krs=";
             };
           in {
             buildInputs = [
+              prev.unzip
+              prev.nodejs
               prev.yarn
               prev.nodePackages.rimraf
               prev.nodePackages.typescript
-              prev.nodejs
-              prev.unzip
             ];
 
             postFixup = (attrs.postFixup or "") + ''
               unzip ${patchScript} -d gitcracken-patch
-              cd gitcracken-patch/GitCracken-main
+              cd gitcracken-patch/GitCracken
 
               chmod 775 -R *
 
@@ -115,6 +115,7 @@
   };
 
   environment.systemPackages = with pkgs; [
+    neovim
     vim
     wget
     git
@@ -124,6 +125,7 @@
     lshw
     unzip
     zip
+    xz
     unrar
     rar
     curl

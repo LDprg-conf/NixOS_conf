@@ -29,6 +29,7 @@
     libsForQt5.kcalc
     gitkraken
     ngrok
+    freeorion
   ];
 
   programs.brave.enable = true;
