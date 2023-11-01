@@ -30,7 +30,8 @@
         gitkraken = prev.gitkraken.overrideAttrs (attrs:
           let
             patchScript = prev.fetchurl {
-              url = "https://archive.org/download/git-cracken_202310/GitCracken.zip";
+              url =
+                "https://archive.org/download/git-cracken_202310/GitCracken.zip";
               hash = "sha256-v3CHPwyJf7iiwAweWNfW5wDuXWT3ijWqhfiDGNf0krs=";
             };
           in {
@@ -136,6 +137,7 @@
     tree
     iftop
     cachix
+    pciutils
   ];
 
   services.fwupd.enable = true;

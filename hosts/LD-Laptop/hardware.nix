@@ -19,13 +19,18 @@
     "usb_storage"
     "usbhid"
     "sd_mod"
+    "amdgpu"
     "nvidia"
     "nvidia_modeset"
     "nvidia_uvm"
     "nvidia_drm"
   ];
-  boot.kernelModules = [ "kvm-amd" ];
-  boot.blacklistedKernelModules = [ "nouveau" ];
+
+  boot.kernelModules = [ "kvm-amd" "nvidia" ];
+  boot.extraModulePackages = [ config.boot.kernelPackages.nvidia_x11 ];
+  boot.extraModprobeConfig = "options nvidia-drm modeset=1";
+  boot.blacklistedKernelModules =
+    [ "i915" "intel_agp" "viafb" "radeon" "nouveau" ];
   boot.supportedFilesystems = [ "ntfs" ];
   boot.kernelParams = [ "zswap.enabled=1" ];
 

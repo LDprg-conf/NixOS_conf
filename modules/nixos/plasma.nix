@@ -1,31 +1,21 @@
 { inputs, outputs, self, user, host, lib, config, pkgs, ... }: {
   imports = [ ./xorg.nix ];
 
-  # config = lib.mkIf (config.specialisation != { }) {
-
-  environment.systemPackages = with pkgs; [ wayland-utils clinfo ];
+  environment.systemPackages = with pkgs; [
+    wayland-utils
+    clinfo
+    libsForQt5.sddm-kcm
+  ];
 
   # Enable the KDE Plasma Desktop Environment.
   services.xserver.displayManager.sddm.enable = true;
 
-  # services.xserver.displayManager.sddm.settings = {
-  #  General = {
-  #   DisplayServer = "wayland";
-  #  GreeterEnvironment = ''
-  #   QT_QPA_PLATFORM=wayland
-  #  QT_WAYLAND_SHELL_INTEGRATION=layer-shell
-  #'';
-  #};
-  #Wayland = {
-  #  CompositorCommand =
-  #    "kwin_wayland --drm --no-lockscreen --no-global-shortcuts --locale1";
-  #};
-  #};
+  services.xserver.desktopManager.xterm.enable = false;
 
-  services.xserver.displayManager.sessionCommands = ''
-    ${pkgs.xorg.xrandr}/bin/xrandr --setprovideroutputsource modesetting NVIDIA-0
-    ${pkgs.xorg.xrandr}/bin/xrandr --auto
-  '';
+  # services.xserver.displayManager.sessionCommands = ''
+  #   ${pkgs.xorg.xrandr}/bin/xrandr --setprovideroutputsource modesetting NVIDIA-0
+  #   ${pkgs.xorg.xrandr}/bin/xrandr --auto
+  # '';
 
   services.xserver.desktopManager.plasma5.enable = true;
 
@@ -34,5 +24,4 @@
   services.xserver.displayManager.defaultSession = "plasmawayland";
 
   programs.kdeconnect.enable = true;
-  #};
 }
