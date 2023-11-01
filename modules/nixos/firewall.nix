@@ -2,18 +2,22 @@
   networking.firewall = {
     enable = true;
     extraCommands =
-      "iptables -t raw -A OUTPUT -p udp -m udp --dport 137 -j CT --helper netbios-ns";
-    allowedTCPPorts = [ 80 443 47624 ];
+      "iptables -t raw -A OUTPUT -p udp -m udp --dport 137 -j CT --helper netbios-ns"; # Samba discovery fix
+    allowedTCPPorts = [
+      80 # HTTP
+      443 # HTTPS
+      47624 # DirectPlay
+    ];
     allowedTCPPortRanges = [{
       from = 2300;
-      to = 2400;
+      to = 2400; # DirectPlay
     }];
     allowedUDPPorts = [
       35862 # Cosmoteer
     ];
     allowedUDPPortRanges = [{
       from = 2300;
-      to = 2400;
+      to = 2400; # DirectPlay
     }];
   };
 }
