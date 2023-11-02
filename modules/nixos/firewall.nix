@@ -7,6 +7,7 @@
       80 # HTTP
       443 # HTTPS
       47624 # DirectPlay
+      10099 # Desynced
     ];
     allowedTCPPortRanges = [{
       from = 2300;
