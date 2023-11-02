@@ -22,7 +22,7 @@
 
   xdg.portal = {
     enable = true;
-    extraPortals = with pkgs; [ xdg-desktop-portal-kde xdg-desktop-portal-gtk ];
+    extraPortals = with pkgs; [ xdg-desktop-portal-kde ];
   };
 
   users.users.ld = {

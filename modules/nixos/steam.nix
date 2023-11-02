@@ -5,9 +5,10 @@
       true; # Open ports in the firewall for Steam Remote Play
     dedicatedServer.openFirewall =
       true; # Open ports in the firewall for Source Dedicated Server
+    package = pkgs.steam.override {
+      extraLibraries = p: with p; [ (lib.getLib networkmanager) ];
+    };
   };
-
-  hardware.steam-hardware.enable = true;
 
   environment.systemPackages = with pkgs; [
     xdotool
