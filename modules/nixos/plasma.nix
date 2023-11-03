@@ -12,10 +12,10 @@
 
   services.xserver.desktopManager.xterm.enable = false;
 
-  # services.xserver.displayManager.sessionCommands = ''
-  #   ${pkgs.xorg.xrandr}/bin/xrandr --setprovideroutputsource modesetting NVIDIA-0
-  #   ${pkgs.xorg.xrandr}/bin/xrandr --auto
-  # '';
+  services.xserver.displayManager.sessionCommands = ''
+    ${pkgs.xorg.xrandr}/bin/xrandr --setprovideroutputsource modesetting NVIDIA-0
+    ${pkgs.xorg.xrandr}/bin/xrandr --auto
+  '';
 
   services.xserver.desktopManager.plasma5.enable = true;
 
