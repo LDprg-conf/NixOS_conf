@@ -1,10 +1,7 @@
 { inputs, outputs, self, user, host, lib, config, pkgs, ... }: {
   imports = [ ./xorg.nix ];
 
-  environment.systemPackages = with pkgs; [
-    wayland-utils
-    clinfo
-  ];
+  environment.systemPackages = with pkgs; [ wayland-utils clinfo ];
 
   # Enable the KDE Plasma Desktop Environment.
   services.xserver.displayManager.gdm.enable = true;
