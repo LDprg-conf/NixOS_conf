@@ -1,13 +1,13 @@
-{ lib, stdenv, fetchurl, autoconf, automake, pkg-config, glib }:
+{ lib, stdenv, fetchzip, autoconf, automake, pkg-config, glib }:
 
 stdenv.mkDerivation rec {
   pname = "preload";
   version = "0.6.4";
 
-  src = fetchurl {
+  src = fetchzip {
     url =
-      "http://downloads.sourceforge.net/sourceforge/${pname}/${pname}-${version}.tar.gz";
-    hash = "sha256-0KVY6DyymlHZ2Wc27zn0tOVeQ6WJrRrsWUoEjKIvgWs=";
+      "mirror://sourceforge/preload/preload-${version}.tar.gz";
+    hash = "sha256-vAIaSwvbUFyTl6DflFhuSaMuX9jPVBah+Nl6c/fUbAM=";
   };
 
   patches = [

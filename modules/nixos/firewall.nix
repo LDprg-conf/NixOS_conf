@@ -4,6 +4,7 @@
     extraCommands =
       "iptables -t raw -A OUTPUT -p udp -m udp --dport 137 -j CT --helper netbios-ns"; # Samba discovery fix
     allowedTCPPorts = [
+      53
       80 # HTTP
       443 # HTTPS
       47624 # DirectPlay

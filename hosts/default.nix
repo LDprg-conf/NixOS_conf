@@ -83,7 +83,7 @@
       warn-dirty = false;
       # Deduplicate and optimize nix store
       auto-optimise-store = true;
-      trusted-users = [ "root" ];
+      trusted-users = [ "root" "ld" ];
     };
   };
 
