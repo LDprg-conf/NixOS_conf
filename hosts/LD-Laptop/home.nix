@@ -30,6 +30,8 @@
     gitkraken
     ngrok
     freeorion
+    tor-browser
+    ferdium
   ];
 
   programs.brave.enable = true;
