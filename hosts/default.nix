@@ -114,6 +114,10 @@
     isNormalUser = true;
     extraGroups = [ "networkmanager" "wheel" "wireshark" "docker" "dialout" ];
   };
+  # users.users.test = {
+  #   isNormalUser = true;
+  #   extraGroups = [ "networkmanager" "wheel" "wireshark" "docker" "dialout" ];
+  # };
 
   environment.systemPackages = with pkgs; [
     neovim
@@ -136,8 +140,12 @@
     ripgrep
     tree
     iftop
+    iotop
+    nethogs
     cachix
     pciutils
+    rsync
+    progress
   ];
 
   services.fwupd.enable = true;

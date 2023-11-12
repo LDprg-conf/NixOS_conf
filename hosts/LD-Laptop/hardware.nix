@@ -21,6 +21,8 @@
     "nvidia_drm"
   ];
 
+  environment.systemPackages = [ pkgs.wireguard-tools ];
+
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ config.boot.kernelPackages.nvidia_x11 ];
   boot.extraModprobeConfig = "options nvidia-drm modeset=1";

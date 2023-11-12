@@ -59,6 +59,9 @@
 
   services.preload.enable = true;
 
+  services.logmein-hamachi.enable = true;
+  programs.haguichi.enable = true;
+
   programs.gamescope.enable = true;
 
   boot.loader.timeout = 2;

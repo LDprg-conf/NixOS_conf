@@ -32,6 +32,8 @@
     freeorion
     tor-browser
     ferdium
+    minecraft
+    geogebra
   ];
 
   programs.brave.enable = true;
