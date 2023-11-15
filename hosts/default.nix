@@ -122,6 +122,7 @@
   environment.systemPackages = with pkgs; [
     neovim
     vim
+    vimPlugins.LazyVim
     wget
     git
     gh
