@@ -9,7 +9,7 @@
     ../../modules/nixos/libreoffice.nix
     ../../modules/nixos/firewall.nix
     ../../modules/nixos/ananicy.nix
-    ../../modules/nixos/apparmor.nix
+    #../../modules/nixos/apparmor.nix
     ../../modules/nixos/docker.nix
     ../../modules/nixos/preload.nix
 
@@ -51,13 +51,15 @@
       nix-your-shell
       cifs-utils
       samba
-    ] ++ (with self.packages.${pkgs.system}; [ jdownload2 ]);
+    ] ++ (with self.packages.${pkgs.system}; [ jdownload2 printer-driver-ptouch ]);
 
   services.udev.packages = [ pkgs.openrgb ];
   boot.kernelModules = [ "i2c-dev" "i2c-piix4" ];
   hardware.i2c.enable = true;
 
   services.preload.enable = true;
+
+  programs.darling.enable = true;
 
   services.logmein-hamachi.enable = true;
   programs.haguichi.enable = true;

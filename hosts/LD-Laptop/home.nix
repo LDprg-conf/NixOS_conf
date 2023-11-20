@@ -34,6 +34,7 @@
     ferdium
     minecraft
     geogebra
+    ptouch-print
   ];
 
   programs.brave.enable = true;
