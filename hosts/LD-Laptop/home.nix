@@ -35,6 +35,7 @@
     minecraft
     geogebra
     ptouch-print
+    obsidian
   ];
 
   programs.brave.enable = true;

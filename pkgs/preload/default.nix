@@ -5,8 +5,7 @@ stdenv.mkDerivation rec {
   version = "0.6.4";
 
   src = fetchzip {
-    url =
-      "mirror://sourceforge/preload/preload-${version}.tar.gz";
+    url = "mirror://sourceforge/preload/preload-${version}.tar.gz";
     hash = "sha256-vAIaSwvbUFyTl6DflFhuSaMuX9jPVBah+Nl6c/fUbAM=";
   };
 

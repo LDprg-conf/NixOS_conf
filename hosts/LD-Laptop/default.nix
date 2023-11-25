@@ -51,7 +51,11 @@
       nix-your-shell
       cifs-utils
       samba
-    ] ++ (with self.packages.${pkgs.system}; [ jdownload2 printer-driver-ptouch ]);
+    ] ++ (with self.packages.${pkgs.system};
+      [
+        jdownload2
+        # printer-driver-ptouch 
+      ]);
 
   services.udev.packages = [ pkgs.openrgb ];
   boot.kernelModules = [ "i2c-dev" "i2c-piix4" ];
@@ -59,7 +63,7 @@
 
   services.preload.enable = true;
 
-  programs.darling.enable = true;
+  # programs.darling.enable = true;
 
   services.logmein-hamachi.enable = true;
   programs.haguichi.enable = true;

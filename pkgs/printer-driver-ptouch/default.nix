@@ -1,14 +1,14 @@
-{ lib, stdenv, fetchFromGithub, autoconf, automake }:
+{ lib, stdenv, fetchFromGitHub, autoconf, automake }:
 
 stdenv.mkDerivation rec {
   pname = "printer-driver-ptouch";
   version = "1.7";
 
-  src = fetchFromGithub {
+  src = fetchFromGitHub {
     owner = "philpem";
     repo = "printer-driver-ptouch";
     rev = "6d065b94a56927083bbfdf911912fd1d8d1a5a66";
-    sha256 = "";
+    sha256 = "sha256-3ZotSHn7lERp53hAzx47Ct/k565rEoensCcltwX/Xls=";
   };
 
   nativeBuildInputs = [ autoconf automake ];
