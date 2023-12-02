@@ -27,6 +27,7 @@
     spotify
     revolt-desktop
     libsForQt5.kcalc
+    libsForQt5.kgamma5
     gitkraken
     ngrok
     freeorion

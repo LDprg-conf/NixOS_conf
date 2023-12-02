@@ -15,7 +15,7 @@
             patchScript = prev.fetchurl {
               url =
                 "https://raw.githubusercontent.com/SpotX-Official/SpotX-Bash/main/spotx.sh";
-              hash = "sha256-9WmCqHxsTvRQCNtQ3bGWlZcVjDyt3fg+MEbK/Zrmfp0=";
+              hash = "sha256-67/OJkeT7hiiS82/EnvrnmEUNAOef4o+1n/adfP5hO4=";
             };
           in {
             buildInputs = [ prev.perl prev.unzip prev.zip ];
@@ -122,7 +122,6 @@
   environment.systemPackages = with pkgs; [
     neovim
     vim
-    vimPlugins.LazyVim
     wget
     git
     gh
@@ -147,6 +146,8 @@
     pciutils
     rsync
     progress
+    tmux
+    screen
   ];
 
   services.fwupd.enable = true;
@@ -158,5 +159,5 @@
   zramSwap.enable = true;
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
-  system.stateVersion = "unstable";
+  system.stateVersion = "23.11";
 }

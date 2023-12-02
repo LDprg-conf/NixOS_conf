@@ -9,9 +9,8 @@
     ../../modules/nixos/libreoffice.nix
     ../../modules/nixos/firewall.nix
     ../../modules/nixos/ananicy.nix
-    #../../modules/nixos/apparmor.nix
+    ../../modules/nixos/apparmor.nix
     ../../modules/nixos/docker.nix
-    ../../modules/nixos/preload.nix
 
     ./hardware.nix
 
@@ -51,6 +50,7 @@
       nix-your-shell
       cifs-utils
       samba
+      simple-http-server 
     ] ++ (with self.packages.${pkgs.system};
       [
         jdownload2

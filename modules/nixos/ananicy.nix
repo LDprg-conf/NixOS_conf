@@ -5,6 +5,10 @@
   services.ananicy.extraRules = [
     # Games
     {
+      name = "Civ6";
+      type = "Game";
+    }
+    {
       name = "bg3_dx11.exe";
       type = "Game";
     }

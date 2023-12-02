@@ -1,6 +1,6 @@
 { inputs, outputs, self, user, host, lib, config, pkgs, ... }: {
   networking.firewall = {
-    enable = false;
+    enable = true;
     extraCommands =
       "iptables -t raw -A OUTPUT -p udp -m udp --dport 137 -j CT --helper netbios-ns"; # Samba discovery fix
     allowedTCPPorts = [
