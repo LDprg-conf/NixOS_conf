@@ -5,7 +5,15 @@
   services.ananicy.extraRules = [
     # Games
     {
-      name = "Civ6";
+      name = "Magicraft.exe";
+      type = "Game";
+    }
+    {
+      name = "BackpackBattles.x86_64";
+      type = "Game";
+    }
+    {
+      name = "CivilizationVI.exe";
       type = "Game";
     }
     {

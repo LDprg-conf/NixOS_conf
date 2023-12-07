@@ -1,1 +1,1 @@
-sudo nixos-rebuild boot --flake .#LD-Laptop
+sudo nixos-rebuild boot --flake .#LD-Laptop $@

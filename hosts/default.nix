@@ -15,7 +15,7 @@
             patchScript = prev.fetchurl {
               url =
                 "https://raw.githubusercontent.com/SpotX-Official/SpotX-Bash/main/spotx.sh";
-              hash = "sha256-67/OJkeT7hiiS82/EnvrnmEUNAOef4o+1n/adfP5hO4=";
+              hash = "sha256-RQOPWXFMNFXsB87lIczcOioVa9pOvOTevoZedWDA7s4=";
             };
           in {
             buildInputs = [ prev.perl prev.unzip prev.zip ];
@@ -159,5 +159,5 @@
   zramSwap.enable = true;
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
-  system.stateVersion = "23.11";
+  system.stateVersion = "23.05";
 }

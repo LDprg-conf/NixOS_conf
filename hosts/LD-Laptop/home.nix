@@ -27,7 +27,6 @@
     spotify
     revolt-desktop
     libsForQt5.kcalc
-    libsForQt5.kgamma5
     gitkraken
     ngrok
     freeorion
@@ -37,6 +36,7 @@
     geogebra
     ptouch-print
     obsidian
+    #displaycal
   ];
 
   programs.brave.enable = true;
@@ -51,7 +51,7 @@
 
   home.sessionVariables = {
     EDITOR = "code";
-    BROWSER = "firefox";
+    BROWSER = "brave";
     TERMINAL = "kitty";
   };
 
