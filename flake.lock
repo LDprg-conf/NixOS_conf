@@ -152,11 +152,11 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1701899272,
-        "narHash": "sha256-8SeVJRbDHlZ5Jys+SNWhYX+epyyGL1qvroyFuTk0fYw=",
+        "lastModified": 1702084404,
+        "narHash": "sha256-ptzIEljnk9DG9cr51nm6UbSmDcJ6g/RIgGds2QiH7gw=",
         "owner": "fufexan",
         "repo": "nix-gaming",
-        "rev": "65305554cca4be9f567224ebb9e682eb5beae233",
+        "rev": "e8b8fafa83eb314416bfcbab987d2dba718cf6ea",
         "type": "github"
       },
       "original": {
@@ -204,19 +204,6 @@
         "type": "github"
       }
     },
-    "nixpkgs-dev": {
-      "locked": {
-        "lastModified": 1701535283,
-        "narHash": "sha256-Z2I64Sg1e3sDuLogi6byWaqBL9VtNPGDprJ8uQvAUlA=",
-        "path": "/nix/store/85zczc8vyavl9wmigi5f5bfms2jlbyn7-source",
-        "rev": "044109cfd464a6c520f861917d9ceaf87012a4c8",
-        "type": "path"
-      },
-      "original": {
-        "id": "nixpkgs-dev",
-        "type": "indirect"
-      }
-    },
     "nixpkgs-lib": {
       "locked": {
         "dir": "lib",
@@ -237,11 +224,11 @@
     },
     "nixpkgs-stable": {
       "locked": {
-        "lastModified": 1701802827,
-        "narHash": "sha256-wTn0lpV75Uv6tU6haEypNsmnJJPb0hpaMIy/4uf5AiQ=",
+        "lastModified": 1701952659,
+        "narHash": "sha256-TJv2srXt6fYPUjxgLAL0cy4nuf1OZD4KuA1TrCiQqg0=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "a804fc878d7ba1558b960b4c64b0903da426ac41",
+        "rev": "b4372c4924d9182034066c823df76d6eaf1f4ec4",
         "type": "github"
       },
       "original": {
@@ -301,11 +288,11 @@
     },
     "nixpkgs_4": {
       "locked": {
-        "lastModified": 1701802827,
-        "narHash": "sha256-wTn0lpV75Uv6tU6haEypNsmnJJPb0hpaMIy/4uf5AiQ=",
+        "lastModified": 1701952659,
+        "narHash": "sha256-TJv2srXt6fYPUjxgLAL0cy4nuf1OZD4KuA1TrCiQqg0=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "a804fc878d7ba1558b960b4c64b0903da426ac41",
+        "rev": "b4372c4924d9182034066c823df76d6eaf1f4ec4",
         "type": "github"
       },
       "original": {
@@ -323,7 +310,6 @@
         "nix-gaming": "nix-gaming",
         "nix-your-shell": "nix-your-shell",
         "nixpkgs": "nixpkgs_4",
-        "nixpkgs-dev": "nixpkgs-dev",
         "nixpkgs-stable": "nixpkgs-stable",
         "nixpkgs-unstable": "nixpkgs-unstable"
       }
