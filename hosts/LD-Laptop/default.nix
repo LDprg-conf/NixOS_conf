@@ -14,7 +14,7 @@
 
     ./hardware.nix
 
-    ../../modules/nixos/gnome.nix
+    ../../modules/nixos/plasma.nix
   ];
 
   nixpkgs.overlays = [ nix-your-shell.overlays.default ];
