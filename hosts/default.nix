@@ -148,6 +148,7 @@
     progress
     tmux
     screen
+    usbutils
   ];
 
   services.fwupd.enable = true;

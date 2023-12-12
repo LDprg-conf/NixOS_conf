@@ -1,7 +1,19 @@
 { inputs, outputs, self, user, host, lib, config, pkgs, ... }: {
   imports = [ ./xorg.nix ];
 
-  environment.systemPackages = with pkgs; [ wayland-utils clinfo ];
+  environment.systemPackages = with pkgs; [
+    wayland-utils
+    clinfo
+    #libsForQt5.sddm-kcm 
+  ];
+
+  #  services.xserver.displayManager.sddm.enable = true;
+
+  #${pkgs.xorg.xrandr}/bin/xrandr --setprovideroutputsource 2 0
+  #services.xserver.displayManager.sessionCommands = ''
+  #  ${pkgs.xorg.xrandr}/bin/xrandr --setprovideroutputsource modesetting NVIDIA-0
+  #  ${pkgs.xorg.xrandr}/bin/xrandr --auto
+  #'';
 
   # Enable the KDE Plasma Desktop Environment.
   services.xserver.displayManager.gdm.enable = true;
@@ -18,15 +30,12 @@
               <primary>yes</primary>
               <monitor>
                 <monitorspec>
-                  <connector>HDMI-1</connector>
-                  <vendor>BNQ</vendor>
-                  <product>BenQ LCD</product>
-                  <serial>A7G03989019</serial>
+                  <connector>HDMI-A-1</connector>
                 </monitorspec>
                 <mode>
-                  <width>1920</width>
-                  <height>1080</height>
-                  <rate>60.000</rate>
+                  <width>2560</width>
+                  <height>1440</height>
+                  <rate>144.000</rate>
                 </mode>
               </monitor>
               <monitor>

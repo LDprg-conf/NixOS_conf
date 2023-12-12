@@ -19,7 +19,7 @@ in {
   hardware.opengl.extraPackages = with pkgs; [ vaapiVdpau ];
 
   # Load nvidia driver for Xorg and Wayland
-  services.xserver.videoDrivers = [ "displaylink" "nvidia" ];
+  services.xserver.videoDrivers = [ "nvidia" ];
   environment.systemPackages = [ nvidia-offload ];
 
   hardware.nvidia = {

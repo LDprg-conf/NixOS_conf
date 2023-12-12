@@ -50,7 +50,7 @@
       nix-your-shell
       cifs-utils
       samba
-      simple-http-server 
+      simple-http-server
     ] ++ (with self.packages.${pkgs.system};
       [
         jdownload2
