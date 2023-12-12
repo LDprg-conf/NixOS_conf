@@ -1,7 +1,6 @@
 { inputs, outputs, self, user, host, lib, config, pkgs, ... }: {
   programs.steam = {
     enable = true;
-    gamescopeSession.enable = true;
     remotePlay.openFirewall =
       true; # Open ports in the firewall for Steam Remote Play
     dedicatedServer.openFirewall =

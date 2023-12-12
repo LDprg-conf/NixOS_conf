@@ -51,7 +51,7 @@
 
   home.sessionVariables = {
     EDITOR = "code";
-    BROWSER = "brave";
+    BROWSER = "firefox";
     TERMINAL = "kitty";
   };
 

@@ -14,7 +14,7 @@
 
     ./hardware.nix
 
-    ../../modules/nixos/plasma.nix
+    ../../modules/nixos/gnome.nix
   ];
 
   nixpkgs.overlays = [ nix-your-shell.overlays.default ];
@@ -41,6 +41,8 @@
 
   environment.systemPackages = with pkgs;
     [
+      wayland-utils
+      clinfo
       openrgb
       mangohud
       git

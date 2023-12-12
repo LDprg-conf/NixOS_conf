@@ -1,10 +1,6 @@
 { inputs, outputs, self, user, host, lib, config, pkgs, ... }: {
   imports = [ ./xorg.nix ];
 
-  # environment.systemPackages = with pkgs; [
-  #   libsForQt5.sddm-kcm 
-  # ];
-
   # services.xserver.displayManager.sddm.enable = true;
 
   # ${pkgs.xorg.xrandr}/bin/xrandr --setprovideroutputsource 2 0
@@ -59,11 +55,9 @@
     }"
   ];
 
-  services.xserver.desktopManager.plasma5.enable = true;
+  services.xserver.desktopManager.gnome.enable = true;
 
   programs.xwayland.enable = true;
-
-  services.xserver.displayManager.defaultSession = "plasmawayland";
 
   programs.kdeconnect.enable = true;
 }

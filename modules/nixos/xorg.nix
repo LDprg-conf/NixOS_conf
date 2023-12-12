@@ -3,6 +3,7 @@
   networking.networkmanager.enable = true;
 
   services.xserver.excludePackages = with pkgs; [ xterm ];
+  services.xserver.desktopManager.xterm.enable = false;
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
