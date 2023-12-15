@@ -59,6 +59,8 @@
         # printer-driver-ptouch 
       ]);
 
+  services.hardware.bolt.enable = true;
+
   services.udev.packages = [ pkgs.openrgb ];
   boot.kernelModules = [ "i2c-dev" "i2c-piix4" ];
   hardware.i2c.enable = true;

@@ -7,6 +7,7 @@
     config = {
       # Disable if you don't want unfree packages
       allowUnfree = true;
+      permittedInsecurePackages = [ "electron-25.9.0" ];
     };
     overlays = [
       (final: prev: {
@@ -15,7 +16,7 @@
             patchScript = prev.fetchurl {
               url =
                 "https://raw.githubusercontent.com/SpotX-Official/SpotX-Bash/main/spotx.sh";
-              hash = "sha256-RQOPWXFMNFXsB87lIczcOioVa9pOvOTevoZedWDA7s4=";
+              hash = "sha256-JVcsDilC+ftJI2Dh2ZPU4qiF5hhAbbnD2LG/XVpZTfs=";
             };
           in {
             buildInputs = [ prev.perl prev.unzip prev.zip ];

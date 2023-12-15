@@ -1,9 +1,10 @@
 { inputs, outputs, self, user, host, lib, config, pkgs, ... }: {
   imports = [ ./xorg.nix ];
 
-  # environment.systemPackages = with pkgs; [
+  environment.systemPackages = with pkgs; [
+      libsForQt5.plasma-thunderbolt
   #   libsForQt5.sddm-kcm 
-  # ];
+  ];
 
   # services.xserver.displayManager.sddm.enable = true;
 
