@@ -37,9 +37,14 @@
     ptouch-print
     obsidian
     #displaycal
+
+    fira
+    fira-code
+    fira-code-nerdfont
   ];
 
   programs.brave.enable = true;
+  programs.firefox.enable = true;
 
   programs.kitty.enable = true;
   programs.kitty.shellIntegration.enableBashIntegration = true;
