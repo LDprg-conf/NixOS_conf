@@ -5,6 +5,10 @@
   services.ananicy.extraRules = [
     # Games
     {
+      name = "factorio.exe";
+      type = "Game";
+    }
+    {
       name = "Magicraft.exe";
       type = "Game";
     }
