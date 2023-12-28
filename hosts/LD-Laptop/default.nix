@@ -67,6 +67,8 @@
 
   security.polkit.enable = true;
 
+  environment.sessionVariables.NIXOS_OZONE_WL = "1";
+
   services.preload.enable = true;
 
   # programs.darling.enable = true;
