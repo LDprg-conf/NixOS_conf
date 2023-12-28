@@ -60,14 +60,13 @@
       ]);
 
   services.hardware.bolt.enable = true;
+  programs.gnupg.agent.enable = true;
 
   services.udev.packages = [ pkgs.openrgb ];
   boot.kernelModules = [ "i2c-dev" "i2c-piix4" ];
   hardware.i2c.enable = true;
 
   security.polkit.enable = true;
-
-  environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
   services.preload.enable = true;
 

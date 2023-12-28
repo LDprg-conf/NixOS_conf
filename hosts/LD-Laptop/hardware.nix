@@ -15,6 +15,7 @@
     "usb_storage"
     "usbhid"
     "sd_mod"
+    "tcp_bbr"
     "nvidia"
     "nvidia_modeset"
     "nvidia_uvm"
@@ -48,11 +49,17 @@
 
   swapDevices = [{ device = "/dev/disk/by-label/swap"; }];
 
+  services.fstrim.enable = true;
+  services.udisks2.enable = true;
+
   networking.useDHCP = lib.mkDefault true;
 
   hardware.cpu.amd.updateMicrocode = true;
 
   boot.swraid.enable = false;
+
+  # 32GB
+  zramSwap.memoryMax = 34359738368;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 }
