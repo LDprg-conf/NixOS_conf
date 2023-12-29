@@ -22,10 +22,10 @@
   system.autoUpgrade = {
     enable = true;
     allowReboot = false;
-    randomizedDelaySec = "45min";
+    # randomizedDelaySec = "45min";
     # operation = "boot";
     # dates = "daily";
-    dates = "16:42";
+    dates = "16:52";
     flake = inputs.self.outPath;
     flags = [
       "--update-input"
