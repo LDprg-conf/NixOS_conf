@@ -25,11 +25,12 @@
     # randomizedDelaySec = "45min";
     # operation = "boot";
     # dates = "daily";
-    dates = "16:52";
+    dates = "17:00";
     flake = inputs.self.outPath;
     flags = [
-      "--update-input"
-      "nixpkgs"
+      "--update-input" 
+      "nixpkgs" 
+      "--commit-lock-file"
       "-L" # print build logs
     ];
   };
