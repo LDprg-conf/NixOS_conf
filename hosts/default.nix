@@ -150,7 +150,7 @@
     tmux
     screen
     usbutils
-    uutils-coreutils
+    uutils-coreutils-noprefix
   ];
 
   services.fwupd.enable = true;

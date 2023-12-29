@@ -9,7 +9,7 @@
     ../../modules/nixos/libreoffice.nix
     ../../modules/nixos/firewall.nix
     ../../modules/nixos/ananicy.nix
-    ../../modules/nixos/apparmor.nix
+    # ../../modules/nixos/apparmor.nix
     ../../modules/nixos/docker.nix
 
     ./hardware.nix
@@ -18,6 +18,21 @@
   ];
 
   nixpkgs.overlays = [ nix-your-shell.overlays.default ];
+
+  system.autoUpgrade = {
+    enable = true;
+    allowReboot = false;
+    randomizedDelaySec = "45min";
+    # operation = "boot";
+    # dates = "daily";
+    dates = "16:42";
+    flake = inputs.self.outPath;
+    flags = [
+      "--update-input"
+      "nixpkgs"
+      "-L" # print build logs
+    ];
+  };
 
   xdg.portal = {
     enable = true;
@@ -53,11 +68,7 @@
       cifs-utils
       samba
       simple-http-server
-    ] ++ (with self.packages.${pkgs.system};
-      [
-        jdownload2
-        # printer-driver-ptouch 
-      ]);
+    ] ++ (with self.packages.${pkgs.system}; [ jdownload2 ]);
 
   services.hardware.bolt.enable = true;
   programs.gnupg.agent.enable = true;
@@ -69,8 +80,6 @@
   security.polkit.enable = true;
 
   services.preload.enable = true;
-
-  # programs.darling.enable = true;
 
   services.logmein-hamachi.enable = true;
   programs.haguichi.enable = true;
@@ -118,4 +127,6 @@
   hardware.bluetooth.enable = true;
 
   services.joycond.enable = true;
+
+  programs.nix-ld.enable = true;
 }

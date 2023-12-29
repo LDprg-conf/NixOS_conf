@@ -1,38 +1,47 @@
 { inputs, outputs, self, user, host, lib, config, pkgs, ... }: {
   programs.vscode = {
     enable = true;
-    package = pkgs.vscode.fhsWithPackages
-      (ps: with ps; [ rustup platformio zlib openssl.dev pkg-config ]);
+    package = pkgs.vscode.fhsWithPackages (ps:
+      with ps; [
+        openssl.dev
+        pkg-config
+        platformio
+        zlib
+        python3
+        rustup
+        gcc
+        llvm
+      ]);
     extensions = with pkgs.vscode-extensions;
       [
-        ms-python.python
-        ms-python.vscode-pylance
-        ms-vscode.anycode
-        ms-vscode.cpptools
-        ms-vscode.cmake-tools
-        ms-vscode.makefile-tools
-        ms-vscode.live-server
-        ms-vsliveshare.vsliveshare
-        ms-vscode-remote.remote-ssh
-        ms-vscode.hexeditor
-        ms-dotnettools.csharp
-        ms-azuretools.vscode-docker
-        ms-vscode-remote.remote-containers
-        tamasfe.even-better-toml
         bbenoist.nix
-        jnoortheen.nix-ide
         brettm12345.nixfmt-vscode
-        esbenp.prettier-vscode
-        njpwerner.autodocstring
-        serayuzgur.crates
-        yzhang.markdown-all-in-one
-        rust-lang.rust-analyzer
         eamodio.gitlens
+        esbenp.prettier-vscode
+        github.codespaces
         github.vscode-github-actions
         github.vscode-pull-request-github
-        github.codespaces
-        waderyan.gitblame
+        jnoortheen.nix-ide
+        ms-azuretools.vscode-docker
+        ms-dotnettools.csharp
+        ms-python.python
+        ms-python.vscode-pylance
+        ms-vscode-remote.remote-containers
+        ms-vscode-remote.remote-ssh
+        ms-vscode.anycode
+        ms-vscode.cmake-tools
+        ms-vscode.cpptools
+        ms-vscode.hexeditor
+        ms-vscode.live-server
+        ms-vscode.makefile-tools
+        ms-vsliveshare.vsliveshare
+        njpwerner.autodocstring
+        rust-lang.rust-analyzer
+        serayuzgur.crates
+        tamasfe.even-better-toml
         tyriar.sort-lines
+        waderyan.gitblame
+        yzhang.markdown-all-in-one
       ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
         {
           name = "remote-ssh-edit";
