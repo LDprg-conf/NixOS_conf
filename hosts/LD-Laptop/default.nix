@@ -22,14 +22,13 @@
   system.autoUpgrade = {
     enable = true;
     allowReboot = false;
-    # randomizedDelaySec = "45min";
-    # operation = "boot";
-    # dates = "daily";
-    dates = "17:00";
+    randomizedDelaySec = "45min";
+    operation = "boot";
+    dates = "daily";
     flake = inputs.self.outPath;
     flags = [
-      "--update-input" 
-      "nixpkgs" 
+      "--update-input"
+      "nixpkgs"
       "--commit-lock-file"
       "-L" # print build logs
     ];
