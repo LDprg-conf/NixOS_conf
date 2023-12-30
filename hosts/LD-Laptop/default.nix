@@ -129,4 +129,12 @@
   services.joycond.enable = true;
 
   programs.nix-ld.enable = true;
+
+  networking.nameservers = [ "192.168.0.183" ];
+
+  services.resolved = {
+    enable = true;
+    domains = [ "~." ];
+    fallbackDns = [ "1.1.1.1#one.one.one.one" "1.0.0.1#one.one.one.one" ];
+  };
 }

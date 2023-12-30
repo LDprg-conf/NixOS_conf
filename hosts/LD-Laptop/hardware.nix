@@ -22,6 +22,8 @@
     "nvidia_drm"
   ];
 
+  networking.wireless.iwd.enable = true;
+
   environment.systemPackages = [ pkgs.wireguard-tools ];
 
   boot.kernelModules = [ "kvm-amd" ];

@@ -36,7 +36,6 @@
     geogebra
     ptouch-print
     obsidian
-    #displaycal
 
     fira
     fira-code
@@ -45,6 +44,7 @@
 
   programs.brave.enable = true;
   programs.firefox.enable = true;
+  # programs.librewolf.enable = true;
 
   programs.kitty.enable = true;
   programs.kitty.shellIntegration.enableBashIntegration = true;
