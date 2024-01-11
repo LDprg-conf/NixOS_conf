@@ -130,7 +130,7 @@
 
   programs.nix-ld.enable = true;
 
-  networking.nameservers = [ "192.168.0.183" ];
+  networking.nameservers = [ "1.1.1.1#one.one.one.one" "1.0.0.1#one.one.one.one" "192.168.0.183" ];
 
   services.resolved = {
     enable = true;

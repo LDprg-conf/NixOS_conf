@@ -56,6 +56,11 @@
 
   networking.useDHCP = lib.mkDefault true;
 
+  networking.extraHosts =
+  ''
+    127.0.0.1 LD-Laptop.local LD-Laptop
+  '';
+
   hardware.cpu.amd.updateMicrocode = true;
 
   boot.swraid.enable = false;
