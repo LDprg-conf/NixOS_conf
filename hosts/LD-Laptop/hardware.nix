@@ -30,7 +30,7 @@
   boot.extraModulePackages = [ config.boot.kernelPackages.nvidia_x11 ];
   boot.extraModprobeConfig = "options nvidia-drm modeset=1";
   boot.blacklistedKernelModules =
-    [ "i915" "intel_agp" "viafb" "radeon" "nouveau" ];
+    [ "i915" "intel_agp" "viafb" "radeon" "radeonsi" "nouveau" ];
   boot.supportedFilesystems = [ "ntfs" ];
   boot.kernelParams = [ "zswap.enabled=1" ];
 
@@ -56,8 +56,7 @@
 
   networking.useDHCP = lib.mkDefault true;
 
-  networking.extraHosts =
-  ''
+  networking.extraHosts = ''
     127.0.0.1 LD-Laptop.local LD-Laptop
   '';
 

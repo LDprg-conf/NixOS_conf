@@ -68,7 +68,8 @@
       cifs-utils
       samba
       simple-http-server
-    ] ++ (with self.packages.${pkgs.system}; [ jdownload2 ]);
+    ] ++ (with self.packages.${pkgs.system}; [ jdownload2 ])
+    ++ (with self.inputs.nix-alien.packages.${system}; [ nix-alien ]);
 
   services.hardware.bolt.enable = true;
   programs.gnupg.agent.enable = true;
@@ -130,7 +131,8 @@
 
   programs.nix-ld.enable = true;
 
-  networking.nameservers = [ "1.1.1.1#one.one.one.one" "1.0.0.1#one.one.one.one" "192.168.0.183" ];
+  networking.nameservers =
+    [ "1.1.1.1#one.one.one.one" "1.0.0.1#one.one.one.one" "192.168.0.183" ];
 
   services.resolved = {
     enable = true;

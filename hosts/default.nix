@@ -16,7 +16,7 @@
             patchScript = prev.fetchurl {
               url =
                 "https://raw.githubusercontent.com/SpotX-Official/SpotX-Bash/main/spotx.sh";
-              hash = "sha256-Pi02B70PjqTkrtWaMQb1KrzwPTW8UDFmY2yrwCqRFls=";
+              hash = "sha256-A6aFaFZCvnAyPwbW5SqXa/Xgl3IehQUf2uvyBxozbM0=";
             };
           in {
             buildInputs = [ prev.perl prev.unzip prev.zip ];
@@ -151,6 +151,21 @@
     screen
     usbutils
     uutils-coreutils-noprefix
+    exfatprogs
+    xfsprogs
+    f2fs-tools
+    btrfs-progs
+    btrfs-assistant
+    snapper
+    util-linux
+    cryptsetup
+    reiserfsprogs
+    hfsprogs
+    jfsutils
+    reiser4progs
+    udftools
+    nilfs-utils
+    lvm2
   ];
 
   services.fwupd.enable = true;

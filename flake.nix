@@ -29,6 +29,8 @@
     };
 
     nix-gaming.url = "github:fufexan/nix-gaming";
+
+    nix-alien.url = "github:thiagokokada/nix-alien";
   };
 
   outputs = { self, nixpkgs, nixpkgs-unstable, nixpkgs-stable, fenix
