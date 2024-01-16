@@ -1,6 +1,6 @@
 { lib, stdenv, fetchurl, dpkg, wrapGAppsHook, autoPatchelfHook, makeWrapper
-, udev, libdrm, libpqxx, openssl, ffmpeg, xdg-utils, libtorrent-rasterbar
-, alsa-lib, libpulseaudio, qt6, unixODBC, gst_all_1 }:
+, udev, openssl, ffmpeg, xdg-utils, libtorrent-rasterbar
+, qt6, gst_all_1 }:
 
 stdenv.mkDerivation rec {
   pname = "fdm";
@@ -9,7 +9,7 @@ stdenv.mkDerivation rec {
   src = fetchurl {
     url =
       "https://files2.freedownloadmanager.org/6/latest/freedownloadmanager.deb";
-    hash = "sha256-3KmNhkEEOzW5qiK6e4ZPI9wbTdA2EFWUH5Z1K8kdXWw=";
+    hash = "sha256-FkoRvF/2NOdPkCxjNNFZ9gjN9FwDego0l90SNrvTRsU=";
   };
 
   unpackPhase = ''
@@ -23,20 +23,15 @@ stdenv.mkDerivation rec {
   nativeBuildInputs =
     [ dpkg wrapGAppsHook autoPatchelfHook qt6.wrapQtAppsHook ];
 
-  #dontWrapQtApps = true;
+  dontWrapQtApps = true;
 
   buildInputs = [
     makeWrapper
-    libdrm
-    libpqxx
-    alsa-lib
-    libpulseaudio
-    unixODBC
-    stdenv.cc.cc
     openssl
     ffmpeg
     xdg-utils
     libtorrent-rasterbar
+    qt6.qtbase
   ] ++ (with gst_all_1; [
     gstreamer
     gst-libav
@@ -46,27 +41,22 @@ stdenv.mkDerivation rec {
     gst-plugins-ugly
   ]);
 
-  runtimeDependencies = [
-    (lib.getLib udev)
-    openssl
-    ffmpeg
-    xdg-utils
-    libtorrent-rasterbar
-  ];
+  autoPatchelfIgnoreMissingDeps = [ "libmysqlclient.so.21" ]; 
+
+  runtimeDependencies =
+    [ (lib.getLib udev) openssl ffmpeg xdg-utils libtorrent-rasterbar ];
 
   installPhase = ''
     runHook preInstall
-
-    #rm -R opt/freedownloadmanager/lib
 
     mkdir -p $out/bin
     cp -r opt/freedownloadmanager $out
     cp -r usr/share $out
     ln -s $out/freedownloadmanager/fdm $out/bin/${pname}
 
-    substituteInPlace $out/share/applications/freedownloadmanager.desktop \
-      --replace 'Exec=/opt/freedownloadmanager/fdm' 'Exec=${pname}' \
-      --replace "Icon=/opt/freedownloadmanager/icon.png" "Icon=$out/freedownloadmanager/icon.png"
+    # substituteInPlace $out/share/applications/freedownloadmanager.desktop \
+    #   --replace 'Exec=/opt/freedownloadmanager/fdm' 'Exec=${pname}' \
+    #   --replace "Icon=/opt/freedownloadmanager/icon.png" "Icon=$out/freedownloadmanager/icon.png"
 
     runHook postInstall
   '';
