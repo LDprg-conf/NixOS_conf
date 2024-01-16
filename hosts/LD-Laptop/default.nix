@@ -68,8 +68,20 @@
       cifs-utils
       samba
       simple-http-server
-    ] ++ (with self.packages.${pkgs.system}; [ jdownload2 ])
+      appimage-run
+      fuse
+      fuse3
+    ] ++ (with self.packages.${pkgs.system}; [ jdownload2 fdm ])
     ++ (with self.inputs.nix-alien.packages.${system}; [ nix-alien ]);
+
+  boot.binfmt.registrations.appimage = {
+    wrapInterpreterInShell = false;
+    interpreter = "${pkgs.appimage-run}/bin/appimage-run";
+    recognitionType = "magic";
+    offset = 0;
+    mask = "\\xff\\xff\\xff\\xff\\x00\\x00\\x00\\x00\\xff\\xff\\xff";
+    magicOrExtension = "\\x7fELF....AI\\x02";
+  };
 
   services.hardware.bolt.enable = true;
   programs.gnupg.agent.enable = true;

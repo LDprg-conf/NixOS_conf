@@ -3,4 +3,5 @@
 
 { pkgsi686Linux, pkgs ? (import ../nixpkgs.nix) { } }: {
   jdownload2 = pkgs.callPackage ./jdownload2 { };
+  fdm = pkgs.callPackage ./fdm { };
 }
