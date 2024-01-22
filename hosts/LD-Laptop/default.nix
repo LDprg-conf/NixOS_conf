@@ -4,7 +4,6 @@
     ../../modules/nixos/grub.nix
     ../../modules/nixos/pipewire.nix
     ../../modules/nixos/fish.nix
-    ../../modules/nixos/nvidia.nix
     ../../modules/nixos/kernel-latest.nix
     ../../modules/nixos/libreoffice.nix
     ../../modules/nixos/firewall.nix
@@ -73,6 +72,11 @@
       fuse3
     ] ++ (with self.packages.${pkgs.system}; [ jdownload2 fdm ])
     ++ (with self.inputs.nix-alien.packages.${system}; [ nix-alien ]);
+
+  specialisation."VFIO".configuration = {
+    system.nixos.tags = [ "with-vfio" ];
+    vfio.enable = true;
+  };
 
   boot.binfmt.registrations.appimage = {
     wrapInterpreterInShell = false;
