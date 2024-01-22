@@ -11,15 +11,21 @@
 
   boot.initrd.availableKernelModules = [
     "nvme"
-    "xhci_pci"
-    "usb_storage"
-    "usbhid"
     "sd_mod"
     "tcp_bbr"
+    "usb_storage"
+    "usbhid"
+    "xhci_pci"
+
+    "vfio"
+    "vfio_iommu_type1"
+    "vfio_pci"
+    "vfio_virqfd"
+
     "nvidia"
+    "nvidia_drm"
     "nvidia_modeset"
     "nvidia_uvm"
-    "nvidia_drm"
   ];
 
   networking.wireless.iwd.enable = true;
@@ -32,7 +38,8 @@
   boot.blacklistedKernelModules =
     [ "i915" "intel_agp" "viafb" "radeon" "radeonsi" "nouveau" ];
   boot.supportedFilesystems = [ "ntfs" ];
-  boot.kernelParams = [ "zswap.enabled=1" ];
+  boot.kernelParams =
+    [ "zswap.enabled=1" "amd_iommu=on" "vfio-pci.ids=10de:2520,10de:228e" ];
 
   fileSystems."/" = {
     device = "/dev/disk/by-label/nixos";

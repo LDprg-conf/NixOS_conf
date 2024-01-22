@@ -1,6 +1,5 @@
 { lib, stdenv, fetchurl, dpkg, wrapGAppsHook, autoPatchelfHook, makeWrapper
-, udev, openssl, ffmpeg, xdg-utils, libtorrent-rasterbar
-, qt6, gst_all_1 }:
+, udev, openssl, ffmpeg, xdg-utils, libtorrent-rasterbar, qt6, gst_all_1 }:
 
 stdenv.mkDerivation rec {
   pname = "fdm";
@@ -25,23 +24,18 @@ stdenv.mkDerivation rec {
 
   dontWrapQtApps = true;
 
-  buildInputs = [
-    makeWrapper
-    openssl
-    ffmpeg
-    xdg-utils
-    libtorrent-rasterbar
-    qt6.qtbase
-  ] ++ (with gst_all_1; [
-    gstreamer
-    gst-libav
-    gst-plugins-base
-    gst-plugins-good
-    gst-plugins-bad
-    gst-plugins-ugly
-  ]);
+  buildInputs =
+    [ makeWrapper openssl ffmpeg xdg-utils libtorrent-rasterbar qt6.qtbase ]
+    ++ (with gst_all_1; [
+      gstreamer
+      gst-libav
+      gst-plugins-base
+      gst-plugins-good
+      gst-plugins-bad
+      gst-plugins-ugly
+    ]);
 
-  autoPatchelfIgnoreMissingDeps = [ "libmysqlclient.so.21" ]; 
+  autoPatchelfIgnoreMissingDeps = [ "libmysqlclient.so.21" ];
 
   runtimeDependencies =
     [ (lib.getLib udev) openssl ffmpeg xdg-utils libtorrent-rasterbar ];

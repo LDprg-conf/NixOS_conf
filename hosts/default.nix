@@ -16,7 +16,7 @@
             patchScript = prev.fetchurl {
               url =
                 "https://raw.githubusercontent.com/SpotX-Official/SpotX-Bash/main/spotx.sh";
-              hash = "sha256-A6aFaFZCvnAyPwbW5SqXa/Xgl3IehQUf2uvyBxozbM0=";
+              hash = "sha256-ldpnSiqwePBtfm/yOIgJ2DAt0UDd6baX7BMrd1sDuWw=";
             };
           in {
             buildInputs = [ prev.perl prev.unzip prev.zip ];

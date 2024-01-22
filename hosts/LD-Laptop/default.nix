@@ -143,6 +143,10 @@
 
   programs.nix-ld.enable = true;
 
+  virtualisation.libvirtd.enable = true;
+  virtualisation.spiceUSBRedirection.enable = true;
+  programs.virt-manager.enable = true;
+
   networking.nameservers =
     [ "1.1.1.1#one.one.one.one" "1.0.0.1#one.one.one.one" "192.168.0.183" ];
 
