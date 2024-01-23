@@ -8,8 +8,7 @@ let
     exec "$@"
   '';
 in {
-  options.vfio.enable = with lib;
-    mkEnableOption "Configure the machine for VFIO";
+  options.vfio.enable = lib.mkEnableOption "Configure the machine for VFIO";
 
   imports = [
     inputs.hardware.nixosModules.common-cpu-amd-pstate
@@ -28,11 +27,8 @@ in {
         "tcp_bbr"
         "usb_storage"
         "usbhid"
-        "xhci_pci"
-
-        "vfio"
-        "vfio_iommu_type1"
         "vfio_pci"
+        "xhci_pci"
 
         "nvidia"
         "nvidia_drm"
@@ -40,13 +36,21 @@ in {
         "nvidia_uvm"
       ];
 
+      initrd.preDeviceCommands = lib.mkIf cfg.enable ''
+        DEVS="0000:1:00.0 0000:1:00.1"
+        for DEV in $DEVS; do
+          echo "vfio-pci" > /sys/bus/pci/devices/$DEV/driver_override
+        done
+        modprobe -i vfio-pci
+      '';
+
       kernelModules = [ "kvm-amd" ];
       extraModprobeConfig = "options nvidia-drm modeset=1";
       blacklistedKernelModules =
         [ "i915" "intel_agp" "viafb" "radeon" "radeonsi" "nouveau" ];
       supportedFilesystems = [ "ntfs" ];
-      kernelParams = [ "zswap.enabled=1" "amd_iommu=on" ]
-        ++ lib.optional cfg.enable ("vfio-pci.ids=10de:2520");
+      kernelParams = [ "zswap.enabled=1" "iommu=1" "iommu=pt" "pcie_aspm=off" ]
+        ++ lib.optional cfg.enable ("vfio-pci.ids=10de:2520,10de:228e");
     };
 
     # Enable OpenGL
@@ -59,9 +63,9 @@ in {
     hardware.opengl.extraPackages = with pkgs; [ vaapiVdpau ];
 
     # Load nvidia driver for Xorg and Wayland
-    services.xserver.videoDrivers = lib.mkIf cfg.enable [ "nvidia" ];
+    services.xserver.videoDrivers = [ "nvidia" ];
 
-    hardware.nvidia = lib.mkIf cfg.enable {
+    hardware.nvidia = {
       modesetting.enable = true;
 
       powerManagement = {
@@ -78,7 +82,17 @@ in {
 
     networking.wireless.iwd.enable = true;
 
-    environment.systemPackages = [ pkgs.wireguard-tools nvidia-offload ];
+    environment.systemPackages = [
+      pkgs.wireguard-tools
+      pkgs.looking-glass-client
+      pkgs.scream
+      nvidia-offload
+    ];
+
+    systemd.tmpfiles.rules = [
+      "f /dev/shm/scream 0660 ld qemu-libvirtd -"
+      "f /dev/shm/looking-glass 0660 ld qemu-libvirtd -"
+    ];
 
     fileSystems."/" = {
       device = "/dev/disk/by-label/nixos";
@@ -110,6 +124,17 @@ in {
 
     # 32GB
     zramSwap.memoryMax = 34359738368;
+
+    systemd.user.services.scream-ivshmem = {
+      enable = true;
+      description = "Scream IVSHMEM";
+      serviceConfig = {
+        ExecStart = "${pkgs.scream}/bin/scream-ivshmem-pulse /dev/shm/scream";
+        Restart = "always";
+      };
+      wantedBy = [ "multi-user.target" ];
+      requires = [ "pipewire-pulse.service" ];
+    };
 
     nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   };

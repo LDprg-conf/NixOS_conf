@@ -48,9 +48,9 @@ stdenv.mkDerivation rec {
     cp -r usr/share $out
     ln -s $out/freedownloadmanager/fdm $out/bin/${pname}
 
-    # substituteInPlace $out/share/applications/freedownloadmanager.desktop \
-    #   --replace 'Exec=/opt/freedownloadmanager/fdm' 'Exec=${pname}' \
-    #   --replace "Icon=/opt/freedownloadmanager/icon.png" "Icon=$out/freedownloadmanager/icon.png"
+    substituteInPlace $out/share/applications/freedownloadmanager.desktop \
+      --replace 'Exec=/opt/freedownloadmanager/fdm' 'Exec=${pname}' \
+      --replace "Icon=/opt/freedownloadmanager/icon.png" "Icon=$out/freedownloadmanager/icon.png"
 
     runHook postInstall
   '';

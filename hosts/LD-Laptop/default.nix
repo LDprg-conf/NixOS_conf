@@ -147,7 +147,13 @@
 
   programs.nix-ld.enable = true;
 
-  virtualisation.libvirtd.enable = true;
+  virtualisation.libvirtd = {
+    enable = true;
+    qemu.ovmf.enable = true;
+    qemu.runAsRoot = false;
+    onBoot = "ignore";
+    onShutdown = "shutdown";
+  };
   virtualisation.spiceUSBRedirection.enable = true;
   programs.virt-manager.enable = true;
 
