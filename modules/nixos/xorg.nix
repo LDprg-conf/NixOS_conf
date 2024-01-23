@@ -27,4 +27,11 @@
   services.avahi.enable = true;
   services.avahi.nssmdns = true;
   services.avahi.openFirewall = true;
+
+  # Enable SANE for scanners
+  hardware.sane.enable = true;
+  hardware.sane.extraBackends =
+    [ pkgs.sane-airscan pkgs.hplipWithPlugin pkgs.epkowa pkgs.utsushi ];
+  services.udev.packages = [ pkgs.utsushi ];
+  services.ipp-usb.enable = true;
 }

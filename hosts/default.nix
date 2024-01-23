@@ -113,7 +113,15 @@
 
   users.users.${user} = {
     isNormalUser = true;
-    extraGroups = [ "networkmanager" "wheel" "wireshark" "docker" "dialout" ];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "wireshark"
+      "docker"
+      "dialout"
+      "scanner"
+      "lp"
+    ];
   };
   # users.users.test = {
   #   isNormalUser = true;
