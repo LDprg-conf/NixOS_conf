@@ -49,8 +49,9 @@ in {
       blacklistedKernelModules =
         [ "i915" "intel_agp" "viafb" "radeon" "radeonsi" "nouveau" ];
       supportedFilesystems = [ "ntfs" ];
-      kernelParams = [ "zswap.enabled=1" "iommu=1" "iommu=pt" "pcie_aspm=off" ]
-        ++ lib.optional cfg.enable ("vfio-pci.ids=10de:2520,10de:228e");
+      kernelParams = [ "zswap.enabled=1" "iommu=1" "iommu=pt" ]
+        ++ lib.optional cfg.enable "pcie_aspm=off" 
+        ++ lib.optional cfg.enable "vfio-pci.ids=10de:2520,10de:228e";
     };
 
     # Enable OpenGL
@@ -63,7 +64,7 @@ in {
     hardware.opengl.extraPackages = with pkgs; [ vaapiVdpau ];
 
     # Load nvidia driver for Xorg and Wayland
-    services.xserver.videoDrivers = [ "nvidia" ];
+    services.xserver.videoDrivers = [ "nvidia" "amdgpu" ];
 
     hardware.nvidia = {
       modesetting.enable = true;
