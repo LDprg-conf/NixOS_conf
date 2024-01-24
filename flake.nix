@@ -23,6 +23,11 @@
 
     hardware.url = "github:nixos/nixos-hardware";
 
+    fenix = {
+      url = "github:nix-community/fenix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nix-your-shell = {
       url = "github:MercuryTechnologies/nix-your-shell";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -69,7 +74,7 @@
           host = "LD-Laptop";
         in nixpkgs.lib.nixosSystem {
           specialArgs = {
-            inherit inputs outputs user host self nix-your-shell;
+            inherit inputs outputs user host self fenix nix-your-shell;
           };
           modules = [
             ./hosts
@@ -79,7 +84,7 @@
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.extraSpecialArgs = {
-                inherit inputs outputs user host nix-your-shell;
+                inherit inputs outputs user host fenix nix-your-shell;
               };
               home-manager.users.${user} = {
                 imports = [ ./hosts/home.nix ./hosts/${host}/home.nix ];

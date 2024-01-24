@@ -32,29 +32,19 @@
           let
             patchScript = prev.fetchurl {
               url =
-                "https://archive.org/download/git-cracken_202310/GitCracken.zip";
-              hash = "sha256-v3CHPwyJf7iiwAweWNfW5wDuXWT3ijWqhfiDGNf0krs=";
+                "https://gitee.com/frosty_4061/gpatcher/releases/download/v0.0.5/gpatcher0.0.5.zip";
+              hash = "sha256-wPCLUTnjhwAgxjUQIzvpefxCA3JPX/h4QE70obdkPo0=";
             };
           in {
-            buildInputs = [
-              prev.unzip
-              prev.nodejs
-              prev.yarn
-              prev.nodePackages.rimraf
-              prev.nodePackages.typescript
-            ];
+            buildInputs = [ prev.unzip ];
 
             postFixup = (attrs.postFixup or "") + ''
               unzip ${patchScript} -d gitcracken-patch
-              cd gitcracken-patch/GitCracken
-
-              chmod 775 -R *
-
-              yarn build
+              cd gitcracken-patch
 
               chmod +w $out/share/gitkraken/resources
 
-              yarn run gitcracken patcher --asar $out/share/gitkraken/resources/app.asar >> /dev/null             
+              ./gpatcher_linux_amd64 $out/share/gitkraken/resources/app.asar             
             '';
           });
       })

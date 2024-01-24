@@ -36,11 +36,11 @@ in {
         "nvidia_uvm"
       ];
 
+      # DEVS="0000:1:00.0 0000:1:00.1"
+      # for DEV in $DEVS; do
+      #   echo "vfio-pci" > /sys/bus/pci/devices/$DEV/driver_override
+      # done
       initrd.preDeviceCommands = lib.mkIf cfg.enable ''
-        DEVS="0000:1:00.0 0000:1:00.1"
-        for DEV in $DEVS; do
-          echo "vfio-pci" > /sys/bus/pci/devices/$DEV/driver_override
-        done
         modprobe -i vfio-pci
       '';
 
@@ -50,7 +50,6 @@ in {
         [ "i915" "intel_agp" "viafb" "radeon" "radeonsi" "nouveau" ];
       supportedFilesystems = [ "ntfs" ];
       kernelParams = [ "zswap.enabled=1" "iommu=1" "iommu=pt" ]
-        ++ lib.optional cfg.enable "pcie_aspm=off" 
         ++ lib.optional cfg.enable "vfio-pci.ids=10de:2520,10de:228e";
     };
 
@@ -64,7 +63,7 @@ in {
     hardware.opengl.extraPackages = with pkgs; [ vaapiVdpau ];
 
     # Load nvidia driver for Xorg and Wayland
-    services.xserver.videoDrivers = [ "nvidia" "amdgpu" ];
+    services.xserver.videoDrivers = [ "nvidia" ];
 
     hardware.nvidia = {
       modesetting.enable = true;

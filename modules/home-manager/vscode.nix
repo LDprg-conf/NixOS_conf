@@ -1,4 +1,4 @@
-{ inputs, outputs, self, user, host, lib, config, pkgs, ... }: {
+{ inputs, outputs, self, user, host, lib, config, pkgs, fenix, ... }: {
   programs.vscode = {
     enable = true;
     package = pkgs.vscode.fhsWithPackages (ps:
@@ -8,9 +8,16 @@
         platformio
         zlib
         python3
-        rustup
         gcc
         llvm
+        (fenix.packages.x86_64-linux.complete.withComponents [
+          "cargo"
+          "clippy"
+          "rust-src"
+          "rustc"
+          "rustfmt"
+        ])
+        rust-analyzer-nightly
       ]);
     extensions = with pkgs.vscode-extensions;
       [
