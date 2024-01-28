@@ -3,7 +3,7 @@
 
   environment.systemPackages = with pkgs; [ pavucontrol ];
 
-  #security.rtkit.enable = true;
+  security.rtkit.enable = true;
 
   hardware.pulseaudio.enable = false;
 

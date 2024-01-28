@@ -54,6 +54,10 @@
       name = "nix";
       type = "compiler";
     }
+    {
+      name = "rustc";
+      type = "compiler";
+    }
 
     # Chat
     {

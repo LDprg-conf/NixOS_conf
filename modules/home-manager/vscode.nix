@@ -1,4 +1,4 @@
-{ inputs, outputs, self, user, host, lib, config, pkgs, fenix, ... }: {
+{ inputs, outputs, self, user, host, lib, config, pkgs, fenix, rust-overlay, ... }: {
   programs.vscode = {
     enable = true;
     package = pkgs.vscode.fhsWithPackages (ps:
@@ -10,13 +10,16 @@
         python3
         gcc
         llvm
-        (fenix.packages.x86_64-linux.complete.withComponents [
-          "cargo"
-          "clippy"
-          "rust-src"
-          "rustc"
-          "rustfmt"
-        ])
+        lld
+        clang
+        mold
+        pkg-config 
+        alsa-lib
+        udev
+        (rust-bin.selectLatestNightlyWith (toolchain: toolchain.default.override {
+          extensions = [ "rust-src" ];
+          targets = [ "x86_64-unknown-linux-gnu" ];
+        }))
         rust-analyzer-nightly
       ]);
     extensions = with pkgs.vscode-extensions;

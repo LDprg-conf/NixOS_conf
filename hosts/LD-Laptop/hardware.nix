@@ -36,10 +36,6 @@ in {
         "nvidia_uvm"
       ];
 
-      # DEVS="0000:1:00.0 0000:1:00.1"
-      # for DEV in $DEVS; do
-      #   echo "vfio-pci" > /sys/bus/pci/devices/$DEV/driver_override
-      # done
       initrd.preDeviceCommands = lib.mkIf cfg.enable ''
         modprobe -i vfio-pci
       '';
