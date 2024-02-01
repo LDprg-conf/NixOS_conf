@@ -30,9 +30,7 @@
 
     rust-overlay = {
       url = "github:oxalica/rust-overlay";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-      };
+      inputs = { nixpkgs.follows = "nixpkgs"; };
     };
 
     nix-your-shell = {
@@ -45,8 +43,8 @@
     nix-alien.url = "github:thiagokokada/nix-alien";
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, nixpkgs-stable, fenix, rust-overlay
-    , home-manager, nix-your-shell, ... }@inputs:
+  outputs = { self, nixpkgs, nixpkgs-unstable, nixpkgs-stable, fenix
+    , rust-overlay, home-manager, nix-your-shell, ... }@inputs:
     let
       inherit (self) outputs;
       forAllSystems = nixpkgs.lib.genAttrs [
@@ -81,7 +79,8 @@
           host = "LD-Laptop";
         in nixpkgs.lib.nixosSystem {
           specialArgs = {
-            inherit inputs outputs user host self fenix rust-overlay nix-your-shell;
+            inherit inputs outputs user host self fenix rust-overlay
+              nix-your-shell;
           };
           modules = [
             ./hosts
@@ -91,7 +90,8 @@
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.extraSpecialArgs = {
-                inherit inputs outputs user host fenix rust-overlay nix-your-shell;
+                inherit inputs outputs user host fenix rust-overlay
+                  nix-your-shell;
               };
               home-manager.users.${user} = {
                 imports = [ ./hosts/home.nix ./hosts/${host}/home.nix ];

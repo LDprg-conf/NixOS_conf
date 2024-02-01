@@ -1,5 +1,5 @@
-{ inputs, outputs, self, user, host, lib, config, pkgs, fenix, rust-overlay, nix-your-shell
-, ... }: {
+{ inputs, outputs, self, user, host, lib, config, pkgs, fenix, rust-overlay
+, nix-your-shell, ... }: {
   imports = [
     ../../modules/nixos/default-apps.nix
     ../../modules/nixos/grub.nix
@@ -17,7 +17,11 @@
     ../../modules/nixos/plasma.nix
   ];
 
-  nixpkgs.overlays = [ nix-your-shell.overlays.default fenix.overlays.default rust-overlay.overlays.default ];
+  nixpkgs.overlays = [
+    nix-your-shell.overlays.default
+    fenix.overlays.default
+    rust-overlay.overlays.default
+  ];
 
   system.autoUpgrade = {
     enable = true;

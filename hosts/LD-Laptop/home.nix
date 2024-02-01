@@ -37,10 +37,10 @@
     geogebra
     ptouch-print
     obsidian
-
     fira
     fira-code
     fira-code-nerdfont
+    parsec-bin
   ];
 
   programs.brave.enable = true;

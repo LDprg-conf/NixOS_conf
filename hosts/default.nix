@@ -148,7 +148,7 @@
     tmux
     screen
     usbutils
-    uutils-coreutils-noprefix
+    uutils-coreutils
     exfatprogs
     xfsprogs
     f2fs-tools
@@ -164,6 +164,7 @@
     udftools
     nilfs-utils
     lvm2
+    cdrkit
   ];
 
   services.fwupd.enable = true;
