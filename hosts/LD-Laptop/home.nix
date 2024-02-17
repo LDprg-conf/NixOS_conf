@@ -41,11 +41,13 @@
     fira-code
     fira-code-nerdfont
     parsec-bin
+    moonlight-qt
+    gnome.zenity
+    linux-wifi-hotspot
   ];
 
   programs.brave.enable = true;
   programs.firefox.enable = true;
-  # programs.librewolf.enable = true;
 
   programs.kitty.enable = true;
   programs.kitty.shellIntegration.enableBashIntegration = true;

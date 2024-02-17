@@ -16,7 +16,7 @@
             patchScript = prev.fetchurl {
               url =
                 "https://raw.githubusercontent.com/SpotX-Official/SpotX-Bash/main/spotx.sh";
-              hash = "sha256-ldpnSiqwePBtfm/yOIgJ2DAt0UDd6baX7BMrd1sDuWw=";
+              hash = "sha256-4May7NLGrzljrZgzXhRtgnBXPwQ2GHRBJBaxPV/qvMk=";
             };
           in {
             buildInputs = [ prev.perl prev.unzip prev.zip ];
@@ -32,7 +32,7 @@
           let
             patchScript = prev.fetchurl {
               url =
-                "https://gitee.com/frosty_4061/gpatcher/releases/download/v0.0.5/gpatcher0.0.5.zip";
+                "https://archive.org/download/gpatcher0.0.5/gpatcher0.0.5.zip";
               hash = "sha256-wPCLUTnjhwAgxjUQIzvpefxCA3JPX/h4QE70obdkPo0=";
             };
           in {

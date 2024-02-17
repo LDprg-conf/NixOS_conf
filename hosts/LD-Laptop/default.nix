@@ -11,6 +11,7 @@
     ../../modules/nixos/ananicy.nix
     # ../../modules/nixos/apparmor.nix
     ../../modules/nixos/docker.nix
+    ../../modules/nixos/hotspot.nix
 
     ./hardware.nix
 
