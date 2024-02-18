@@ -44,7 +44,7 @@ in {
       extraModprobeConfig = "options nvidia-drm modeset=1";
       blacklistedKernelModules =
         [ "i915" "intel_agp" "viafb" "radeon" "radeonsi" "nouveau" ];
-      supportedFilesystems = [ "ntfs" ];
+      supportedFilesystems = [ "ntfs" "btrfs" ];
       kernelParams = [ "zswap.enabled=1" "iommu=1" "iommu=pt" ]
         ++ lib.optional cfg.enable "vfio-pci.ids=10de:2520,10de:228e";
     };
@@ -92,17 +92,33 @@ in {
 
     fileSystems."/" = {
       device = "/dev/disk/by-label/nixos";
+      # fsType = "btrfs";
       fsType = "ext4";
+      options = [ "compress=zstd" "noatime" ];
     };
 
     fileSystems."/home" = {
       device = "/dev/disk/by-label/data";
-      fsType = "ext4";
+      fsType = "btrfs";
+      options = [ "compress=zstd" "noatime" ];
     };
 
     fileSystems."/boot/efi" = {
       device = "/dev/disk/by-label/BOOT";
       fsType = "vfat";
+      options = [ "noatime" ];
+    };
+
+    services.btrfs.autoScrub.enable = true;
+    services.btrfs.autoScrub.interval = "weekly";
+
+    services.snapper.configs = {
+      home = {
+        SUBVOLUME = "/home/ld";
+        ALLOW_USERS = [ "ld" ];
+        TIMELINE_CREATE = true;
+        TIMELINE_CLEANUP = true;
+      };
     };
 
     swapDevices = [{ device = "/dev/disk/by-label/swap"; }];
