@@ -39,7 +39,6 @@
         ms-vscode-remote.remote-ssh
         ms-vscode.anycode
         ms-vscode.cmake-tools
-        ms-vscode.cpptools
         ms-vscode.hexeditor
         ms-vscode.live-server
         ms-vscode.makefile-tools
@@ -63,6 +62,12 @@
           publisher = "platformio";
           version = "3.3.2";
           sha256 = "sha256-qYlhCioa3LiI67iubC1XQatY5JaeGLT26Q1Q1TWBczo=";
+        }
+        {
+          name = "cpptools";
+          publisher = "ms-vscode";
+          version = "1.19.3";
+          sha256 = "sha256-vvAd6JWEOWnzGMbaZRxnYerJeZRSu+Ahj2vnqMpx8Nc=";
         }
       ];
   };
