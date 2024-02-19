@@ -153,7 +153,7 @@
     xfsprogs
     f2fs-tools
     btrfs-progs
-    btrfs-assistant
+    compsize
     snapper
     util-linux
     cryptsetup

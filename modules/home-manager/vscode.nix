@@ -62,7 +62,7 @@
           name = "platformio-ide";
           publisher = "platformio";
           version = "3.3.2";
-          sha256 = "sha256-r+ekcYFAbM8tWTUpIH1/ns2i6QC/RK6MWsjA8Xll+80=";
+          sha256 = "sha256-qYlhCioa3LiI67iubC1XQatY5JaeGLT26Q1Q1TWBczo=";
         }
       ];
   };

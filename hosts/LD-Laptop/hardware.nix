@@ -92,15 +92,14 @@ in {
 
     fileSystems."/" = {
       device = "/dev/disk/by-label/nixos";
-      # fsType = "btrfs";
-      fsType = "ext4";
-      options = [ "compress=zstd" "noatime" ];
+      fsType = "btrfs";
+      options = [ "compress=zstd" "noatime" "ssd" ];
     };
 
     fileSystems."/home" = {
       device = "/dev/disk/by-label/data";
       fsType = "btrfs";
-      options = [ "compress=zstd" "noatime" ];
+      options = [ "compress=zstd" "noatime" "ssd" ];
     };
 
     fileSystems."/boot/efi" = {
@@ -112,14 +111,14 @@ in {
     services.btrfs.autoScrub.enable = true;
     services.btrfs.autoScrub.interval = "weekly";
 
-    services.snapper.configs = {
-      home = {
-        SUBVOLUME = "/home/ld";
-        ALLOW_USERS = [ "ld" ];
-        TIMELINE_CREATE = true;
-        TIMELINE_CLEANUP = true;
-      };
-    };
+    # services.snapper.configs = {
+    #   home = {
+    #     SUBVOLUME = "/home/ld";
+    #     ALLOW_USERS = [ "ld" ];
+    #     TIMELINE_CREATE = true;
+    #     TIMELINE_CLEANUP = true;
+    #   };
+    # };
 
     swapDevices = [{ device = "/dev/disk/by-label/swap"; }];
 

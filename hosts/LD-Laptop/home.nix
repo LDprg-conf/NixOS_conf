@@ -34,7 +34,7 @@
     tor-browser
     ferdium
     minecraft
-    geogebra
+    # geogebra6
     ptouch-print
     obsidian
     fira
@@ -44,6 +44,7 @@
     moonlight-qt
     gnome.zenity
     linux-wifi-hotspot
+    btrfs-assistant
   ];
 
   programs.brave.enable = true;
