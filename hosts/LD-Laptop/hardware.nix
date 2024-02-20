@@ -40,15 +40,13 @@ in {
         kernelModules = [ "zstd" "z3fold" ];
 
         preDeviceCommands = lib.mkMerge [
-          ''
+          (''
             printf zstd > /sys/module/zswap/parameters/compressor
             printf z3fold > /sys/module/zswap/parameters/zpool
-          ''
-          lib.mkIf
-          cfg.enable
-          ''
+          '')
+          (lib.mkIf cfg.enable ''
             modprobe -i vfio-pci
-          ''
+          '')
         ];
       };
 
