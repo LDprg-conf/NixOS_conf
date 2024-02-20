@@ -21,24 +21,36 @@ in {
   config = let cfg = config.vfio;
   in {
     boot = {
-      initrd.availableKernelModules = [
-        "nvme"
-        "sd_mod"
-        "tcp_bbr"
-        "usb_storage"
-        "usbhid"
-        "vfio_pci"
-        "xhci_pci"
+      initrd = {
+        availableKernelModules = [
+          "nvme"
+          "sd_mod"
+          "tcp_bbr"
+          "usb_storage"
+          "usbhid"
+          "vfio_pci"
+          "xhci_pci"
 
-        "nvidia"
-        "nvidia_drm"
-        "nvidia_modeset"
-        "nvidia_uvm"
-      ];
+          "nvidia"
+          "nvidia_drm"
+          "nvidia_modeset"
+          "nvidia_uvm"
+        ];
 
-      initrd.preDeviceCommands = lib.mkIf cfg.enable ''
-        modprobe -i vfio-pci
-      '';
+        kernelModules = [ "zstd" "z3fold" ];
+
+        preDeviceCommands = lib.mkMerge [
+          ''
+            printf zstd > /sys/module/zswap/parameters/compressor
+            printf z3fold > /sys/module/zswap/parameters/zpool
+          ''
+          lib.mkIf
+          cfg.enable
+          ''
+            modprobe -i vfio-pci
+          ''
+        ];
+      };
 
       kernelModules = [ "kvm-amd" ];
       extraModprobeConfig = "options nvidia-drm modeset=1";
@@ -132,9 +144,6 @@ in {
     '';
 
     hardware.cpu.amd.updateMicrocode = true;
-
-    # 32GB
-    zramSwap.memoryMax = 34359738368;
 
     systemd.user.services.scream-ivshmem = {
       enable = true;
