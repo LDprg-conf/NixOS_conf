@@ -76,6 +76,7 @@
       appimage-run
       fuse
       fuse3
+      niv
     ] ++ (with self.packages.${pkgs.system}; [ jdownload2 fdm ])
     ++ (with self.inputs.nix-alien.packages.${system}; [ nix-alien ]);
 

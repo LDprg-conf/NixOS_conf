@@ -14,11 +14,11 @@
         lld
         clang
         mold
-        (rust-bin.selectLatestNightlyWith (toolchain:
-          toolchain.default.override {
-            extensions = [ "rust-src" ];
-            targets = [ "x86_64-unknown-linux-gnu" ];
-          }))
+        # (rust-bin.selectLatestNightlyWith (toolchain:
+        #   toolchain.default.override {
+        #     extensions = [ "rust-src" ];
+        #     targets = [ "x86_64-unknown-linux-gnu" ];
+        #   }))
         rust-analyzer-nightly
       ]);
     extensions = with pkgs.vscode-extensions;
