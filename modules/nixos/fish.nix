@@ -13,7 +13,6 @@
       fishPlugins.autopair
       fishPlugins.z
       fishPlugins.colored-man-pages
-      fishPlugins.async-prompt
     ] ++ (with self.packages.${pkgs.system}; [ fish-abbreviation-tips gitnow ]);
 
   programs.fish = {
