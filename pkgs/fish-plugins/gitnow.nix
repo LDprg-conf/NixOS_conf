@@ -1,6 +1,6 @@
-{ lib, buildFishPlugin, fetchFromGitHub }:
+{ lib, fishPlugins, fetchFromGitHub }:
 
-buildFishPlugin rec {
+fishPlugins.buildFishPlugin rec {
   pname = "gitnow";
   version = "2.12.0";
 
@@ -8,12 +8,8 @@ buildFishPlugin rec {
     owner = "joseluisq";
     repo = "gitnow";
     rev = version;
-    sha256 = "";
+    sha256 = "sha256-PuorwmaZAeG6aNWX4sUTBIE+NMdn1iWeea3rJ2RhqRQ=";
   };
-
-  postInstall = ''
-    cp -r bin $out/share/fish/vendor_conf.d/
-  '';
 
   meta = with lib; {
     description =
