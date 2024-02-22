@@ -427,7 +427,8 @@
         "nixpkgs": "nixpkgs_4",
         "nixpkgs-stable": "nixpkgs-stable",
         "nixpkgs-unstable": "nixpkgs-unstable",
-        "rust-overlay": "rust-overlay"
+        "rust-overlay": "rust-overlay",
+        "spotx": "spotx"
       }
     },
     "rust-analyzer-src": {
@@ -482,6 +483,22 @@
       "original": {
         "owner": "oxalica",
         "repo": "rust-overlay",
+        "type": "github"
+      }
+    },
+    "spotx": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1708620764,
+        "narHash": "sha256-Y3OaFMxK+59vQJrmXroeb4UTh8cWFYyIv/QGfhAti54=",
+        "owner": "SpotX-Official",
+        "repo": "SpotX-Bash",
+        "rev": "a5af58c7c054853629d34b3fd635235ae1709c89",
+        "type": "github"
+      },
+      "original": {
+        "owner": "SpotX-Official",
+        "repo": "SpotX-Bash",
         "type": "github"
       }
     },

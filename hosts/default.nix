@@ -1,7 +1,7 @@
 # This is your system's configuration file.
 # Use this to configure your system environment (it replaces /etc/nixos/configuration.nix)
 
-{ inputs, outputs, self, user, host, lib, config, pkgs, nix-your-shell, ... }: {
+{ inputs, outputs, self, user, host, lib, config, pkgs, nix-your-shell, spotx, ... }: {
   nixpkgs = {
     # Configure your nixpkgs instance
     config = {
@@ -12,16 +12,10 @@
     overlays = [
       (final: prev: {
         spotify = prev.spotify.overrideAttrs (attrs:
-          let
-            patchScript = prev.fetchurl {
-              url =
-                "https://raw.githubusercontent.com/SpotX-Official/SpotX-Bash/main/spotx.sh";
-              hash = "sha256-lpU7XTn0yIMjqY/rWJr7dGHG/M1TDQuKAI7NjDiEH8o=";
-            };
-          in {
+          {
             buildInputs = [ prev.perl prev.unzip prev.zip ];
             postInstall = (attrs.postInstall or "") + ''
-                  cp ${patchScript} spotx.sh
+                  cp ${spotx}/spotx.sh spotx.sh
                   chmod +x spotx.sh
               	  bash spotx.sh -P $out/share/spotify/ -ch
               	'';

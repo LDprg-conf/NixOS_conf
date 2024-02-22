@@ -41,10 +41,15 @@
     nix-gaming.url = "github:fufexan/nix-gaming";
 
     nix-alien.url = "github:thiagokokada/nix-alien";
+
+    spotx = {
+      url = "github:SpotX-Official/SpotX-Bash";
+      flake = false;
+    };
   };
 
   outputs = { self, nixpkgs, nixpkgs-unstable, nixpkgs-stable, fenix
-    , rust-overlay, home-manager, nix-your-shell, ... }@inputs:
+    , rust-overlay, home-manager, nix-your-shell, spotx, ... }@inputs:
     let
       inherit (self) outputs;
       forAllSystems = nixpkgs.lib.genAttrs [
@@ -80,7 +85,7 @@
         in nixpkgs.lib.nixosSystem {
           specialArgs = {
             inherit inputs outputs user host self fenix rust-overlay
-              nix-your-shell;
+              nix-your-shell spotx;
           };
           modules = [
             ./hosts
