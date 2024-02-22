@@ -1,16 +1,20 @@
 { inputs, outputs, self, user, host, lib, config, pkgs, nix-your-shell, ... }: {
-  environment.systemPackages = with pkgs; [
-    #fishPlugins.bass
-    #fishPlugins.done
-    fishPlugins.fzf-fish
-    fzf
-    fishPlugins.grc
-    grc
-    fishPlugins.forgit
-    fishPlugins.tide
-    fishPlugins.sponge
-    fishPlugins.autopair
-  ];
+  environment.systemPackages = with pkgs;
+    [
+      #fishPlugins.bass
+      #fishPlugins.done
+      fishPlugins.fzf-fish
+      fzf
+      fishPlugins.grc
+      grc
+      fishPlugins.forgit
+      fishPlugins.tide
+      fishPlugins.sponge
+      fishPlugins.autopair
+      fishPlugins.z
+      fishPlugins.colored-man-pages
+      fishPlugins.async-prompt
+    ] ++ (with self.packages.${pkgs.system}; [ fish-abbreviation-tips gitnow ]);
 
   programs.fish = {
     enable = true;
