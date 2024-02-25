@@ -5,6 +5,10 @@
   services.ananicy.extraRules = [
     # Games
     {
+      name = "Ryujinx";
+      type = "Game";
+    }
+    {
       name = "Hearthstone.exe";
       type = "Game";
     }

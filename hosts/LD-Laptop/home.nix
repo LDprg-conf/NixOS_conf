@@ -45,6 +45,7 @@
     gnome.zenity
     linux-wifi-hotspot
     btrfs-assistant
+    ryujinx
   ];
 
   programs.brave.enable = true;

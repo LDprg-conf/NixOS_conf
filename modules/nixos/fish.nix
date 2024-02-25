@@ -11,6 +11,7 @@
       fishPlugins.tide
       fishPlugins.sponge
       fishPlugins.autopair
+      fishPlugins.puffer
       fishPlugins.z
       fishPlugins.colored-man-pages
     ] ++ (with self.packages.${pkgs.system}; [ fish-abbreviation-tips gitnow ]);

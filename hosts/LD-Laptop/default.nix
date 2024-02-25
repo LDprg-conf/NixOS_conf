@@ -67,6 +67,7 @@
       mangohud
       git
       pre-commit
+      clang-tools_17
       esptool
       antimicrox
       nix-your-shell
