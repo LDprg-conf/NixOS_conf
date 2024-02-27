@@ -1,5 +1,16 @@
-{ inputs, outputs, self, user, host, lib, config, pkgs, fenix, rust-overlay
-, nix-your-shell, ... }: {
+{ inputs
+, outputs
+, self
+, user
+, host
+, lib
+, config
+, pkgs
+, fenix
+, rust-overlay
+, nix-your-shell
+, ...
+}: {
   imports = [
     ../../modules/nixos/default-apps.nix
     ../../modules/nixos/grub.nix

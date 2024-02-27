@@ -7,7 +7,7 @@
     #wineWowPackages.stable
     wineWowPackages.staging
     #wineWowPackages.wayland
-    #wine 
+    #wine
     #wine64
 
     gst_all_1.gstreamer

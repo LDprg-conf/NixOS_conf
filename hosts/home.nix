@@ -16,11 +16,16 @@
   home = {
     username = "${user}";
     homeDirectory = "/home/${user}";
+    packages = with pkgs; [ nixfmt ];
   };
 
   # Enable home-manager and git
   programs.home-manager.enable = true;
   programs.git.enable = true;
+
+  programs.zoxide.enable = true;
+  programs.zoxide.enableBashIntegration = true;
+  programs.zoxide.enableFishIntegration = true;
 
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";

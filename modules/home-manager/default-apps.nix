@@ -1,6 +1,16 @@
-{ inputs, outputs, self, user, host, lib, config, pkgs, fenix, rust-overlay, ...
+{ inputs
+, outputs
+, self
+, user
+, host
+, lib
+, config
+, pkgs
+, fenix
+, rust-overlay
+, ...
 }: {
-  home.packages = with pkgs; [ discord gparted nixfmt glxinfo vlc ];
+  home.packages = with pkgs; [ discord gparted glxinfo vlc ];
   imports = [ ./vscode.nix ];
 
   programs.fish = {

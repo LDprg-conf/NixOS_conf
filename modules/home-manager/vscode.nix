@@ -1,4 +1,14 @@
-{ inputs, outputs, self, user, host, lib, config, pkgs, fenix, rust-overlay, ...
+{ inputs
+, outputs
+, self
+, user
+, host
+, lib
+, config
+, pkgs
+, fenix
+, rust-overlay
+, ...
 }: {
   programs.vscode = {
     enable = true;

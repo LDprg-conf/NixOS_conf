@@ -48,8 +48,18 @@
     };
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, nixpkgs-stable, fenix
-    , rust-overlay, home-manager, nix-your-shell, spotx, ... }@inputs:
+  outputs =
+    { self
+    , nixpkgs
+    , nixpkgs-unstable
+    , nixpkgs-stable
+    , fenix
+    , rust-overlay
+    , home-manager
+    , nix-your-shell
+    , spotx
+    , ...
+    }@inputs:
     let
       inherit (self) outputs;
       forAllSystems = nixpkgs.lib.genAttrs [
@@ -59,14 +69,16 @@
         "aarch64-darwin"
         "x86_64-darwin"
       ];
-    in rec {
+    in
+    rec {
       # Your custom packages
       # Acessible through 'nix build', 'nix shell', etc
       packages = forAllSystems (system:
         let
           pkgs = nixpkgs.legacyPackages.${system};
           pkgsi686Linux = nixpkgs.legacyPackages.i686-linux;
-        in import ./pkgs { inherit pkgs pkgsi686Linux; });
+        in
+        import ./pkgs { inherit pkgs pkgsi686Linux; });
       # Devshell for bootstrapping
       # Acessible through 'nix develop' or 'nix-shell' (legacy)
       devShells = forAllSystems (system:
@@ -79,31 +91,33 @@
       # NixOS configuration entrypoint
       # Available through 'nixos-rebuild --flake .#your-hostname'
       nixosConfigurations = {
-        LD-Laptop = let
-          user = "ld";
-          host = "LD-Laptop";
-        in nixpkgs.lib.nixosSystem {
-          specialArgs = {
-            inherit inputs outputs user host self fenix rust-overlay
-              nix-your-shell spotx;
+        LD-Laptop =
+          let
+            user = "ld";
+            host = "LD-Laptop";
+          in
+          nixpkgs.lib.nixosSystem {
+            specialArgs = {
+              inherit inputs outputs user host self fenix rust-overlay
+                nix-your-shell spotx;
+            };
+            modules = [
+              ./hosts
+              ./hosts/${host}
+              home-manager.nixosModules.home-manager
+              {
+                home-manager.useGlobalPkgs = true;
+                home-manager.useUserPackages = true;
+                home-manager.extraSpecialArgs = {
+                  inherit inputs outputs user host fenix rust-overlay
+                    nix-your-shell;
+                };
+                home-manager.users.${user} = {
+                  imports = [ ./hosts/home.nix ./hosts/${host}/home.nix ];
+                };
+              }
+            ];
           };
-          modules = [
-            ./hosts
-            ./hosts/${host}
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs = {
-                inherit inputs outputs user host fenix rust-overlay
-                  nix-your-shell;
-              };
-              home-manager.users.${user} = {
-                imports = [ ./hosts/home.nix ./hosts/${host}/home.nix ];
-              };
-            }
-          ];
-        };
       };
     };
 }

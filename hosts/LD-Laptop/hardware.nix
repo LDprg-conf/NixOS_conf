@@ -7,7 +7,8 @@ let
     export __VK_LAYER_NV_optimus=NVIDIA_only
     exec "$@"
   '';
-in {
+in
+{
   options.vfio.enable = lib.mkEnableOption "Configure the machine for VFIO";
 
   imports = [
@@ -18,142 +19,145 @@ in {
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
 
-  config = let cfg = config.vfio;
-  in {
-    boot = {
-      initrd = {
-        availableKernelModules = [
-          "nvme"
-          "sd_mod"
-          "tcp_bbr"
-          "usb_storage"
-          "usbhid"
-          "vfio_pci"
-          "xhci_pci"
+  config =
+    let cfg = config.vfio;
+    in {
+      boot = {
+        initrd = {
+          availableKernelModules = [
+            "nvme"
+            "sd_mod"
+            "tcp_bbr"
+            "usb_storage"
+            "usbhid"
+            "vfio_pci"
+            "xhci_pci"
 
-          "nvidia"
-          "nvidia_drm"
-          "nvidia_modeset"
-          "nvidia_uvm"
-        ];
+            "nvidia"
+            "nvidia_drm"
+            "nvidia_modeset"
+            "nvidia_uvm"
+          ];
 
-        kernelModules = [ "zstd" "z3fold" ];
+          kernelModules = [ "zstd" "z3fold" ];
 
-        preDeviceCommands = lib.mkMerge [
-          (''
-            printf zstd > /sys/module/zswap/parameters/compressor
-            printf z3fold > /sys/module/zswap/parameters/zpool
-          '')
-          (lib.mkIf cfg.enable ''
-            modprobe -i vfio-pci
-          '')
-        ];
+          preDeviceCommands = lib.mkMerge [
+            (
+              ''
+                printf zstd > /sys/module/zswap/parameters/compressor
+                printf z3fold > /sys/module/zswap/parameters/zpool
+              ''
+            )
+            (lib.mkIf cfg.enable ''
+              modprobe -i vfio-pci
+            '')
+          ];
+        };
+
+        kernelModules = [ "kvm-amd" ];
+        extraModprobeConfig = "options nvidia-drm modeset=1";
+        blacklistedKernelModules =
+          [ "i915" "intel_agp" "viafb" "radeon" "radeonsi" "nouveau" ];
+        supportedFilesystems = [ "ntfs" "btrfs" ];
+        kernelParams = [ "zswap.enabled=1" "iommu=1" "iommu=pt" ]
+          ++ lib.optional cfg.enable "vfio-pci.ids=10de:2520,10de:228e";
       };
 
-      kernelModules = [ "kvm-amd" ];
-      extraModprobeConfig = "options nvidia-drm modeset=1";
-      blacklistedKernelModules =
-        [ "i915" "intel_agp" "viafb" "radeon" "radeonsi" "nouveau" ];
-      supportedFilesystems = [ "ntfs" "btrfs" ];
-      kernelParams = [ "zswap.enabled=1" "iommu=1" "iommu=pt" ]
-        ++ lib.optional cfg.enable "vfio-pci.ids=10de:2520,10de:228e";
-    };
-
-    # Enable OpenGL
-    hardware.opengl = {
-      enable = true;
-      driSupport = true;
-      driSupport32Bit = true;
-    };
-
-    hardware.opengl.extraPackages = with pkgs; [ vaapiVdpau ];
-
-    # Load nvidia driver for Xorg and Wayland
-    services.xserver.videoDrivers = [ "nvidia" ];
-
-    hardware.nvidia = {
-      modesetting.enable = true;
-
-      powerManagement = {
-        enable = false;
-        finegrained = false;
+      # Enable OpenGL
+      hardware.opengl = {
+        enable = true;
+        driSupport = true;
+        driSupport32Bit = true;
       };
 
-      open = false; # Doesn't work with 6.7
+      hardware.opengl.extraPackages = with pkgs; [ vaapiVdpau ];
 
-      nvidiaSettings = true;
+      # Load nvidia driver for Xorg and Wayland
+      services.xserver.videoDrivers = [ "nvidia" ];
 
-      package = config.boot.kernelPackages.nvidiaPackages.stable;
-    };
+      hardware.nvidia = {
+        modesetting.enable = true;
 
-    networking.wireless.iwd.enable = true;
+        powerManagement = {
+          enable = false;
+          finegrained = false;
+        };
 
-    environment.systemPackages = [
-      pkgs.wireguard-tools
-      pkgs.looking-glass-client
-      pkgs.scream
-      nvidia-offload
-    ];
+        open = false; # Doesn't work with 6.7
 
-    systemd.tmpfiles.rules = [
-      "f /dev/shm/scream 0660 ld qemu-libvirtd -"
-      "f /dev/shm/looking-glass 0660 ld qemu-libvirtd -"
-    ];
+        nvidiaSettings = true;
 
-    fileSystems."/" = {
-      device = "/dev/disk/by-label/nixos";
-      fsType = "btrfs";
-      options = [ "compress=zstd" "noatime" "ssd" ];
-    };
-
-    fileSystems."/home" = {
-      device = "/dev/disk/by-label/data";
-      fsType = "btrfs";
-      options = [ "compress=zstd" "noatime" "ssd" ];
-    };
-
-    fileSystems."/boot/efi" = {
-      device = "/dev/disk/by-label/BOOT";
-      fsType = "vfat";
-      options = [ "noatime" ];
-    };
-
-    services.btrfs.autoScrub.enable = true;
-    services.btrfs.autoScrub.interval = "weekly";
-
-    # services.snapper.configs = {
-    #   home = {
-    #     SUBVOLUME = "/home/ld";
-    #     ALLOW_USERS = [ "ld" ];
-    #     TIMELINE_CREATE = true;
-    #     TIMELINE_CLEANUP = true;
-    #   };
-    # };
-
-    swapDevices = [{ device = "/dev/disk/by-label/swap"; }];
-
-    services.fstrim.enable = true;
-    services.udisks2.enable = true;
-
-    networking.useDHCP = lib.mkDefault true;
-
-    networking.extraHosts = ''
-      127.0.0.1 LD-Laptop.local LD-Laptop
-    '';
-
-    hardware.cpu.amd.updateMicrocode = true;
-
-    systemd.user.services.scream-ivshmem = {
-      enable = true;
-      description = "Scream IVSHMEM";
-      serviceConfig = {
-        ExecStart = "${pkgs.scream}/bin/scream-ivshmem-pulse /dev/shm/scream";
-        Restart = "always";
+        package = config.boot.kernelPackages.nvidiaPackages.stable;
       };
-      wantedBy = [ "multi-user.target" ];
-      requires = [ "pipewire-pulse.service" ];
-    };
 
-    nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-  };
+      networking.wireless.iwd.enable = true;
+
+      environment.systemPackages = [
+        pkgs.wireguard-tools
+        pkgs.looking-glass-client
+        pkgs.scream
+        nvidia-offload
+      ];
+
+      systemd.tmpfiles.rules = [
+        "f /dev/shm/scream 0660 ld qemu-libvirtd -"
+        "f /dev/shm/looking-glass 0660 ld qemu-libvirtd -"
+      ];
+
+      fileSystems."/" = {
+        device = "/dev/disk/by-label/nixos";
+        fsType = "btrfs";
+        options = [ "compress=zstd" "noatime" "ssd" ];
+      };
+
+      fileSystems."/home" = {
+        device = "/dev/disk/by-label/data";
+        fsType = "btrfs";
+        options = [ "compress=zstd" "noatime" "ssd" ];
+      };
+
+      fileSystems."/boot/efi" = {
+        device = "/dev/disk/by-label/BOOT";
+        fsType = "vfat";
+        options = [ "noatime" ];
+      };
+
+      services.btrfs.autoScrub.enable = true;
+      services.btrfs.autoScrub.interval = "weekly";
+
+      # services.snapper.configs = {
+      #   home = {
+      #     SUBVOLUME = "/home/ld";
+      #     ALLOW_USERS = [ "ld" ];
+      #     TIMELINE_CREATE = true;
+      #     TIMELINE_CLEANUP = true;
+      #   };
+      # };
+
+      swapDevices = [{ device = "/dev/disk/by-label/swap"; }];
+
+      services.fstrim.enable = true;
+      services.udisks2.enable = true;
+
+      networking.useDHCP = lib.mkDefault true;
+
+      networking.extraHosts = ''
+        127.0.0.1 LD-Laptop.local LD-Laptop
+      '';
+
+      hardware.cpu.amd.updateMicrocode = true;
+
+      systemd.user.services.scream-ivshmem = {
+        enable = true;
+        description = "Scream IVSHMEM";
+        serviceConfig = {
+          ExecStart = "${pkgs.scream}/bin/scream-ivshmem-pulse /dev/shm/scream";
+          Restart = "always";
+        };
+        wantedBy = [ "multi-user.target" ];
+        requires = [ "pipewire-pulse.service" ];
+      };
+
+      nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+    };
 }

@@ -4,7 +4,7 @@
   environment.systemPackages = with pkgs; [
     libsForQt5.plasma-thunderbolt
     libsForQt5.filelight
-    #   libsForQt5.sddm-kcm 
+    #   libsForQt5.sddm-kcm
   ];
 
   # services.xserver.displayManager.sddm.enable = true;
