@@ -26,15 +26,16 @@
     webcord
     spotify
     revolt-desktop
-    libsForQt5.kcalc
-    libsForQt5.skanlite
+    kdePackages.kcalc
+    kdePackages.skanlite
+    kdePackages.skanpage
     gitkraken
     ngrok
     freeorion
     tor-browser
     ferdium
     minecraft
-    # geogebra6
+    geogebra6
     ptouch-print
     obsidian
     fira
