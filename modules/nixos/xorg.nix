@@ -12,9 +12,9 @@
   services.xserver.dpi = 96;
 
   # Configure keymap in X11
-  services.xserver = {
+  services.xserver.xkb = {
     layout = "at";
-    xkbVariant = "";
+    variant = "";
   };
 
   programs.dconf.enable = true;
@@ -25,7 +25,7 @@
     [ pkgs.brlaser pkgs.samsung-unified-linux-driver ];
   services.printing.browsing = true;
   services.avahi.enable = true;
-  services.avahi.nssmdns = true;
+  services.avahi.nssmdns4 = true;
   services.avahi.openFirewall = true;
 
   # Enable SANE for scanners
