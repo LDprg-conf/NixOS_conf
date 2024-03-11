@@ -90,8 +90,6 @@ in
         package = config.boot.kernelPackages.nvidiaPackages.stable;
       };
 
-      networking.wireless.iwd.enable = true;
-
       environment.systemPackages = [
         pkgs.wireguard-tools
         pkgs.looking-glass-client

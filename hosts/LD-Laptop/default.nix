@@ -78,7 +78,6 @@
       mangohud
       git
       pre-commit
-      clang-tools_17
       esptool
       antimicrox
       nix-your-shell
@@ -89,7 +88,7 @@
       fuse
       fuse3
       niv
-    ] ++ (with self.packages.${pkgs.system}; [ jdownload2 fdm ])
+    ] ++ (with self.packages.${pkgs.system}; [ jdownload2 fdm vk_hdr_layer ])
     ++ (with self.inputs.nix-alien.packages.${system}; [ nix-alien ]);
 
   specialisation."VFIO".configuration = {

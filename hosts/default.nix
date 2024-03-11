@@ -114,52 +114,53 @@
   # };
 
   environment.systemPackages = with pkgs; [
-    neovim
-    vim
-    wget
-    git
-    gh
-    neofetch
-    ranger
-    lshw
-    unzip
-    zip
-    xz
-    unrar
-    rar
-    curl
-    htop
     btop
-    killall
-    ripgrep
-    tree
+    btrfs-progs
+    cachix
+    cdrkit
+    compsize
+    cryptsetup
+    curl
+    exfatprogs
+    f2fs-tools
+    gh
+    git
+    hfsprogs
+    htop
     iftop
     iotop
-    nethogs
-    cachix
-    pciutils
-    rsync
-    progress
-    tmux
-    screen
-    usbutils
-    uutils-coreutils
-    exfatprogs
-    xfsprogs
-    f2fs-tools
-    btrfs-progs
-    compsize
-    snapper
-    util-linux
-    cryptsetup
-    reiserfsprogs
-    hfsprogs
     jfsutils
-    reiser4progs
-    udftools
-    nilfs-utils
+    killall
+    lshw
     lvm2
-    cdrkit
+    neofetch
+    neovim
+    nethogs
+    nilfs-utils
+    pciutils
+    progress
+    ranger
+    rar
+    reiser4progs
+    reiserfsprogs
+    ripgrep
+    rsync
+    screen
+    snapper
+    tmux
+    tree
+    udftools
+    unrar
+    unzip
+    usbutils
+    util-linux
+    uutils-coreutils
+    vim
+    wget
+    xfsprogs
+    xz
+    p7zip
+    zip
     zoxide
   ];
 

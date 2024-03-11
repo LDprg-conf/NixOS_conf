@@ -5,6 +5,9 @@
     kdePackages.plasma-thunderbolt
     kdePackages.filelight
     kdePackages.sddm-kcm
+    kdePackages.colord-kde
+    xwaylandvideobridge
+    partition-manager
   ];
 
   services.xserver.displayManager.sddm.enable = true;
