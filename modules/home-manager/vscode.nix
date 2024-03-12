@@ -37,7 +37,7 @@
         brettm12345.nixfmt-vscode
         eamodio.gitlens
         esbenp.prettier-vscode
-        github.codespaces
+        # github.codespaces
         github.vscode-github-actions
         github.vscode-pull-request-github
         jnoortheen.nix-ide
@@ -52,7 +52,7 @@
         ms-vscode.hexeditor
         ms-vscode.live-server
         ms-vscode.makefile-tools
-        ms-vsliveshare.vsliveshare
+        # ms-vsliveshare.vsliveshare
         njpwerner.autodocstring
         rust-lang.rust-analyzer
         serayuzgur.crates
@@ -73,12 +73,12 @@
           version = "3.3.2";
           sha256 = "sha256-qYlhCioa3LiI67iubC1XQatY5JaeGLT26Q1Q1TWBczo=";
         }
-        {
-          name = "cpptools";
-          publisher = "ms-vscode";
-          version = "1.19.3";
-          sha256 = "sha256-vvAd6JWEOWnzGMbaZRxnYerJeZRSu+Ahj2vnqMpx8Nc=";
-        }
+        # {
+        #   name = "cpptools";
+        #   publisher = "ms-vscode";
+        #   version = "1.19.3";
+        #   sha256 = "sha256-vvAd6JWEOWnzGMbaZRxnYerJeZRSu+Ahj2vnqMpx8Nc=";
+        # }
       ];
   };
 }

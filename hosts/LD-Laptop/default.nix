@@ -30,7 +30,7 @@
   ];
 
   nixpkgs.overlays = [
-    nix-your-shell.overlays.default
+    # nix-your-shell.overlays.default
     fenix.overlays.default
     rust-overlay.overlays.default
   ];
@@ -88,6 +88,7 @@
       fuse
       fuse3
       niv
+      gamescope-wsi
     ] ++ (with self.packages.${pkgs.system}; [ jdownload2 fdm vk_hdr_layer ])
     ++ (with self.inputs.nix-alien.packages.${system}; [ nix-alien ]);
 
@@ -120,6 +121,7 @@
   programs.haguichi.enable = true;
 
   programs.gamescope.enable = true;
+  programs.gamescope.capSysNice = true;
 
   boot.loader.timeout = 2;
 
