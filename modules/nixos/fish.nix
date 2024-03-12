@@ -1,4 +1,4 @@
-{ inputs, outputs, self, user, host, lib, config, pkgs, nix-your-shell, ... }: {
+{ inputs, outputs, self, user, host, lib, config, pkgs, ... }: {
   environment.systemPackages = with pkgs;
     [
       #fishPlugins.bass

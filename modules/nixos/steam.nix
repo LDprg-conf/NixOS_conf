@@ -11,12 +11,6 @@
   };
 
   environment.systemPackages = with pkgs; [
-    xdotool
-    xorg.xwininfo
-    yad
     protontricks
-    vulkan-headers
-    vulkan-loader
-    vulkan-tools
   ];
 }

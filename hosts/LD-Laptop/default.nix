@@ -121,7 +121,6 @@
   programs.haguichi.enable = true;
 
   programs.gamescope.enable = true;
-  programs.gamescope.capSysNice = true;
 
   boot.loader.timeout = 2;
 

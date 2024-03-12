@@ -11,15 +11,14 @@
     };
     overlays = [
       (final: prev: {
-        spotify = prev.spotify.overrideAttrs (attrs:
-          {
-            buildInputs = [ prev.perl prev.unzip prev.zip ];
-            postInstall = (attrs.postInstall or "") + ''
-                  cp ${spotx}/spotx.sh spotx.sh
-                  chmod +x spotx.sh
-              	  bash spotx.sh -P $out/share/spotify/ -ch
-              	'';
-          });
+        spotify = prev.spotify.overrideAttrs (attrs: {
+          buildInputs = [ prev.perl prev.unzip prev.zip ];
+          postInstall = (attrs.postInstall or "") + ''
+                cp ${spotx}/spotx.sh spotx.sh
+                chmod +x spotx.sh
+            	  bash spotx.sh -P $out/share/spotify/ -ch
+            	'';
+        });
       })
       (final: prev: {
         gitkraken = prev.gitkraken.overrideAttrs (attrs:
