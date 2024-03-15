@@ -25,11 +25,19 @@
       type = "Game";
     }
     {
+      name = "gamescope-wl";
+      type = "Game";
+    }
+    {
       name = "CivilizationVI.exe";
       type = "Game";
     }
     {
       name = "bg3_dx11.exe";
+      type = "Game";
+    }
+    {
+      name = "bg3.exe";
       type = "Game";
     }
     {

@@ -70,8 +70,6 @@ in
         driSupport32Bit = true;
       };
 
-      hardware.opengl.extraPackages = with pkgs; [ vaapiVdpau ];
-
       # Load nvidia driver for Xorg and Wayland
       services.xserver.videoDrivers = [ "nvidia" ];
 
@@ -83,11 +81,11 @@ in
           finegrained = false;
         };
 
-        open = false; # Doesn't work with 6.7
+        open = true;
 
         nvidiaSettings = true;
 
-        package = config.boot.kernelPackages.nvidiaPackages.stable;
+        package = config.boot.kernelPackages.nvidiaPackages.beta;
       };
 
       environment.systemPackages = [
