@@ -56,8 +56,8 @@
   programs.kitty.shellIntegration.enableBashIntegration = true;
   programs.kitty.shellIntegration.enableFishIntegration = true;
   programs.kitty.settings = {
-    background_opacity = "0.8";
-    font_size = 10;
+    background_opacity = "0.93";
+    font_size = 11;
   };
 
   home.sessionVariables = {
