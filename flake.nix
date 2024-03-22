@@ -23,6 +23,11 @@
 
     hardware.url = "github:nixos/nixos-hardware";
 
+    nixos-needsreboot = {
+      url = "https://flakehub.com/f/thefossguy/nixos-needsreboot/*.tar.gz";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     fenix = {
       url = "github:nix-community/fenix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -64,6 +69,7 @@
     , home-manager
     , nix-your-shell
     , spotx
+    , nixos-needsreboot
     , ...
     }@inputs:
     let
