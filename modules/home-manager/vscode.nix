@@ -43,7 +43,7 @@
         jnoortheen.nix-ide
         ms-azuretools.vscode-docker
         ms-dotnettools.csharp
-        ms-python.python
+        #ms-python.python
         ms-python.vscode-pylance
         ms-vscode-remote.remote-containers
         ms-vscode-remote.remote-ssh
