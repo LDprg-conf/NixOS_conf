@@ -121,14 +121,14 @@ in
       services.btrfs.autoScrub.enable = true;
       services.btrfs.autoScrub.interval = "weekly";
 
-      # services.snapper.configs = {
-      #   home = {
-      #     SUBVOLUME = "/home/ld";
-      #     ALLOW_USERS = [ "ld" ];
-      #     TIMELINE_CREATE = true;
-      #     TIMELINE_CLEANUP = true;
-      #   };
-      # };
+      services.snapper.configs = {
+        home = {
+          SUBVOLUME = "/home/ld";
+          ALLOW_USERS = [ "ld" ];
+          TIMELINE_CREATE = true;
+          TIMELINE_CLEANUP = true;
+        };
+      };
 
       swapDevices = [{ device = "/dev/disk/by-label/swap"; }];
 
@@ -136,7 +136,7 @@ in
       services.udisks2.enable = true;
 
       networking.useDHCP = lib.mkDefault true;
-
+      networking.networkmanager.wifi.powersave = false;
       networking.extraHosts = ''
         127.0.0.1 LD-Laptop.local LD-Laptop
       '';

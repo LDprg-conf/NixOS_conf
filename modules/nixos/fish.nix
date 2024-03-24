@@ -1,7 +1,6 @@
 { inputs, outputs, self, user, host, lib, config, pkgs, ... }: {
   environment.systemPackages = with pkgs;
     [
-      #fishPlugins.bass
       #fishPlugins.done
       fishPlugins.fzf-fish
       fzf

@@ -89,6 +89,9 @@
       fuse3
       niv
       gamescope-wsi
+      fira
+      fira-code
+      fira-code-nerdfont
     ] ++ (with self.packages.${pkgs.system}; [ jdownload2 fdm vk_hdr_layer ])
     ++ (with self.inputs.nix-alien.packages.${system}; [ nix-alien ]);
 
@@ -121,6 +124,9 @@
   programs.haguichi.enable = true;
 
   programs.gamescope.enable = true;
+  programs.gamescope.env = {
+    ENABLE_HDR_WSI = "1";
+  };
 
   boot.loader.timeout = 2;
 

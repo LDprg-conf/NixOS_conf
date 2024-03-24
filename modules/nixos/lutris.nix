@@ -1,6 +1,11 @@
 { inputs, outputs, self, user, host, lib, config, pkgs, ... }: {
   environment.systemPackages = with pkgs; [
-    lutris
+    (lutris.override {
+      extraLibraries = pkgs: [
+        gamemode
+        gamescope-wsi
+      ];
+    })
     winetricks
     heroic
 

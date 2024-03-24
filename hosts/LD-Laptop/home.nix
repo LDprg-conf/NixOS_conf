@@ -38,9 +38,6 @@
     geogebra6
     ptouch-print
     obsidian
-    fira
-    fira-code
-    fira-code-nerdfont
     parsec-bin
     moonlight-qt
     gnome.zenity
