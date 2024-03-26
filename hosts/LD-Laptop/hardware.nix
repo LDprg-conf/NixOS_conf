@@ -135,6 +135,8 @@ in
       services.fstrim.enable = true;
       services.udisks2.enable = true;
 
+      powerManagement.cpuFreqGovernor = "performance";
+
       networking.useDHCP = lib.mkDefault true;
       networking.networkmanager.wifi.powersave = false;
       networking.extraHosts = ''
