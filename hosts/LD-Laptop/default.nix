@@ -1,15 +1,4 @@
-{ inputs
-, outputs
-, self
-, user
-, host
-, lib
-, config
-, pkgs
-, fenix
-, rust-overlay
-, ...
-}: {
+{ inputs, self, pkgs, fenix, rust-overlay, ... }: {
   imports = [
     ../../modules/nixos/default-apps.nix
 
@@ -28,10 +17,7 @@
     ./hardware.nix
   ];
 
-  nixpkgs.overlays = [
-    fenix.overlays.default
-    rust-overlay.overlays.default
-  ];
+  nixpkgs.overlays = [ fenix.overlays.default rust-overlay.overlays.default ];
 
   # system.autoUpgrade = {
   #   enable = true;
@@ -112,9 +98,7 @@
   programs.haguichi.enable = true;
 
   programs.gamescope.enable = true;
-  programs.gamescope.env = {
-    ENABLE_HDR_WSI = "1";
-  };
+  programs.gamescope.env = { ENABLE_HDR_WSI = "1"; };
 
   fonts = {
     enableDefaultPackages = true;
@@ -135,7 +119,6 @@
       };
     };
   };
-
 
   programs.gamemode.enable = true;
   programs.gamemode.settings = {

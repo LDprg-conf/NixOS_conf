@@ -1,4 +1,4 @@
-{ inputs, outputs, self, user, host, lib, config, pkgs, ... }: {
+{ pkgs, ... }: {
   # Enable networking
   networking.networkmanager.enable = true;
 

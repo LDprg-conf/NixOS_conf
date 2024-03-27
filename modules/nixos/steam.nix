@@ -1,4 +1,4 @@
-{ inputs, outputs, self, user, host, lib, config, pkgs, ... }: {
+{ lib, pkgs, ... }: {
   programs.steam = {
     enable = true;
     remotePlay.openFirewall =
@@ -6,11 +6,11 @@
     dedicatedServer.openFirewall =
       true; # Open ports in the firewall for Source Dedicated Server
     package = pkgs.steam.override {
-      extraLibraries = p: with p; [ (lib.getLib [ networkmanager gamemode gamescope-wsi ]) ];
+      extraLibraries = p:
+        with p;
+        [ (lib.getLib [ networkmanager gamemode gamescope-wsi ]) ];
     };
   };
 
-  environment.systemPackages = with pkgs; [
-    protontricks
-  ];
+  environment.systemPackages = with pkgs; [ protontricks ];
 }

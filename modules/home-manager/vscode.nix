@@ -1,15 +1,4 @@
-{ inputs
-, outputs
-, self
-, user
-, host
-, lib
-, config
-, pkgs
-, fenix
-, rust-overlay
-, ...
-}: {
+{ pkgs, ... }: {
   programs.vscode = {
     enable = true;
     package = pkgs.vscode.fhsWithPackages (ps:

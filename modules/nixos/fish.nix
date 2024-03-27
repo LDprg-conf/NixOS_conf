@@ -1,4 +1,4 @@
-{ inputs, outputs, self, user, host, lib, config, pkgs, ... }: {
+{ self, pkgs, ... }: {
   environment.systemPackages = with pkgs;
     [
       #fishPlugins.done

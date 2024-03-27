@@ -1,7 +1,7 @@
 # This is your system's configuration file.
 # Use this to configure your system environment (it replaces /etc/nixos/configuration.nix)
 
-{ inputs, outputs, self, user, host, lib, config, pkgs, spotx, ... }: {
+{ inputs, user, host, lib, config, pkgs, spotx, ... }: {
   nixpkgs = {
     # Configure your nixpkgs instance
     config = {
@@ -10,7 +10,7 @@
       permittedInsecurePackages = [ "electron-25.9.0" ];
     };
     overlays = [
-      (final: prev: {
+      (_: prev: {
         spotify = prev.spotify.overrideAttrs (attrs: {
           buildInputs = [ prev.perl prev.unzip prev.zip ];
           postInstall = (attrs.postInstall or "") + ''
@@ -20,7 +20,7 @@
             	'';
         });
       })
-      (final: prev: {
+      (_: prev: {
         gitkraken = prev.gitkraken.overrideAttrs (attrs:
           let
             patchScript = prev.fetchurl {
@@ -28,8 +28,7 @@
                 "https://archive.org/download/gpatcher0.0.5/gpatcher0.0.5.zip";
               hash = "sha256-wPCLUTnjhwAgxjUQIzvpefxCA3JPX/h4QE70obdkPo0=";
             };
-          in
-          {
+          in {
             buildInputs = [ prev.unzip ];
 
             postFixup = (attrs.postFixup or "") + ''
@@ -123,6 +122,7 @@
     hfsprogs
     htop
     iftop
+    inputs.nixos-needsreboot.packages.${system}.default
     iotop
     jfsutils
     killall

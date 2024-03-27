@@ -1,18 +1,5 @@
-{ lib
-, stdenv
-, fetchurl
-, dpkg
-, wrapGAppsHook
-, autoPatchelfHook
-, makeWrapper
-, udev
-, openssl
-, ffmpeg
-, xdg-utils
-, libtorrent-rasterbar
-, qt6
-, gst_all_1
-}:
+{ lib, stdenv, fetchurl, dpkg, wrapGAppsHook, autoPatchelfHook, makeWrapper
+, udev, openssl, ffmpeg, xdg-utils, libtorrent-rasterbar, qt6, gst_all_1 }:
 
 stdenv.mkDerivation rec {
   pname = "fdm";

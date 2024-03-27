@@ -1,4 +1,4 @@
-{ inputs, outputs, self, user, host, lib, config, pkgs, ... }: {
+{ pkgs, ... }: {
   services.ananicy.package = pkgs.ananicy-cpp;
   services.ananicy.enable = true;
 

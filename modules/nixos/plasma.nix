@@ -1,4 +1,4 @@
-{ inputs, outputs, self, user, host, lib, config, pkgs, ... }: {
+{ pkgs, ... }: {
   imports = [ ./xorg.nix ];
 
   environment.systemPackages = with pkgs; [
