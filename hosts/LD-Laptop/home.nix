@@ -45,15 +45,19 @@
     ryujinx
   ];
 
-  programs.brave.enable = true;
-  programs.firefox.enable = true;
+  programs = {
+    brave.enable = true;
+    firefox.enable = true;
 
-  programs.kitty.enable = true;
-  programs.kitty.shellIntegration.enableBashIntegration = true;
-  programs.kitty.shellIntegration.enableFishIntegration = true;
-  programs.kitty.settings = {
-    background_opacity = "0.93";
-    font_size = 11;
+    kitty = {
+      enable = true;
+      shellIntegration.enableBashIntegration = true;
+      shellIntegration.enableFishIntegration = true;
+      settings = {
+        background_opacity = "0.93";
+        font_size = 11;
+      };
+    };
   };
 
   home.sessionVariables = {

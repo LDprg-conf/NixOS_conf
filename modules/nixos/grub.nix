@@ -1,18 +1,20 @@
-{ ... }: {
-  boot.loader = {
-    efi = {
-      canTouchEfiVariables = true;
-      efiSysMountPoint = "/boot/efi";
+_: {
+  boot = {
+    loader = {
+      efi = {
+        canTouchEfiVariables = true;
+        efiSysMountPoint = "/boot/efi";
+      };
+      grub = {
+        configurationLimit = 50;
+        efiSupport = true;
+        device = "nodev";
+      };
     };
-    grub = {
-      configurationLimit = 50;
-      efiSupport = true;
-      device = "nodev";
-    };
-  };
 
-  boot.plymouth.enable = true;
-  boot.initrd.verbose = false;
-  boot.consoleLogLevel = 0;
-  boot.kernelParams = [ "quiet" "udev.log_level=3" ];
+    plymouth.enable = true;
+    initrd.verbose = false;
+    consoleLogLevel = 0;
+    kernelParams = [ "quiet" "udev.log_level=3" ];
+  };
 }

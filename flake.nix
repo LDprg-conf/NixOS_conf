@@ -68,7 +68,7 @@
       devShells = forAllSystems (system:
         let pkgs = nixpkgs.legacyPackages.${system};
         in {
-          default = (import ./shell.nix { inherit pkgs; });
+          default = import ./shell.nix { inherit pkgs; };
           precommit = pkgs.mkShell {
             inherit (self.checks.${system}.pre-commit-check) shellHook;
           };
@@ -94,13 +94,15 @@
             ./hosts/${host}
             home-manager.nixosModules.home-manager
             {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs = {
-                inherit inputs outputs user host fenix rust-overlay;
-              };
-              home-manager.users.${user} = {
-                imports = [ ./hosts/home.nix ./hosts/${host}/home.nix ];
+              home-manager = {
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                extraSpecialArgs = {
+                  inherit inputs outputs user host fenix rust-overlay;
+                };
+                users.${user} = {
+                  imports = [ ./hosts/home.nix ./hosts/${host}/home.nix ];
+                };
               };
             }
           ];
@@ -243,7 +245,7 @@
               deadnix.enable = true;
               nil.enable = true;
               nixfmt.enable = true;
-              # statix.enable = true;
+              statix.enable = true;
 
               shfmt.enable = true;
             };

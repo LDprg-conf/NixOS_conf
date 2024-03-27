@@ -12,9 +12,6 @@ in {
 
   config = let cfg = config.vfio;
   in {
-
-    # KERNEL
-
     boot = {
       initrd = {
         availableKernelModules = [
@@ -35,10 +32,10 @@ in {
         kernelModules = [ "zstd" "z3fold" ];
 
         preDeviceCommands = lib.mkMerge [
-          (''
+          ''
             printf zstd > /sys/module/zswap/parameters/compressor
             printf z3fold > /sys/module/zswap/parameters/zpool
-          '')
+          ''
           (lib.mkIf cfg.enable ''
             modprobe -i vfio-pci
           '')
@@ -57,126 +54,127 @@ in {
       loader.timeout = 2;
     };
 
-    hardware.i2c.enable = true;
+    hardware = {
+      i2c.enable = true;
 
-    # NVIDIA GPU
+      cpu.amd.updateMicrocode = true;
 
-    hardware.opengl = {
-      enable = true;
-      driSupport = true;
-      driSupport32Bit = true;
-      extraPackages = with pkgs; [
-        nvidia-vaapi-driver
-        vaapiVdpau
-        libvdpau-va-gl
-      ];
-    };
-
-    services.xserver.videoDrivers = [ "nvidia" ];
-
-    hardware.nvidia = {
-      modesetting.enable = true;
-
-      nvidiaSettings = true;
-
-      open = true;
-
-      package = config.boot.kernelPackages.nvidiaPackages.stable;
-
-      powerManagement = {
-        enable = false;
-        finegrained = false;
+      opengl = {
+        enable = true;
+        driSupport = true;
+        driSupport32Bit = true;
+        extraPackages = with pkgs; [
+          nvidia-vaapi-driver
+          vaapiVdpau
+          libvdpau-va-gl
+        ];
       };
 
-      prime = {
-        sync.enable = true;
+      nvidia = {
+        modesetting.enable = true;
 
-        amdgpuBusId = "PCI:6:0:0";
-        nvidiaBusId = "PCI:1:0:0";
+        nvidiaSettings = true;
+
+        open = true;
+
+        package = config.boot.kernelPackages.nvidiaPackages.stable;
+
+        powerManagement = {
+          enable = false;
+          finegrained = false;
+        };
+
+        prime = {
+          sync.enable = true;
+
+          amdgpuBusId = "PCI:6:0:0";
+          nvidiaBusId = "PCI:1:0:0";
+        };
       };
     };
-
-    # FILESYSTEM
 
     systemd.tmpfiles.rules = [
       "f /dev/shm/scream 0660 ld qemu-libvirtd -"
       "f /dev/shm/looking-glass 0660 ld qemu-libvirtd -"
     ];
 
-    fileSystems."/" = {
-      device = "/dev/disk/by-label/nixos";
-      fsType = "btrfs";
-      options = [ "compress=zstd" "noatime" "ssd" ];
-    };
+    fileSystems = {
+      "/" = {
+        device = "/dev/disk/by-label/nixos";
+        fsType = "btrfs";
+        options = [ "compress=zstd" "noatime" "ssd" ];
+      };
 
-    fileSystems."/home" = {
-      device = "/dev/disk/by-label/data";
-      fsType = "btrfs";
-      options = [ "compress=zstd" "noatime" "ssd" ];
-    };
+      "/home" = {
+        device = "/dev/disk/by-label/data";
+        fsType = "btrfs";
+        options = [ "compress=zstd" "noatime" "ssd" ];
+      };
 
-    fileSystems."/boot/efi" = {
-      device = "/dev/disk/by-label/BOOT";
-      fsType = "vfat";
-      options = [ "noatime" ];
-    };
-
-    services.btrfs.autoScrub.enable = true;
-    services.btrfs.autoScrub.interval = "weekly";
-
-    services.snapper.configs = {
-      home = {
-        SUBVOLUME = "/home/ld";
-        ALLOW_USERS = [ "ld" ];
-        TIMELINE_CREATE = true;
-        TIMELINE_CLEANUP = true;
+      "/boot/efi" = {
+        device = "/dev/disk/by-label/BOOT";
+        fsType = "vfat";
+        options = [ "noatime" ];
       };
     };
 
     swapDevices = [{ device = "/dev/disk/by-label/swap"; }];
 
-    services.fstrim.enable = true;
-    services.udisks2.enable = true;
+    services = {
+      btrfs.autoScrub.enable = true;
+      btrfs.autoScrub.interval = "weekly";
 
-    # POWERMANAGEMENT
+      snapper.configs = {
+        home = {
+          SUBVOLUME = "/home/ld";
+          ALLOW_USERS = [ "ld" ];
+          TIMELINE_CREATE = true;
+          TIMELINE_CLEANUP = true;
+        };
+      };
 
-    powerManagement.enable = true;
+      fstrim.enable = true;
+      udisks2.enable = true;
 
-    services.power-profiles-daemon.enable = false;
+      xserver.videoDrivers = [ "nvidia" ];
 
-    services.tlp = {
-      enable = true;
-      settings = {
-        CPU_SCALING_GOVERNOR_ON_AC = "performance";
-        CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
+      power-profiles-daemon.enable = false;
+      tlp = {
+        enable = true;
+        settings = {
+          CPU_SCALING_GOVERNOR_ON_AC = "performance";
+          CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
 
-        CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
-        CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
+          CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
+          CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
 
-        CPU_MIN_PERF_ON_AC = 0;
-        CPU_MAX_PERF_ON_AC = 100;
-        CPU_MIN_PERF_ON_BAT = 0;
-        CPU_MAX_PERF_ON_BAT = 20;
+          CPU_MIN_PERF_ON_AC = 0;
+          CPU_MAX_PERF_ON_AC = 100;
+          CPU_MIN_PERF_ON_BAT = 0;
+          CPU_MAX_PERF_ON_BAT = 20;
 
-        #Optional helps save long term battery health
-        START_CHARGE_THRESH_BAT0 = 40; # 40 and bellow it starts to charge
-        STOP_CHARGE_THRESH_BAT0 = 80; # 80 and above it stops charging
+          #Optional helps save long term battery health
+          START_CHARGE_THRESH_BAT0 = 40; # 40 and bellow it starts to charge
+          STOP_CHARGE_THRESH_BAT0 = 80; # 80 and above it stops charging
+        };
+      };
+
+      hardware.bolt.enable = true;
+      asusd = {
+        enable = true;
+        enableUserService = true;
       };
     };
 
-    # NETWORK
+    powerManagement.enable = true;
 
-    networking.useDHCP = lib.mkDefault true;
-    networking.networkmanager.wifi.powersave = false;
-    networking.extraHosts = ''
-      127.0.0.1 LD-Laptop.local LD-Laptop
-    '';
-
-    # CPU
-
-    hardware.cpu.amd.updateMicrocode = true;
-
-    # ETC
+    networking = {
+      useDHCP = lib.mkDefault true;
+      networkmanager.wifi.powersave = false;
+      extraHosts = ''
+        127.0.0.1 LD-Laptop.local LD-Laptop
+      '';
+    };
 
     environment.systemPackages = [
       pkgs.wireguard-tools
@@ -194,15 +192,6 @@ in {
       };
       wantedBy = [ "multi-user.target" ];
       requires = [ "pipewire-pulse.service" ];
-    };
-
-    services.hardware.bolt.enable = true;
-
-    services = {
-      asusd = {
-        enable = true;
-        enableUserService = true;
-      };
     };
 
     nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";

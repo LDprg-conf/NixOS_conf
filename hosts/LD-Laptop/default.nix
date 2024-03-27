@@ -39,12 +39,15 @@
     extraPortals = with pkgs; [ xdg-desktop-portal-kde ];
   };
 
-  users.users.ld = {
-    description = "LD";
-    shell = pkgs.fish;
+  users = {
+    users.ld = {
+      description = "LD";
+      shell = pkgs.fish;
+    };
+
+    defaultUserShell = pkgs.fish;
   };
 
-  users.defaultUserShell = pkgs.fish;
   environment.shells = with pkgs; [ fish ];
 
   environment.systemPackages = with pkgs;
@@ -86,19 +89,46 @@
     magicOrExtension = "\\x7fELF....AI\\x02";
   };
 
-  programs.gnupg.agent.enable = true;
+  services = {
+    udev.packages = [ pkgs.openrgb ];
 
-  services.udev.packages = [ pkgs.openrgb ];
+    preload.enable = true;
+
+    logmein-hamachi.enable = true;
+
+    joycond.enable = true;
+
+    resolved = {
+      enable = true;
+      domains = [ "~." ];
+      fallbackDns = [ "1.1.1.1#one.one.one.one" "1.0.0.1#one.one.one.one" ];
+    };
+  };
 
   security.polkit.enable = true;
 
-  services.preload.enable = true;
+  programs = {
+    haguichi.enable = true;
 
-  services.logmein-hamachi.enable = true;
-  programs.haguichi.enable = true;
+    gamescope = {
+      enable = true;
+      env = { ENABLE_HDR_WSI = "1"; };
+    };
 
-  programs.gamescope.enable = true;
-  programs.gamescope.env = { ENABLE_HDR_WSI = "1"; };
+    gamemode = {
+      enable = true;
+      settings = {
+        general = {
+          renice = 0;
+          ioprio = ''"off"'';
+        };
+      };
+    };
+
+    virt-manager.enable = true;
+    nix-ld.enable = true;
+    gnupg.agent.enable = true;
+  };
 
   fonts = {
     enableDefaultPackages = true;
@@ -120,19 +150,7 @@
     };
   };
 
-  programs.gamemode.enable = true;
-  programs.gamemode.settings = {
-    general = {
-      renice = 0;
-      ioprio = ''"off"'';
-    };
-  };
-
   hardware.bluetooth.enable = true;
-
-  services.joycond.enable = true;
-
-  programs.nix-ld.enable = true;
 
   virtualisation.libvirtd = {
     enable = true;
@@ -142,14 +160,7 @@
     onShutdown = "shutdown";
   };
   virtualisation.spiceUSBRedirection.enable = true;
-  programs.virt-manager.enable = true;
 
   networking.nameservers =
     [ "1.1.1.1#one.one.one.one" "1.0.0.1#one.one.one.one" ];
-
-  services.resolved = {
-    enable = true;
-    domains = [ "~." ];
-    fallbackDns = [ "1.1.1.1#one.one.one.one" "1.0.0.1#one.one.one.one" ];
-  };
 }

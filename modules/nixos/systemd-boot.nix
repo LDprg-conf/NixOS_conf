@@ -1,5 +1,7 @@
-{ ... }: {
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.systemd-boot.configurationLimit = 50;
-  boot.loader.efi.canTouchEfiVariables = true;
+_: {
+  boot.loader = {
+    systemd-boot.enable = true;
+    systemd-boot.configurationLimit = 50;
+    efi.canTouchEfiVariables = true;
+  };
 }
