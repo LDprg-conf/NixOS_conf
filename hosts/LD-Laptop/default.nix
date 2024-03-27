@@ -8,29 +8,27 @@
 , pkgs
 , fenix
 , rust-overlay
-, nix-your-shell
 , ...
 }: {
   imports = [
     ../../modules/nixos/default-apps.nix
-    ../../modules/nixos/grub.nix
-    ../../modules/nixos/pipewire.nix
+
+    ../../modules/nixos/ananicy.nix
+    ../../modules/nixos/apparmor.nix
+    ../../modules/nixos/docker.nix
+    ../../modules/nixos/firewall.nix
     ../../modules/nixos/fish.nix
+    ../../modules/nixos/grub.nix
+    ../../modules/nixos/hotspot.nix
     ../../modules/nixos/kernel-latest.nix
     ../../modules/nixos/libreoffice.nix
-    ../../modules/nixos/firewall.nix
-    ../../modules/nixos/ananicy.nix
-    # ../../modules/nixos/apparmor.nix
-    ../../modules/nixos/docker.nix
-    ../../modules/nixos/hotspot.nix
+    ../../modules/nixos/pipewire.nix
+    ../../modules/nixos/plasma.nix
 
     ./hardware.nix
-
-    ../../modules/nixos/plasma.nix
   ];
 
   nixpkgs.overlays = [
-    # nix-your-shell.overlays.default
     fenix.overlays.default
     rust-overlay.overlays.default
   ];
@@ -113,8 +111,6 @@
   programs.gnupg.agent.enable = true;
 
   services.udev.packages = [ pkgs.openrgb ];
-  boot.kernelModules = [ "i2c-dev" "i2c-piix4" ];
-  hardware.i2c.enable = true;
 
   security.polkit.enable = true;
 
@@ -126,15 +122,6 @@
   programs.gamescope.enable = true;
   programs.gamescope.env = {
     ENABLE_HDR_WSI = "1";
-  };
-
-  boot.loader.timeout = 2;
-
-  hardware.nvidia.prime = {
-    sync.enable = true;
-
-    amdgpuBusId = "PCI:6:0:0";
-    nvidiaBusId = "PCI:1:0:0";
   };
 
   fonts = {
@@ -157,7 +144,7 @@
     };
   };
 
-  powerManagement.enable = true;
+
   programs.gamemode.enable = true;
   programs.gamemode.settings = {
     general = {
@@ -183,7 +170,7 @@
   programs.virt-manager.enable = true;
 
   networking.nameservers =
-    [ "1.1.1.1#one.one.one.one" "1.0.0.1#one.one.one.one" "192.168.0.183" ];
+    [ "1.1.1.1#one.one.one.one" "1.0.0.1#one.one.one.one" ];
 
   services.resolved = {
     enable = true;

@@ -107,10 +107,6 @@
       "lp"
     ];
   };
-  # users.users.test = {
-  #   isNormalUser = true;
-  #   extraGroups = [ "networkmanager" "wheel" "wireshark" "docker" "dialout" ];
-  # };
 
   environment.systemPackages = with pkgs; [
     btop
@@ -136,7 +132,9 @@
     neovim
     nethogs
     nilfs-utils
+    p7zip
     pciutils
+    powertop
     progress
     ranger
     rar
@@ -158,13 +156,11 @@
     wget
     xfsprogs
     xz
-    p7zip
     zip
     zoxide
   ];
 
   services.fwupd.enable = true;
-  services.irqbalance.enable = true;
 
   hardware.enableAllFirmware = true;
   hardware.enableRedistributableFirmware = true;

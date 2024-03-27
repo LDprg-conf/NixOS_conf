@@ -15,13 +15,14 @@ in
     inputs.hardware.nixosModules.common-cpu-amd-pstate
     inputs.hardware.nixosModules.common-pc-laptop
     inputs.hardware.nixosModules.common-pc-laptop-ssd
-
-    (modulesPath + "/installer/scan/not-detected.nix")
   ];
 
   config =
     let cfg = config.vfio;
     in {
+
+      # KERNEL
+
       boot = {
         initrd = {
           availableKernelModules = [
@@ -54,46 +55,53 @@ in
           ];
         };
 
-        kernelModules = [ "kvm-amd" ];
-        extraModprobeConfig = "options nvidia-drm modeset=1";
         blacklistedKernelModules =
           [ "i915" "intel_agp" "viafb" "radeon" "radeonsi" "nouveau" ];
-        supportedFilesystems = [ "ntfs" "btrfs" ];
+        extraModprobeConfig = "options nvidia-drm modeset=1";
+        kernelModules = [ "kvm-amd" "i2c-dev" "i2c-piix4" ];
         kernelParams = [ "zswap.enabled=1" "iommu=1" "iommu=pt" ]
           ++ lib.optional cfg.enable "vfio-pci.ids=10de:2520,10de:228e";
+        supportedFilesystems = [ "ntfs" "btrfs" ];
+
+        loader.timeout = 2;
       };
 
-      # Enable OpenGL
+      hardware.i2c.enable = true;
+
+      # NVIDIA GPU
+
       hardware.opengl = {
         enable = true;
         driSupport = true;
         driSupport32Bit = true;
+        extraPackages = with pkgs; [ vaapiVdpau ];
       };
 
-      # Load nvidia driver for Xorg and Wayland
       services.xserver.videoDrivers = [ "nvidia" ];
 
       hardware.nvidia = {
         modesetting.enable = true;
+
+        nvidiaSettings = true;
+
+        open = true;
+
+        package = config.boot.kernelPackages.nvidiaPackages.stable;
 
         powerManagement = {
           enable = false;
           finegrained = false;
         };
 
-        open = true;
+        prime = {
+          sync.enable = true;
 
-        nvidiaSettings = true;
-
-        package = config.boot.kernelPackages.nvidiaPackages.stable;
+          amdgpuBusId = "PCI:6:0:0";
+          nvidiaBusId = "PCI:1:0:0";
+        };
       };
 
-      environment.systemPackages = [
-        pkgs.wireguard-tools
-        pkgs.looking-glass-client
-        pkgs.scream
-        nvidia-offload
-      ];
+      # FILESYSTEM
 
       systemd.tmpfiles.rules = [
         "f /dev/shm/scream 0660 ld qemu-libvirtd -"
@@ -135,7 +143,12 @@ in
       services.fstrim.enable = true;
       services.udisks2.enable = true;
 
+      # POWERMANAGEMENT
+
+      powerManagement.enable = true;
       powerManagement.cpuFreqGovernor = "performance";
+
+      # NETWORK
 
       networking.useDHCP = lib.mkDefault true;
       networking.networkmanager.wifi.powersave = false;
@@ -143,7 +156,18 @@ in
         127.0.0.1 LD-Laptop.local LD-Laptop
       '';
 
+      # CPU
+
       hardware.cpu.amd.updateMicrocode = true;
+
+      # ETC
+
+      environment.systemPackages = [
+        pkgs.wireguard-tools
+        pkgs.looking-glass-client
+        pkgs.scream
+        nvidia-offload
+      ];
 
       systemd.user.services.scream-ivshmem = {
         enable = true;

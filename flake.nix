@@ -38,11 +38,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nix-your-shell = {
-      url = "github:MercuryTechnologies/nix-your-shell";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     nix-gaming = {
       url = "github:fufexan/nix-gaming";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -67,7 +62,6 @@
     , fenix
     , rust-overlay
     , home-manager
-    , nix-your-shell
     , spotx
     , nixos-needsreboot
     , ...
@@ -110,7 +104,7 @@
           nixpkgs.lib.nixosSystem {
             specialArgs = {
               inherit inputs outputs user host self fenix rust-overlay
-                nix-your-shell spotx;
+                spotx;
             };
             modules = [
               ./hosts
@@ -120,8 +114,7 @@
                 home-manager.useGlobalPkgs = true;
                 home-manager.useUserPackages = true;
                 home-manager.extraSpecialArgs = {
-                  inherit inputs outputs user host fenix rust-overlay
-                    nix-your-shell;
+                  inherit inputs outputs user host fenix rust-overlay;
                 };
                 home-manager.users.${user} = {
                   imports = [ ./hosts/home.nix ./hosts/${host}/home.nix ];

@@ -22,7 +22,6 @@
     android-tools
     mongodb-compass
     wireshark
-    nix-your-shell
     webcord
     spotify
     revolt-desktop
