@@ -163,7 +163,6 @@
   services.fwupd.enable = true;
 
   hardware.enableAllFirmware = true;
-  hardware.enableRedistributableFirmware = true;
 
   services.dbus.implementation = "broker";
 

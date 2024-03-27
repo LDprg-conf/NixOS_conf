@@ -58,13 +58,6 @@
     shell = pkgs.fish;
   };
 
-  services = {
-    asusd = {
-      enable = true;
-      enableUserService = true;
-    };
-  };
-
   users.defaultUserShell = pkgs.fish;
   environment.shells = with pkgs; [ fish ];
 
@@ -107,7 +100,6 @@
     magicOrExtension = "\\x7fELF....AI\\x02";
   };
 
-  services.hardware.bolt.enable = true;
   programs.gnupg.agent.enable = true;
 
   services.udev.packages = [ pkgs.openrgb ];

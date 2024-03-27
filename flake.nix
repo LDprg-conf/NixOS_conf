@@ -9,19 +9,12 @@
   };
 
   inputs = {
-    # Nixpkgs
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-23.11";
-
-    # Home manager
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    hardware.url = "github:nixos/nixos-hardware";
 
     nixos-needsreboot = {
       url = "https://flakehub.com/f/thefossguy/nixos-needsreboot/*.tar.gz";
@@ -57,8 +50,6 @@
   outputs =
     { self
     , nixpkgs
-    , nixpkgs-unstable
-    , nixpkgs-stable
     , fenix
     , rust-overlay
     , home-manager
@@ -68,13 +59,7 @@
     }@inputs:
     let
       inherit (self) outputs;
-      forAllSystems = nixpkgs.lib.genAttrs [
-        "aarch64-linux"
-        "i686-linux"
-        "x86_64-linux"
-        "aarch64-darwin"
-        "x86_64-darwin"
-      ];
+      forAllSystems = nixpkgs.lib.genAttrs [ "aarch64-linux" "x86_64-linux" ];
     in
     rec {
       # Your custom packages
@@ -103,8 +88,7 @@
           in
           nixpkgs.lib.nixosSystem {
             specialArgs = {
-              inherit inputs outputs user host self fenix rust-overlay
-                spotx;
+              inherit inputs outputs user host self fenix rust-overlay spotx;
             };
             modules = [
               ./hosts
