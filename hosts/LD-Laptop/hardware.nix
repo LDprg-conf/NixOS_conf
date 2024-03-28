@@ -153,6 +153,16 @@ in {
           CPU_MIN_PERF_ON_BAT = 0;
           CPU_MAX_PERF_ON_BAT = 20;
 
+          DISK_IDLE_SECS_ON_AC = 0;
+          DISK_IDLE_SECS_ON_BAT = 0;
+
+          USB_EXCLUDE_BTUSB = 1;
+
+          RESTORE_THRESHOLDS_ON_BAT = 1;
+
+          PCIE_ASPM_ON_AC = "performance";
+          PCIE_ASPM_ON_BAT = "powersave";
+
           #Optional helps save long term battery health
           START_CHARGE_THRESH_BAT0 = 40; # 40 and bellow it starts to charge
           STOP_CHARGE_THRESH_BAT0 = 80; # 80 and above it stops charging
