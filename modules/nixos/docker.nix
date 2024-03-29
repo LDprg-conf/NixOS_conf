@@ -1,6 +1,7 @@
 _: {
   virtualisation.docker = {
     # enable = true;
+    #enableNvidia = true;
     enableOnBoot = false;
     liveRestore = false;
     storageDriver = "btrfs";
@@ -8,6 +9,5 @@ _: {
       enable = true;
       setSocketVariable = true;
     };
-    #enableNvidia = true;
   };
 }
