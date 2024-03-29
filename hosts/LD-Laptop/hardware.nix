@@ -36,7 +36,8 @@
         [ "i915" "intel_agp" "viafb" "radeon" "radeonsi" "nouveau" ];
       extraModprobeConfig = "options nvidia-drm modeset=1";
       kernelModules = [ "kvm-amd" "i2c-dev" "i2c-piix4" ];
-      kernelParams = [ "zswap.enabled=1" "iommu=1" "iommu=pt" ]
+      kernelParams =
+        [ "amd_pstate=active" "zswap.enabled=1" "iommu=1" "iommu=pt" ]
         ++ lib.optional cfg.enable "vfio-pci.ids=10de:2520,10de:228e";
       supportedFilesystems = [ "ntfs" "btrfs" ];
 
