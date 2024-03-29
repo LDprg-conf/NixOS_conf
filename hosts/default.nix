@@ -115,6 +115,7 @@
     compsize
     cryptsetup
     curl
+    dmidecode
     exfatprogs
     f2fs-tools
     gh

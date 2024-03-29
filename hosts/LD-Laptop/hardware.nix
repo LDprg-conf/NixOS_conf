@@ -1,13 +1,4 @@
-{ user, config, lib, pkgs, ... }:
-let
-  nvidia-offload = pkgs.writeShellScriptBin "nvidia-offload" ''
-    export __NV_PRIME_RENDER_OFFLOAD=1
-    export __NV_PRIME_RENDER_OFFLOAD_PROVIDER=NVIDIA-G0
-    export __GLX_VENDOR_LIBRARY_NAME=nvidia
-    export __VK_LAYER_NV_optimus=NVIDIA_only
-    exec "$@"
-  '';
-in {
+{ user, config, lib, pkgs, ... }: {
   options.vfio.enable = lib.mkEnableOption "Configure the machine for VFIO";
 
   config = let cfg = config.vfio;
@@ -23,13 +14,12 @@ in {
           "vfio_pci"
           "xhci_pci"
 
-          "nvidia"
           "nvidia_drm"
           "nvidia_modeset"
           "nvidia_uvm"
         ];
 
-        kernelModules = [ "zstd" "z3fold" ];
+        kernelModules = [ "nvidia" "amdgpu" "zstd" "z3fold" ];
 
         preDeviceCommands = lib.mkMerge [
           ''
@@ -46,8 +36,7 @@ in {
         [ "i915" "intel_agp" "viafb" "radeon" "radeonsi" "nouveau" ];
       extraModprobeConfig = "options nvidia-drm modeset=1";
       kernelModules = [ "kvm-amd" "i2c-dev" "i2c-piix4" ];
-      kernelParams =
-        [ "amd_pstate=active" "zswap.enabled=1" "iommu=1" "iommu=pt" ]
+      kernelParams = [ "zswap.enabled=1" "iommu=1" "iommu=pt" ]
         ++ lib.optional cfg.enable "vfio-pci.ids=10de:2520,10de:228e";
       supportedFilesystems = [ "ntfs" "btrfs" ];
 
@@ -67,6 +56,7 @@ in {
           nvidia-vaapi-driver
           vaapiVdpau
           libvdpau-va-gl
+          rocmPackages.clr.icd
         ];
       };
 
@@ -139,33 +129,18 @@ in {
       xserver.videoDrivers = [ "nvidia" ];
 
       power-profiles-daemon.enable = false;
-      tlp = {
-        enable = true;
-        settings = {
-          CPU_SCALING_GOVERNOR_ON_AC = "performance";
-          CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
+      tlp.enable = false;
+      auto-cpufreq.enable = true;
 
-          CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
-          CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
-
-          CPU_MIN_PERF_ON_AC = 0;
-          CPU_MAX_PERF_ON_AC = 100;
-          CPU_MIN_PERF_ON_BAT = 0;
-          CPU_MAX_PERF_ON_BAT = 20;
-
-          DISK_IDLE_SECS_ON_AC = 0;
-          DISK_IDLE_SECS_ON_BAT = 0;
-
-          USB_EXCLUDE_BTUSB = 1;
-
-          RESTORE_THRESHOLDS_ON_BAT = 1;
-
-          PCIE_ASPM_ON_AC = "performance";
-          PCIE_ASPM_ON_BAT = "powersave";
-
-          #Optional helps save long term battery health
-          START_CHARGE_THRESH_BAT0 = 40; # 40 and bellow it starts to charge
-          STOP_CHARGE_THRESH_BAT0 = 80; # 80 and above it stops charging
+      # pstate driver is managing the turbo boost so no need to set it in auto-cpufreq
+      auto-cpufreq.settings = {
+        battery = {
+          governor = "powersave";
+          energy_performance_preference = "balance_power";
+        };
+        charger = {
+          governor = "performance";
+          energy_performance_preference = "performance";
         };
       };
 
@@ -186,12 +161,8 @@ in {
       '';
     };
 
-    environment.systemPackages = [
-      pkgs.wireguard-tools
-      pkgs.looking-glass-client
-      pkgs.scream
-      nvidia-offload
-    ];
+    environment.systemPackages =
+      [ pkgs.wireguard-tools pkgs.looking-glass-client pkgs.scream ];
 
     systemd.user.services.scream-ivshmem = {
       enable = true;
