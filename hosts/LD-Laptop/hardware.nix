@@ -136,11 +136,13 @@
       auto-cpufreq.settings = {
         battery = {
           governor = "powersave";
-          energy_performance_preference = "balance_power";
+          energy_performance_preference =
+            "balance_power"; # Powersaving without too less performance (power will lock cpu freq at 400 MHz)
         };
         charger = {
           governor = "performance";
-          energy_performance_preference = "performance";
+          energy_performance_preference =
+            "performance"; # Full performance on AC
         };
       };
 
