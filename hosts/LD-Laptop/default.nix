@@ -1,4 +1,4 @@
-{ inputs, self, pkgs, fenix, rust-overlay, ... }: {
+{ inputs, self, lib, pkgs, fenix, rust-overlay, ... }: {
   imports = [
     ../../modules/nixos/default-apps.nix
 
@@ -163,4 +163,7 @@
 
   networking.nameservers =
     [ "1.1.1.1#one.one.one.one" "1.0.0.1#one.one.one.one" ];
+
+  systemd.services.NetworkManager-wait-online.enable =
+    lib.mkForce false; # Decrease boot time by disabeling network wait
 }

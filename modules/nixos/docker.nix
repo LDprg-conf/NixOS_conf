@@ -1,5 +1,13 @@
 _: {
-  virtualisation.docker.enable = true;
-  virtualisation.docker.liveRestore = false;
-  #virtualisation.docker.enableNvidia = true;
+  virtualisation.docker = {
+    # enable = true;
+    enableOnBoot = false;
+    liveRestore = false;
+    storageDriver = "btrfs";
+    rootless = {
+      enable = true;
+      setSocketVariable = true;
+    };
+    #enableNvidia = true;
+  };
 }
