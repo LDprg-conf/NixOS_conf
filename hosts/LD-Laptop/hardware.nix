@@ -131,20 +131,6 @@
 
       power-profiles-daemon.enable = false;
       tlp.enable = false;
-      auto-cpufreq.enable = true;
-
-      # pstate driver is managing the turbo boost so no need to set it in auto-cpufreq
-      auto-cpufreq.settings = {
-        battery = {
-          governor = "powersave";
-          energy_performance_preference = "power";
-          scaling_max_freq = 1000000;
-        };
-        charger = {
-          governor = "performance";
-          energy_performance_preference = "performance";
-        };
-      };
 
       hardware.bolt.enable = true;
 
@@ -154,9 +140,26 @@
       };
     };
 
-    programs.rog-control-center = {
-      enable = true;
-      autoStart = true;
+    programs = {
+      rog-control-center = {
+        enable = true;
+        autoStart = true;
+      };
+
+      auto-cpufreq.enable = true;
+      auto-cpufreq.settings = {
+        battery = {
+          governor = "powersave";
+          energy_performance_preference = "power";
+          scaling_max_freq = 1000000;
+          turbo = "auto";
+        };
+        charger = {
+          governor = "performance";
+          energy_performance_preference = "performance";
+          turbo = "auto";
+        };
+      };
     };
 
     powerManagement.enable = true;

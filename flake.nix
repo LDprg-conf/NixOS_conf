@@ -26,6 +26,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    auto-cpufreq = {
+      url = "github:AdnanHodzic/auto-cpufreq";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     fenix = {
       url = "github:nix-community/fenix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -52,8 +57,8 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, pre-commit-hooks, fenix, rust-overlay
-    , spotx, ... }@inputs:
+  outputs = { self, nixpkgs, home-manager, pre-commit-hooks, auto-cpufreq, fenix
+    , rust-overlay, spotx, ... }@inputs:
     let
       inherit (self) outputs;
       forAllSystems = nixpkgs.lib.genAttrs [ "aarch64-linux" "x86_64-linux" ];
@@ -105,6 +110,7 @@
                 };
               };
             }
+            auto-cpufreq.nixosModules.default
           ];
         };
       };
