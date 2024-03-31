@@ -1,4 +1,14 @@
-{ user, config, lib, pkgs, ... }: {
+{ user, config, lib, pkgs, ... }:
+let
+  nvidia-offload = pkgs.writeShellScriptBin "nvidia-offload" ''
+    export __NV_PRIME_RENDER_OFFLOAD=1
+    export __NV_PRIME_RENDER_OFFLOAD_PROVIDER=NVIDIA-G0
+    export __GLX_VENDOR_LIBRARY_NAME=nvidia
+    export __VK_LAYER_NV_optimus=NVIDIA_only
+    exec "$@"
+  '';
+in {
+
   options.vfio.enable = lib.mkEnableOption "Configure the machine for VFIO";
 
   config = let cfg = config.vfio;
@@ -150,7 +160,7 @@
         battery = {
           governor = "powersave";
           energy_performance_preference = "power";
-          scaling_max_freq = 1000000;
+          scaling_max_freq = 2000000;
           turbo = "never";
         };
         charger = {
@@ -171,8 +181,12 @@
       '';
     };
 
-    environment.systemPackages =
-      [ pkgs.wireguard-tools pkgs.looking-glass-client pkgs.scream ];
+    environment.systemPackages = [
+      pkgs.wireguard-tools
+      pkgs.looking-glass-client
+      pkgs.scream
+      nvidia-offload
+    ];
 
     systemd.user.services.scream-ivshmem = {
       enable = true;
