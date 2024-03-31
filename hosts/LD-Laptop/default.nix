@@ -79,6 +79,10 @@
     system.nixos.tags = [ "with-vfio" ];
     vfio.enable = true;
   };
+  specialisation."NVIDIA".configuration = {
+    system.nixos.tags = [ "nvidia-only" ];
+    nvidia-only.enable = true;
+  };
 
   boot.binfmt.registrations.appimage = {
     wrapInterpreterInShell = false;

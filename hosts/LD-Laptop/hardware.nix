@@ -10,8 +10,10 @@ let
 in {
 
   options.vfio.enable = lib.mkEnableOption "Configure the machine for VFIO";
+  options.nvidia-only.enable =
+    lib.mkEnableOption "Configure the machine for using Nvidia only";
 
-  config = let cfg = config.vfio;
+  config = let cfg = config;
   in {
     boot = {
       initrd = {
@@ -29,25 +31,27 @@ in {
           "nvidia_uvm"
         ];
 
-        kernelModules = [ "nvidia" "amdgpu" "zstd" "z3fold" ];
+        kernelModules = [ "nvidia" "zstd" "z3fold" ]
+          ++ lib.optional (!cfg.vfio.enable) "amdgpu";
 
         preDeviceCommands = lib.mkMerge [
           ''
             printf zstd > /sys/module/zswap/parameters/compressor
             printf z3fold > /sys/module/zswap/parameters/zpool
           ''
-          (lib.mkIf cfg.enable ''
+          (lib.mkIf cfg.vfio.enable ''
             modprobe -i vfio-pci
           '')
         ];
       };
 
       blacklistedKernelModules =
-        [ "i915" "intel_agp" "viafb" "radeon" "radeonsi" "nouveau" ];
+        [ "i915" "intel_agp" "viafb" "radeon" "radeonsi" "nouveau" ]
+        ++ lib.optional cfg.vfio.enable "amdgpu";
       extraModprobeConfig = "options nvidia-drm modeset=1";
       kernelModules = [ "kvm-amd" "i2c-dev" "i2c-piix4" ];
       kernelParams = [ "zswap.enabled=1" "iommu=1" "iommu=pt" ]
-        ++ lib.optional cfg.enable "vfio-pci.ids=10de:2520,10de:228e";
+        ++ lib.optional cfg.vfio.enable "vfio-pci.ids=10de:2520,10de:228e";
       supportedFilesystems = [ "ntfs" "btrfs" ];
 
       loader.timeout = 2;

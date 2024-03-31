@@ -7,6 +7,10 @@
       extraRules = [
         # Games
         {
+          name = "RelicCoH3.exe";
+          type = "Game";
+        }
+        {
           name = "Ryujinx";
           type = "Game";
         }
