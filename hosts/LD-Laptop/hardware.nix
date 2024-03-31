@@ -25,14 +25,11 @@ in {
           "usbhid"
           "vfio_pci"
           "xhci_pci"
-
-          "nvidia_drm"
-          "nvidia_modeset"
-          "nvidia_uvm"
         ];
 
-        kernelModules = [ "nvidia" "zstd" "z3fold" ]
-          ++ lib.optional (!cfg.vfio.enable) "amdgpu";
+        kernelModules =
+          [ "nvidia" "nvidia_drm" "nvidia_modeset" "zstd" "z3fold" ]
+          ++ lib.optional (!cfg.nvidia-only.enable) "amdgpu";
 
         preDeviceCommands = lib.mkMerge [
           ''
@@ -47,8 +44,9 @@ in {
 
       blacklistedKernelModules =
         [ "i915" "intel_agp" "viafb" "radeon" "radeonsi" "nouveau" ]
-        ++ lib.optional cfg.vfio.enable "amdgpu";
+        ++ lib.optional cfg.nvidia-only.enable "amdgpu";
       extraModprobeConfig = "options nvidia-drm modeset=1";
+      extraModulePackages = [ config.boot.kernelPackages.nvidia_x11 ];
       kernelModules = [ "kvm-amd" "i2c-dev" "i2c-piix4" ];
       kernelParams = [ "zswap.enabled=1" "iommu=1" "iommu=pt" ]
         ++ lib.optional cfg.vfio.enable "vfio-pci.ids=10de:2520,10de:228e";

@@ -12,7 +12,7 @@
 
   services = {
     xserver.displayManager.sddm = {
-      enable = true;
+      # enable = true;
       wayland.enable = true;
 
       settings = {
@@ -22,6 +22,8 @@
         };
       };
     };
+
+    xserver.displayManager.gdm.enable = true;
 
     desktopManager.plasma6.enable = true;
   };
