@@ -168,7 +168,6 @@ in {
         battery = {
           governor = "powersave";
           energy_performance_preference = "power";
-          scaling_max_freq = 2000000;
           turbo = "never";
         };
         charger = {
