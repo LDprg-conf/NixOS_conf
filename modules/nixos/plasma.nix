@@ -28,12 +28,7 @@
       settings = {
         default_session = {
           command =
-            "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd startplasma-wayland";
-          user = "greeter";
-        };
-        x11_session = {
-          command =
-            "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd startplasma-x11";
+            "${pkgs.greetd.tuigreet}/bin/tuigreet --time --remember --cmd startplasma-wayland";
           user = "greeter";
         };
       };

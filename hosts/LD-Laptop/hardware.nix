@@ -27,10 +27,6 @@ in {
           "xhci_pci"
         ];
 
-        kernelModules =
-          [ "nvidia" "nvidia_drm" "nvidia_modeset" "zstd" "z3fold" ]
-          ++ lib.optional (!cfg.nvidia-only.enable) "amdgpu";
-
         preDeviceCommands = lib.mkMerge [
           ''
             printf zstd > /sys/module/zswap/parameters/compressor
@@ -46,7 +42,17 @@ in {
         [ "i915" "intel_agp" "viafb" "radeon" "radeonsi" "nouveau" ]
         ++ lib.optional cfg.nvidia-only.enable "amdgpu";
       extraModulePackages = [ config.boot.kernelPackages.nvidia_x11 ];
-      kernelModules = [ "kvm-amd" "i2c-dev" "i2c-piix4" ];
+      kernelModules = [
+        "kvm-amd"
+        "i2c-dev"
+        "i2c-piix4"
+        "nvidia"
+        "nvidia_drm"
+        "nvidia_uvm"
+        "nvidia_modeset"
+        "zstd"
+        "z3fold"
+      ] ++ lib.optional (!cfg.nvidia-only.enable) "amdgpu";
       kernelParams = [
         "nvidia-drm.modeset=1"
         "nvidia.NVreg_PreserveVideoMemoryAllocations=1"
@@ -57,6 +63,7 @@ in {
       supportedFilesystems = [ "ntfs" "btrfs" ];
 
       loader.timeout = 2;
+      plymouth.enable = lib.mkIf (!cfg.nvidia-only.enable) true;
     };
 
     hardware = {
@@ -188,12 +195,21 @@ in {
       '';
     };
 
-    environment.systemPackages = [
-      pkgs.wireguard-tools
-      pkgs.looking-glass-client
-      pkgs.scream
-      nvidia-offload
-    ];
+    environment = {
+      systemPackages = [
+        pkgs.wireguard-tools
+        pkgs.looking-glass-client
+        pkgs.scream
+        nvidia-offload
+      ];
+      sessionVariables = rec {
+        QT_QPA_PLATFORMTHEME = "wayland;xcb";
+        GBM_BACKEND = "nvidia-drm";
+        __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+        ENABLE_VKBASALT = 1;
+        LIBVA_DRIVER_NAME = "nvidia";
+      };
+    };
 
     systemd.user.services.scream-ivshmem = {
       enable = true;
