@@ -55,6 +55,7 @@ in {
       ] ++ lib.optional (!cfg.nvidia-only.enable) "amdgpu";
       kernelParams = [
         "nvidia-drm.modeset=1"
+        "nvidia_drm.fbdev=1"
         "nvidia.NVreg_PreserveVideoMemoryAllocations=1"
         "zswap.enabled=1"
         "iommu=1"
@@ -206,7 +207,7 @@ in {
         QT_QPA_PLATFORMTHEME = "wayland;xcb";
         GBM_BACKEND = "nvidia-drm";
         __GLX_VENDOR_LIBRARY_NAME = "nvidia";
-        ENABLE_VKBASALT = 1;
+        ENABLE_VKBASALT = "1";
         LIBVA_DRIVER_NAME = "nvidia";
       };
     };
