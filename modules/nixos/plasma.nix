@@ -11,25 +11,14 @@
   ];
 
   services = {
-    # xserver.displayManager.sddm = {
-    #   enable = true;
-    #   wayland.enable = true;
-
-    #   settings = {
-    #     Theme = {
-    #       Current = "breeze";
-    #       ThemeDir = "/sddmt";
-    #     };
-    #   };
-    # };
-
-    greetd = {
+    xserver.displayManager.sddm = {
       enable = true;
+      wayland.enable = true;
+
       settings = {
-        default_session = {
-          command =
-            "${pkgs.greetd.tuigreet}/bin/tuigreet --time --remember --cmd startplasma-wayland";
-          user = "greeter";
+        Theme = {
+          Current = "breeze";
+          ThemeDir = "/sddmt";
         };
       };
     };

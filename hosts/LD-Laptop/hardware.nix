@@ -1,17 +1,6 @@
-{ user, config, lib, pkgs, ... }:
-let
-  nvidia-offload = pkgs.writeShellScriptBin "nvidia-offload" ''
-    export __NV_PRIME_RENDER_OFFLOAD=1
-    export __NV_PRIME_RENDER_OFFLOAD_PROVIDER=NVIDIA-G0
-    export __GLX_VENDOR_LIBRARY_NAME=nvidia
-    export __VK_LAYER_NV_optimus=NVIDIA_only
-    exec "$@"
-  '';
-in {
+{ user, config, lib, pkgs, ... }: {
 
   options.vfio.enable = lib.mkEnableOption "Configure the machine for VFIO";
-  options.nvidia-only.enable =
-    lib.mkEnableOption "Configure the machine for using Nvidia only";
 
   config = let cfg = config;
   in {
@@ -38,33 +27,14 @@ in {
         ];
       };
 
-      blacklistedKernelModules =
-        [ "i915" "intel_agp" "viafb" "radeon" "radeonsi" "nouveau" ]
-        ++ lib.optional cfg.nvidia-only.enable "amdgpu";
-      extraModulePackages = [ config.boot.kernelPackages.nvidia_x11 ];
-      kernelModules = [
-        "kvm-amd"
-        "i2c-dev"
-        "i2c-piix4"
-        "nvidia"
-        "nvidia_drm"
-        "nvidia_uvm"
-        "nvidia_modeset"
-        "zstd"
-        "z3fold"
-      ] ++ lib.optional (!cfg.nvidia-only.enable) "amdgpu";
-      kernelParams = [
-        "nvidia-drm.modeset=1"
-        "nvidia_drm.fbdev=1"
-        "nvidia.NVreg_PreserveVideoMemoryAllocations=1"
-        "zswap.enabled=1"
-        "iommu=1"
-        "iommu=pt"
-      ] ++ lib.optional cfg.vfio.enable "vfio-pci.ids=10de:2520,10de:228e";
+      kernelModules =
+        [ "kvm-amd" "i2c-dev" "i2c-piix4" "amdgpu" "zstd" "z3fold" ];
+      kernelParams = [ "zswap.enabled=1" "iommu=1" "iommu=pt" ]
+        ++ lib.optional cfg.vfio.enable "vfio-pci.ids=10de:2520,10de:228e";
       supportedFilesystems = [ "ntfs" "btrfs" ];
 
       loader.timeout = 2;
-      plymouth.enable = lib.mkIf (!cfg.nvidia-only.enable) true;
+      plymouth.enable = true;
     };
 
     hardware = {
@@ -77,7 +47,6 @@ in {
         driSupport = true;
         driSupport32Bit = true;
         extraPackages = with pkgs; [
-          nvidia-vaapi-driver
           vaapiVdpau
           libvdpau-va-gl
           rocmPackages.clr.icd
@@ -89,19 +58,22 @@ in {
 
         nvidiaSettings = true;
 
-        nvidiaPersistenced = true;
-
         open = true;
 
         package = config.boot.kernelPackages.nvidiaPackages.stable;
 
         powerManagement = {
           enable = false;
-          finegrained = false;
+          finegrained = true;
         };
 
+        dynamicBoost.enable = true;
+
         prime = {
-          sync.enable = true;
+          offload = {
+            enable = true;
+            enableOffloadCmd = true;
+          };
 
           amdgpuBusId = "PCI:6:0:0";
           nvidiaBusId = "PCI:1:0:0";
@@ -176,7 +148,7 @@ in {
         battery = {
           governor = "powersave";
           energy_performance_preference = "power";
-          turbo = "never";
+          turbo = "auto";
         };
         charger = {
           governor = "performance";
@@ -196,21 +168,8 @@ in {
       '';
     };
 
-    environment = {
-      systemPackages = [
-        pkgs.wireguard-tools
-        pkgs.looking-glass-client
-        pkgs.scream
-        nvidia-offload
-      ];
-      sessionVariables = rec {
-        QT_QPA_PLATFORMTHEME = "wayland;xcb";
-        GBM_BACKEND = "nvidia-drm";
-        __GLX_VENDOR_LIBRARY_NAME = "nvidia";
-        ENABLE_VKBASALT = "1";
-        LIBVA_DRIVER_NAME = "nvidia";
-      };
-    };
+    environment.systemPackages =
+      [ pkgs.wireguard-tools pkgs.looking-glass-client pkgs.scream ];
 
     systemd.user.services.scream-ivshmem = {
       enable = true;
