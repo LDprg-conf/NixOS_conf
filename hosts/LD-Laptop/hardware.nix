@@ -58,12 +58,12 @@
 
         nvidiaSettings = true;
 
-        open = true;
+        open = false;
 
         package = config.boot.kernelPackages.nvidiaPackages.stable;
 
         powerManagement = {
-          enable = false;
+          enable = true;
           finegrained = true;
         };
 
