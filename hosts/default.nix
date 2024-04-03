@@ -174,6 +174,7 @@
     xz
     zip
     zoxide
+    atool
   ];
 
   services.fwupd.enable = true;

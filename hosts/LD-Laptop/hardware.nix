@@ -134,7 +134,9 @@
       asusd = {
         enable = true;
         enableUserService = true;
+        asusdConfig = { bat_charge_limit = 80; };
       };
+      services.supergfxd.enable = true;
     };
 
     programs = {
@@ -155,6 +157,13 @@
           energy_performance_preference = "performance";
           turbo = "always";
         };
+      };
+
+      tuxclocker = {
+        enable = true;
+        enabledNVIDIADevices = [ 0 ];
+        enableAMD = true;
+        useUnfree = true;
       };
     };
 
