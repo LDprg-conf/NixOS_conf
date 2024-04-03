@@ -126,44 +126,40 @@
 
       xserver.videoDrivers = [ "nvidia" ];
 
-      power-profiles-daemon.enable = false;
-      tlp.enable = false;
-
       hardware.bolt.enable = true;
 
       asusd = {
         enable = true;
         enableUserService = true;
-        asusdConfig = ''{"bat_charge_limit": 80,}'';
+        asusdConfig = ''
+          (
+            charge_control_end_threshold: 80,
+            panel_od: false,
+            mini_led_mode: false,
+            disable_nvidia_powerd_on_battery: true,
+            ac_command: "${pkgs.ryzenadj} --power-saving",
+            bat_command: "${pkgs.ryzenadj} --max-performance",
+            platform_policy_linked_epp: true,
+            platform_policy_on_battery: Balanced,
+            platform_policy_on_ac: Performance,
+            ppt_pl1_spl: None,
+            ppt_pl2_sppt: None,
+            ppt_fppt: None,
+            ppt_apu_sppt: None,
+            ppt_platform_sppt: None,
+            nv_dynamic_boost: None,
+            nv_temp_target: None,
+          )
+        '';
       };
       supergfxd.enable = true;
+      switcherooControl.enable = true;
     };
 
     programs = {
       rog-control-center = {
         enable = true;
         autoStart = true;
-      };
-
-      auto-cpufreq.enable = true;
-      auto-cpufreq.settings = {
-        battery = {
-          governor = "powersave";
-          energy_performance_preference = "power";
-          turbo = "auto";
-        };
-        charger = {
-          governor = "performance";
-          energy_performance_preference = "performance";
-          turbo = "always";
-        };
-      };
-
-      tuxclocker = {
-        enable = true;
-        enabledNVIDIADevices = [ 0 ];
-        enableAMD = true;
-        useUnfree = true;
       };
     };
 
@@ -177,8 +173,12 @@
       '';
     };
 
-    environment.systemPackages =
-      [ pkgs.wireguard-tools pkgs.looking-glass-client pkgs.scream ];
+    environment.systemPackages = [
+      pkgs.wireguard-tools
+      pkgs.looking-glass-client
+      pkgs.scream
+      pkgs.ryzenadj
+    ];
 
     systemd.user.services.scream-ivshmem = {
       enable = true;
