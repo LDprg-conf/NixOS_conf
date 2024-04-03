@@ -14,12 +14,7 @@
     telegram-desktop
     qbittorrent
     nextcloud-client
-    freerdp
     bitwarden
-    android-tools
-    mongodb-compass
-    wireshark
-    webcord
     spotify
     revolt-desktop
     kdePackages.kcalc
@@ -34,9 +29,6 @@
     geogebra6
     ptouch-print
     obsidian
-    parsec-bin
-    moonlight-qt
-    gnome.zenity
     linux-wifi-hotspot
     btrfs-assistant
     ryujinx
@@ -67,6 +59,7 @@
     enable = true;
     interactiveShellInit = ''
       set fish_greeting # Disable greeting
+      nix-your-shell fish | source
     '';
   };
 }
