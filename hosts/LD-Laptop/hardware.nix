@@ -134,9 +134,9 @@
       asusd = {
         enable = true;
         enableUserService = true;
-        asusdConfig = { bat_charge_limit = 80; };
+        asusdConfig = ''{"bat_charge_limit": 80,}'';
       };
-      services.supergfxd.enable = true;
+      supergfxd.enable = true;
     };
 
     programs = {
