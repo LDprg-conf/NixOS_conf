@@ -1,14 +1,6 @@
-# This is your system's configuration file.
-# Use this to configure your system environment (it replaces /etc/nixos/configuration.nix)
-
 { inputs, user, host, lib, config, pkgs, spotx, ... }: {
   nixpkgs = {
-    # Configure your nixpkgs instance
-    config = {
-      # Disable if you don't want unfree packages
-      allowUnfree = true;
-      permittedInsecurePackages = [ "electron-25.9.0" ];
-    };
+    config = { allowUnfree = true; };
     overlays = [
       (_: prev: {
         spotify = prev.spotify.overrideAttrs (attrs: {
@@ -77,19 +69,15 @@
     };
 
     settings = {
-      # Enable flakes and new 'nix' command
       experimental-features = "nix-command flakes";
       warn-dirty = false;
-      # Deduplicate and optimize nix store
       auto-optimise-store = true;
       trusted-users = [ "root" "ld" ];
     };
   };
 
-  # TODO: Set your hostname
   networking.hostName = "${host}";
 
-  # Set your time zone.
   time.timeZone = "Europe/Vienna";
 
   # Select internationalisation properties.
@@ -147,6 +135,7 @@
     neofetch
     neovim
     nethogs
+    nixfmt
     nilfs-utils
     p7zip
     pciutils

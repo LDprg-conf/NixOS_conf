@@ -1,12 +1,6 @@
-# This is your home-manager configuration file
-# Use this to configure your home environment (it replaces ~/.config/nixpkgs/home.nix)
-
-{ user, config, pkgs, ... }: {
-
+{ user, config, ... }: {
   nixpkgs = {
-    # Configure your nixpkgs instance
     config = {
-      # Disable if you don't want unfree packages
       allowUnfree = true;
       # Workaround for https://github.com/nix-community/home-manager/issues/2942
       allowUnfreePredicate = _: true;
@@ -16,10 +10,8 @@
   home = {
     username = "${user}";
     homeDirectory = "/home/${user}";
-    packages = with pkgs; [ nixfmt ];
   };
 
-  # Enable home-manager and git
   programs = {
     home-manager.enable = true;
     git.enable = true;

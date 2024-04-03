@@ -29,12 +29,21 @@
 
       kernelModules =
         [ "kvm-amd" "i2c-dev" "i2c-piix4" "amdgpu" "zstd" "z3fold" ];
-      kernelParams = [ "zswap.enabled=1" "iommu=1" "iommu=pt" ]
-        ++ lib.optional cfg.vfio.enable "vfio-pci.ids=10de:2520,10de:228e";
+      kernelParams = [
+        "quiet"
+        "splash"
+        "lymouth.nolog"
+        "udev.log_level=3"
+        "zswap.enabled=1"
+        "iommu=1"
+        "iommu=pt"
+      ] ++ lib.optional cfg.vfio.enable "vfio-pci.ids=10de:2520,10de:228e";
       supportedFilesystems = [ "ntfs" "btrfs" ];
 
       loader.timeout = 2;
       plymouth.enable = true;
+      consoleLogLevel = 0;
+      initrd.verbose = false;
     };
 
     hardware = {

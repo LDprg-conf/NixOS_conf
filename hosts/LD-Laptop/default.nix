@@ -1,7 +1,5 @@
 { inputs, self, lib, pkgs, fenix, rust-overlay, ... }: {
   imports = [
-    ../../modules/nixos/default-apps.nix
-
     ../../modules/nixos/ananicy.nix
     ../../modules/nixos/apparmor.nix
     ../../modules/nixos/docker.nix
@@ -11,28 +9,15 @@
     ../../modules/nixos/hotspot.nix
     ../../modules/nixos/kernel-latest.nix
     ../../modules/nixos/libreoffice.nix
+    ../../modules/nixos/lutris.nix
     ../../modules/nixos/pipewire.nix
     ../../modules/nixos/plasma.nix
+    ../../modules/nixos/steam.nix
 
     ./hardware.nix
   ];
 
   nixpkgs.overlays = [ fenix.overlays.default rust-overlay.overlays.default ];
-
-  # system.autoUpgrade = {
-  #   enable = true;
-  #   allowReboot = false;
-  #   randomizedDelaySec = "45min";
-  #   operation = "boot";
-  #   dates = "daily";
-  #   flake = inputs.self.outPath;
-  #   flags = [
-  #     "--update-input"
-  #     "nixpkgs"
-  #     "--commit-lock-file"
-  #     "-L" # print build logs
-  #   ];
-  # };
 
   xdg.portal = {
     enable = true;
@@ -40,10 +25,7 @@
   };
 
   users = {
-    users.ld = {
-      description = "LD";
-      shell = pkgs.fish;
-    };
+    users.ld = { description = "LD"; };
 
     defaultUserShell = pkgs.fish;
   };
@@ -92,20 +74,18 @@
   services = {
     udev.packages = [ pkgs.openrgb ];
 
-    preload.enable = true;
-
     logmein-hamachi.enable = true;
 
     joycond.enable = true;
 
     resolved = {
       enable = true;
+      dnssec = "true";
       domains = [ "~." ];
       fallbackDns = [ "1.1.1.1#one.one.one.one" "1.0.0.1#one.one.one.one" ];
+      dnsovertls = "true";
     };
   };
-
-  security.polkit.enable = true;
 
   programs = {
     haguichi.enable = true;
@@ -113,6 +93,7 @@
     gamescope = {
       enable = true;
       env = { ENABLE_HDR_WSI = "1"; };
+      args = [ "--hdr-enabled" "--hdr-debug-force-output" ];
     };
 
     gamemode = {
