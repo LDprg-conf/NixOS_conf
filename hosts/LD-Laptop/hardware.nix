@@ -62,7 +62,7 @@
         ];
       };
 
-      nvidia = {
+      nvidia = lib.mkIf (!cfg.vfio.enable) {
         modesetting.enable = true;
 
         nvidiaSettings = true;
@@ -133,7 +133,7 @@
       fstrim.enable = true;
       udisks2.enable = true;
 
-      xserver.videoDrivers = [ "nvidia" ];
+      xserver.videoDrivers = lib.mkIf (!cfg.vfio.enable) [ "nvidia" ];
 
       hardware.bolt.enable = true;
 
