@@ -30,20 +30,20 @@
       kernelModules =
         [ "kvm-amd" "i2c-dev" "i2c-piix4" "amdgpu" "zstd" "z3fold" ];
       kernelParams = [
-        "quiet"
-        "splash"
         "lymouth.nolog"
         "udev.log_level=3"
-        "zswap.enabled=1"
         "iommu=1"
         "iommu=pt"
+        "zswap.enabled=1"
+        "quiet"
+        "splash"
       ] ++ lib.optional cfg.vfio.enable "vfio-pci.ids=10de:2520,10de:228e";
       supportedFilesystems = [ "ntfs" "btrfs" ];
 
-      loader.timeout = 2;
-      plymouth.enable = true;
       consoleLogLevel = 0;
       initrd.verbose = false;
+      loader.timeout = 2;
+      plymouth.enable = true;
     };
 
     hardware = {
@@ -56,9 +56,9 @@
         driSupport = true;
         driSupport32Bit = true;
         extraPackages = with pkgs; [
-          vaapiVdpau
           libvdpau-va-gl
           rocmPackages.clr.icd
+          vaapiVdpau
         ];
       };
 
@@ -183,10 +183,11 @@
     };
 
     environment.systemPackages = [
-      pkgs.wireguard-tools
       pkgs.looking-glass-client
-      pkgs.scream
       pkgs.ryzenadj
+      pkgs.gwe
+      pkgs.scream
+      pkgs.wireguard-tools
     ];
 
     systemd.user.services.scream-ivshmem = {

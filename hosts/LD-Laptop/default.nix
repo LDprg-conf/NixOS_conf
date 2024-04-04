@@ -1,6 +1,5 @@
 { inputs, self, lib, pkgs, fenix, rust-overlay, ... }: {
   imports = [
-    ../../modules/nixos/ananicy.nix
     ../../modules/nixos/apparmor.nix
     ../../modules/nixos/docker.nix
     ../../modules/nixos/firewall.nix
@@ -25,7 +24,7 @@
   };
 
   users = {
-    users.ld = { description = "LD"; };
+    users.ld.description = "LD";
 
     defaultUserShell = pkgs.fish;
   };
@@ -96,15 +95,7 @@
       args = [ "--hdr-enabled" "--hdr-debug-force-output" ];
     };
 
-    gamemode = {
-      enable = true;
-      settings = {
-        general = {
-          renice = 0;
-          ioprio = ''"off"'';
-        };
-      };
-    };
+    gamemode.enable = true;
 
     virt-manager.enable = true;
     nix-ld.enable = true;
