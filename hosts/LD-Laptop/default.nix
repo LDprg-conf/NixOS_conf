@@ -37,7 +37,6 @@
       clinfo
       openrgb
       mangohud
-      git
       pre-commit
       esptool
       antimicrox

@@ -122,7 +122,6 @@
     exfatprogs
     f2fs-tools
     gh
-    git
     hfsprogs
     htop
     iftop
@@ -135,7 +134,7 @@
     neofetch
     neovim
     nethogs
-    nixfmt
+    nixfmt-rfc-style
     nilfs-utils
     p7zip
     pciutils
@@ -165,6 +164,9 @@
     zoxide
     atool
   ];
+
+  programs.git.enable = true;
+  programs.git.lfs.enable = true;
 
   services.fwupd.enable = true;
 

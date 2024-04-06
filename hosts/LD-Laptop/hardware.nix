@@ -16,6 +16,9 @@
           "xhci_pci"
         ];
 
+        kernelModules =
+          [ "kvm-amd" "i2c-dev" "i2c-piix4" "amdgpu" "zstd" "z3fold" ];
+
         preDeviceCommands = lib.mkMerge [
           ''
             printf zstd > /sys/module/zswap/parameters/compressor
@@ -27,8 +30,6 @@
         ];
       };
 
-      kernelModules =
-        [ "kvm-amd" "i2c-dev" "i2c-piix4" "amdgpu" "zstd" "z3fold" ];
       kernelParams = [
         "lymouth.nolog"
         "udev.log_level=3"
@@ -36,7 +37,6 @@
         "iommu=pt"
         "zswap.enabled=1"
         "quiet"
-        "splash"
       ] ++ lib.optional cfg.vfio.enable "vfio-pci.ids=10de:2520,10de:228e";
       supportedFilesystems = [ "ntfs" "btrfs" ];
 
@@ -58,6 +58,7 @@
         extraPackages = with pkgs; [
           libvdpau-va-gl
           rocmPackages.clr.icd
+          amdvlk
           vaapiVdpau
         ];
       };
@@ -79,10 +80,9 @@
         dynamicBoost.enable = true;
 
         prime = {
-          offload = {
-            enable = true;
-            enableOffloadCmd = true;
-          };
+          offload.enable = lib.mkForce true;
+          offload.enableOffloadCmd = lib.mkForce true;
+          sync.enable = lib.mkForce false;
 
           amdgpuBusId = "PCI:6:0:0";
           nvidiaBusId = "PCI:1:0:0";
@@ -169,6 +169,12 @@
       rog-control-center = {
         enable = true;
         autoStart = true;
+      };
+
+      tuxclocker = {
+        enable = true;
+        enabledNVIDIADevices = [ 0 ];
+        useUnfree = true;
       };
     };
 
