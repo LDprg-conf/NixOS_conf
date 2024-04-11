@@ -128,7 +128,8 @@
     qemu.ovmf.enable = true;
     qemu.runAsRoot = false;
     onBoot = "ignore";
-    onShutdown = "shutdown";
+    onShutdown = "suspend";
+    parallelShutdown = 10;
   };
   virtualisation.spiceUSBRedirection.enable = true;
 
