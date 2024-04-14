@@ -125,7 +125,6 @@
     hfsprogs
     htop
     iftop
-    inputs.nixos-needsreboot.packages.${system}.default
     iotop
     jfsutils
     killall
@@ -171,8 +170,6 @@
   services.fwupd.enable = true;
 
   hardware.enableAllFirmware = true;
-
-  services.dbus.implementation = "broker";
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "23.05";

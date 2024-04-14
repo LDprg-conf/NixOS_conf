@@ -11,7 +11,7 @@
   ];
 
   services = {
-    xserver.displayManager.sddm = {
+    displayManager.sddm = {
       enable = true;
       wayland.enable = true;
 
