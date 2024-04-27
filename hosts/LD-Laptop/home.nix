@@ -32,6 +32,7 @@
     linux-wifi-hotspot
     btrfs-assistant
     ryujinx
+    webcord
   ];
 
   programs = {

@@ -9,7 +9,8 @@
   };
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable-small";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -47,8 +48,8 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, pre-commit-hooks, auto-cpufreq, fenix
-    , rust-overlay, spotx, ... }@inputs:
+  outputs = { self, nixpkgs, chaotic, home-manager, pre-commit-hooks
+    , auto-cpufreq, fenix, rust-overlay, spotx, ... }@inputs:
     let
       inherit (self) outputs;
       forAllSystems = nixpkgs.lib.genAttrs [ "aarch64-linux" "x86_64-linux" ];
@@ -101,6 +102,7 @@
               };
             }
             auto-cpufreq.nixosModules.default
+            chaotic.nixosModules.default
           ];
         };
       };

@@ -11,6 +11,8 @@
         gcc
         llvm
         lld
+        lldb
+        gdb
         clang
         mold
         # (rust-bin.selectLatestNightlyWith (toolchain:
@@ -26,23 +28,25 @@
         brettm12345.nixfmt-vscode
         eamodio.gitlens
         esbenp.prettier-vscode
-        # github.codespaces
+        github.codespaces
         github.vscode-github-actions
         github.vscode-pull-request-github
         jnoortheen.nix-ide
         ms-azuretools.vscode-docker
         ms-dotnettools.csharp
-        #ms-python.python
+        ms-python.python
         ms-python.vscode-pylance
         ms-vscode-remote.remote-containers
         ms-vscode-remote.remote-ssh
         ms-vscode.anycode
         ms-vscode.cmake-tools
+        # ms-vscode.cpptools
         ms-vscode.hexeditor
         ms-vscode.live-server
         ms-vscode.makefile-tools
-        # ms-vsliveshare.vsliveshare
+        ms-vsliveshare.vsliveshare
         njpwerner.autodocstring
+        pkief.material-icon-theme
         rust-lang.rust-analyzer
         serayuzgur.crates
         tamasfe.even-better-toml
@@ -62,12 +66,12 @@
           version = "3.3.2";
           sha256 = "sha256-qYlhCioa3LiI67iubC1XQatY5JaeGLT26Q1Q1TWBczo=";
         }
-        # {
-        #   name = "cpptools";
-        #   publisher = "ms-vscode";
-        #   version = "1.19.3";
-        #   sha256 = "sha256-vvAd6JWEOWnzGMbaZRxnYerJeZRSu+Ahj2vnqMpx8Nc=";
-        # }
+        {
+          name = "saturated-dark-modern-oled";
+          publisher = "LDprg";
+          version = "1.0.6";
+          sha256 = "sha256-aV6ZQWJgyzHp/30vG74SPi4Va2ALnFWQnZtWxsv+mug=";
+        }
       ];
   };
 }

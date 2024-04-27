@@ -1,5 +1,7 @@
 { pkgs, ... }: {
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  # boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = pkgs.linuxPackages_cachyos;
+  environment.systemPackages = [ pkgs.scx ];
 
   boot.kernel.sysctl = {
     "kernel.sysrq" =
