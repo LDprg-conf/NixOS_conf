@@ -1,6 +1,11 @@
 { inputs, user, host, lib, config, pkgs, spotx, ... }: {
   nixpkgs = {
     config = { allowUnfree = true; };
+    hostPlatform = {
+      gcc.arch = "znver3";
+      gcc.tune = "znver3";
+      system = "x86_64-linux";
+    };
     overlays = [
       (_: prev: {
         spotify = prev.spotify.overrideAttrs (attrs: {
@@ -70,6 +75,7 @@
     };
 
     settings = {
+      system-features = [ "nixos-test" "benchmark" "big-parallel" "kvm" "gccarch-x86-64-v3" "gccarch-znver3" ];
       experimental-features = "nix-command flakes";
       warn-dirty = false;
       auto-optimise-store = true;
@@ -162,6 +168,7 @@
     xz
     zip
     zoxide
+    zstd
     atool
   ];
 

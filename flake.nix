@@ -1,14 +1,5 @@
 {
-  description = "A Nixos config";
-
-  nixConfig = {
-    extra-trusted-substituters =
-      [ "https://nix-community.cachix.org" "https://nyx.chaotic.cx/" ];
-    extra-trusted-public-keys = [
-      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-      "chaotic-nyx.cachix.org-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8="
-    ];
-  };
+  description = "LDprg's Nixos config";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -65,6 +56,10 @@
     let
       inherit (self) outputs;
       forAllSystems = nixpkgs.lib.genAttrs [ "aarch64-linux" "x86_64-linux" ];
+      pkgs = forAllSystems (system:
+        import nixpkgs {
+          inherit system;
+        });
     in
     rec {
       packages = forAllSystems (system:
@@ -72,17 +67,14 @@
         in import ./pkgs { inherit pkgs; });
 
       devShells = forAllSystems (system:
-        let pkgs = nixpkgs.legacyPackages.${system};
-        in {
+        {
           default = import ./shell.nix { inherit pkgs; };
           precommit = pkgs.mkShell {
             inherit (self.checks.${system}.pre-commit-check) shellHook;
           };
         });
 
-      formatter = forAllSystems (system:
-        let pkgs = nixpkgs.legacyPackages.${system};
-        in pkgs.nixpkgs-fmt);
+      formatter = pkgs.nixpkgs-fmt;
 
       nixosConfigurations = {
         LD-Laptop =
@@ -117,8 +109,6 @@
       };
 
       checks = forAllSystems (system:
-        let pkgs = nixpkgs.legacyPackages.${system};
-        in
         import ./precommit.nix { inherit pkgs system pre-commit-hooks; }
       );
     };
