@@ -182,7 +182,7 @@
 
     networking = {
       useDHCP = lib.mkDefault true;
-      networkmanager.wifi.powersave = false;
+      # networkmanager.wifi.powersave = false;
       extraHosts = ''
         127.0.0.1 LD-Laptop.local LD-Laptop
       '';

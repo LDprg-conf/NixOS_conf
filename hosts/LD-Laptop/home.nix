@@ -33,6 +33,7 @@
     btrfs-assistant
     ryujinx
     webcord
+    drawio
   ];
 
   programs = {
