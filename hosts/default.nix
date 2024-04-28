@@ -20,7 +20,8 @@
                 "https://archive.org/download/gpatcher0.0.5/gpatcher0.0.5.zip";
               hash = "sha256-wPCLUTnjhwAgxjUQIzvpefxCA3JPX/h4QE70obdkPo0=";
             };
-          in {
+          in
+          {
             buildInputs = [ prev.unzip ];
 
             postFixup = (attrs.postFixup or "") + ''

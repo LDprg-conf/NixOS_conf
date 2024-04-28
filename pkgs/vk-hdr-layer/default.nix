@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchgit, meson, pkg-config, ninja, xorg, vulkan-headers
-, vulkan-loader, wayland-scanner, wayland }:
+{ lib
+, stdenv
+, fetchgit
+, meson
+, pkg-config
+, ninja
+, xorg
+, vulkan-headers
+, vulkan-loader
+, wayland-scanner
+, wayland
+}:
 
 stdenv.mkDerivation rec {
   pname = "VK_hdr_layer";
