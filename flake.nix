@@ -74,8 +74,7 @@
 
       formatter = forAllSystems (system:
         let pkgs = nixpkgs.legacyPackages.${system};
-        in
-        pkgs.nixpkgs-fmt);
+        in pkgs.nixpkgs-fmt);
 
       nixosConfigurations = {
         LD-Laptop =
@@ -111,8 +110,7 @@
 
       checks = forAllSystems (system:
         let pkgs = nixpkgs.legacyPackages.${system};
-        in
-        import ./precommit.nix { inherit pkgs system pre-commit-hooks; }
+        in import ./precommit.nix { inherit pkgs system pre-commit-hooks; }
       );
     };
 }
