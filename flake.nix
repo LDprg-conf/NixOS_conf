@@ -56,10 +56,6 @@
     let
       inherit (self) outputs;
       forAllSystems = nixpkgs.lib.genAttrs [ "aarch64-linux" "x86_64-linux" ];
-      pkgs = forAllSystems (system:
-        import nixpkgs {
-          inherit system;
-        });
     in
     rec {
       packages = forAllSystems (system:
@@ -67,6 +63,8 @@
         in import ./pkgs { inherit pkgs; });
 
       devShells = forAllSystems (system:
+        let pkgs = nixpkgs.legacyPackages.${system};
+        in
         {
           default = import ./shell.nix { inherit pkgs; };
           precommit = pkgs.mkShell {
@@ -74,7 +72,10 @@
           };
         });
 
-      formatter = pkgs.nixpkgs-fmt;
+      formatter = forAllSystems (system:
+        let pkgs = nixpkgs.legacyPackages.${system};
+        in
+        pkgs.nixpkgs-fmt);
 
       nixosConfigurations = {
         LD-Laptop =
@@ -109,6 +110,8 @@
       };
 
       checks = forAllSystems (system:
+        let pkgs = nixpkgs.legacyPackages.${system};
+        in
         import ./precommit.nix { inherit pkgs system pre-commit-hooks; }
       );
     };

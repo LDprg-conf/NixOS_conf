@@ -1,13 +1,8 @@
 { inputs, user, host, lib, config, pkgs, spotx, ... }: {
   nixpkgs = {
     config = { allowUnfree = true; };
-    hostPlatform = {
-      gcc.arch = "znver3";
-      gcc.tune = "znver3";
-      system = "x86_64-linux";
-    };
     overlays = [
-      (_: prev: {
+      (final: prev: {
         spotify = prev.spotify.overrideAttrs (attrs: {
           buildInputs = [ prev.perl prev.unzip prev.zip ];
           postInstall = (attrs.postInstall or "") + ''
@@ -16,8 +11,6 @@
             	  bash spotx.sh -P $out/share/spotify/ -ch
             	'';
         });
-      })
-      (_: prev: {
         gitkraken = prev.gitkraken.overrideAttrs (attrs:
           let
             patchScript = prev.fetchurl {
@@ -38,8 +31,6 @@
               ./gpatcher_linux_amd64 $out/share/gitkraken/resources/app.asar
             '';
           });
-      })
-      (final: prev: {
         # fix NixOS/nixpkgs#287646
         kdePackages = prev.kdePackages // {
           sddm = prev.kdePackages.sddm.overrideAttrs (old: {
@@ -75,7 +66,7 @@
     };
 
     settings = {
-      system-features = [ "nixos-test" "benchmark" "big-parallel" "kvm" "gccarch-x86-64-v3" "gccarch-znver3" ];
+      system-features = [ "nixos-test" "benchmark" "big-parallel" "kvm" "gccarch-x86-64-v3" "gccarch-zenver3" ];
       experimental-features = "nix-command flakes";
       warn-dirty = false;
       auto-optimise-store = true;
