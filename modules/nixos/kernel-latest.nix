@@ -4,8 +4,8 @@
   environment.systemPackages = [ pkgs.scx ];
 
   chaotic.scx = {
-    enable = false;
-    scheduler = "scx_rustland";
+    enable = true;
+    scheduler = "scx_lavd";
   };
 
   boot.kernel.sysctl = {

@@ -101,7 +101,6 @@
       "networkmanager"
       "wheel"
       "wireshark"
-      "docker"
       "dialout"
       "scanner"
       "lp"

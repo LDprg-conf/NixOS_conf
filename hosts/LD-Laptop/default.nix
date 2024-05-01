@@ -1,7 +1,6 @@
 { inputs, self, lib, pkgs, fenix, rust-overlay, ... }: {
   imports = [
     ../../modules/nixos/apparmor.nix
-    ../../modules/nixos/docker.nix
     ../../modules/nixos/firewall.nix
     ../../modules/nixos/fish.nix
     ../../modules/nixos/grub.nix
@@ -11,6 +10,7 @@
     ../../modules/nixos/lutris.nix
     ../../modules/nixos/pipewire.nix
     ../../modules/nixos/plasma.nix
+    ../../modules/nixos/podman.nix
     ../../modules/nixos/steam.nix
 
     ./hardware.nix
@@ -52,6 +52,7 @@
       fira
       fira-code
       fira-code-nerdfont
+      distrobox
     ] ++ (with self.packages.${pkgs.system}; [ jdownload2 fdm vk_hdr_layer ])
     ++ (with self.inputs.nix-alien.packages.${system}; [ nix-alien ]);
 

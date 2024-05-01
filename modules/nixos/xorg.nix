@@ -2,9 +2,10 @@
   networking.networkmanager.enable = true;
 
   services = {
+    libinput.enable = true;
+
     xserver = {
       enable = true;
-      libinput.enable = true;
 
       excludePackages = with pkgs; [ xterm ];
       desktopManager.xterm.enable = false;
