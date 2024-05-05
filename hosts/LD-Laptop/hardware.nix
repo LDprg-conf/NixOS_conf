@@ -187,7 +187,6 @@
 
         tuxclocker = {
           enable = true;
-          # enableAMD = true;
           enabledNVIDIADevices = [ 0 ];
           useUnfree = true;
         };

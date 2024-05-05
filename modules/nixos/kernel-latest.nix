@@ -1,12 +1,6 @@
 { pkgs, ... }: {
   # boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.kernelPackages = pkgs.linuxPackages_zen;
-  environment.systemPackages = [ pkgs.scx ];
-
-  chaotic.scx = {
-    enable = false;
-    scheduler = "scx_lavd";
-  };
 
   boot.kernel.sysctl = {
     "kernel.sysrq" =

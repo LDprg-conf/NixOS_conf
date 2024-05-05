@@ -6,7 +6,7 @@
     dedicatedServer.openFirewall =
       true; # Open ports in the firewall for Source Dedicated Server
     extraCompatPackages = with pkgs; [
-      # proton-ge-custom
+      proton-ge-custom
     ];
     package = pkgs.steam.override {
       extraLibraries = p: with p; [ (lib.getLib [ gamemode gamescope-wsi ]) ];

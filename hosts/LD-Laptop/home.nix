@@ -34,7 +34,6 @@
     ryujinx
     webcord
     drawio
-    freerdp3
   ];
 
   programs = {
