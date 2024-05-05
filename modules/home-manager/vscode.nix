@@ -15,11 +15,6 @@
         gdb
         clang
         mold
-        # (rust-bin.selectLatestNightlyWith (toolchain:
-        #   toolchain.default.override {
-        #     extensions = [ "rust-src" ];
-        #     targets = [ "x86_64-unknown-linux-gnu" ];
-        #   }))
         rust-analyzer-nightly
       ]);
     extensions = with pkgs.vscode-extensions;
@@ -35,7 +30,7 @@
         ms-azuretools.vscode-docker
         ms-dotnettools.csharp
         ms-python.python
-        ms-python.vscode-pylance
+        # ms-python.vscode-pylance
         ms-vscode-remote.remote-containers
         ms-vscode-remote.remote-ssh
         ms-vscode.anycode
