@@ -126,10 +126,12 @@
 
   virtualisation.libvirtd = {
     enable = true;
-    qemu.ovmf.enable = true;
-    qemu.runAsRoot = false;
+    qemu = {
+      ovmf.enable = true;
+      runAsRoot = false;
+      swtpm.enable = true;
+    };
     onBoot = "ignore";
-    onShutdown = "suspend";
     parallelShutdown = 10;
   };
   virtualisation.spiceUSBRedirection.enable = true;

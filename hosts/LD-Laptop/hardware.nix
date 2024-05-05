@@ -143,6 +143,8 @@
         fstrim.enable = true;
         udisks2.enable = true;
 
+        dbus.implementation = "broker";
+
         xserver.videoDrivers = lib.mkIf (!cfg.vfio.enable) [ "nvidia" ];
 
         hardware.bolt.enable = true;
@@ -185,7 +187,7 @@
 
         tuxclocker = {
           enable = true;
-          enableAMD = true;
+          # enableAMD = true;
           enabledNVIDIADevices = [ 0 ];
           useUnfree = true;
         };
@@ -195,7 +197,7 @@
 
       networking = {
         useDHCP = lib.mkDefault true;
-        # networkmanager.wifi.powersave = false;
+        networkmanager.wifi.powersave = false;
         extraHosts = ''
           127.0.0.1 LD-Laptop.local LD-Laptop
         '';

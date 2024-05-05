@@ -1,6 +1,17 @@
 {
   description = "LDprg's Nixos config";
 
+  nixConfig = {
+    extra-trusted-substituters = [
+      "https://nix-community.cachix.org"
+      "https://nyx.chaotic.cx/"
+    ];
+    extra-trusted-public-keys = [
+      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      "chaotic-nyx.cachix.org-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8="
+    ];
+  };
+
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
@@ -55,26 +66,38 @@
     }@inputs:
     let
       inherit (self) outputs;
-      forAllSystems = nixpkgs.lib.genAttrs [ "aarch64-linux" "x86_64-linux" ];
+      forAllSystems = nixpkgs.lib.genAttrs [
+        "aarch64-linux"
+        "x86_64-linux"
+      ];
     in
     rec {
-      packages = forAllSystems (system:
-        let pkgs = nixpkgs.legacyPackages.${system};
-        in import ./pkgs { inherit pkgs; });
+      packages = forAllSystems (
+        system:
+        let
+          pkgs = nixpkgs.legacyPackages.${system};
+        in
+        import ./pkgs { inherit pkgs; }
+      );
 
-      devShells = forAllSystems (system:
-        let pkgs = nixpkgs.legacyPackages.${system};
+      devShells = forAllSystems (
+        system:
+        let
+          pkgs = nixpkgs.legacyPackages.${system};
         in
         {
           default = import ./shell.nix { inherit pkgs; };
-          precommit = pkgs.mkShell {
-            inherit (self.checks.${system}.pre-commit-check) shellHook;
-          };
-        });
+          precommit = pkgs.mkShell { inherit (self.checks.${system}.pre-commit-check) shellHook; };
+        }
+      );
 
-      formatter = forAllSystems (system:
-        let pkgs = nixpkgs.legacyPackages.${system};
-        in pkgs.nixpkgs-fmt);
+      formatter = forAllSystems (
+        system:
+        let
+          pkgs = nixpkgs.legacyPackages.${system};
+        in
+        pkgs.nixpkgs-fmt
+      );
 
       nixosConfigurations = {
         LD-Laptop =
@@ -84,7 +107,16 @@
           in
           nixpkgs.lib.nixosSystem {
             specialArgs = {
-              inherit inputs outputs user host self fenix rust-overlay spotx;
+              inherit
+                inputs
+                outputs
+                user
+                host
+                self
+                fenix
+                rust-overlay
+                spotx
+                ;
             };
             modules = [
               ./hosts
@@ -95,10 +127,20 @@
                   useGlobalPkgs = true;
                   useUserPackages = true;
                   extraSpecialArgs = {
-                    inherit inputs outputs user host fenix rust-overlay;
+                    inherit
+                      inputs
+                      outputs
+                      user
+                      host
+                      fenix
+                      rust-overlay
+                      ;
                   };
                   users.${user} = {
-                    imports = [ ./hosts/home.nix ./hosts/${host}/home.nix ];
+                    imports = [
+                      ./hosts/home.nix
+                      ./hosts/${host}/home.nix
+                    ];
                   };
                 };
               }
@@ -108,9 +150,12 @@
           };
       };
 
-      checks = forAllSystems (system:
-        let pkgs = nixpkgs.legacyPackages.${system};
-        in import ./precommit.nix { inherit pkgs system pre-commit-hooks; }
+      checks = forAllSystems (
+        system:
+        let
+          pkgs = nixpkgs.legacyPackages.${system};
+        in
+        import ./precommit.nix { inherit pkgs system pre-commit-hooks; }
       );
     };
 }
