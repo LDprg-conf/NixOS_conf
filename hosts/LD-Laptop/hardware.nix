@@ -107,11 +107,6 @@
           fsType = "tmpfs";
           options = [ "mode=1777" "noatime" "nosuid" "nodev" ];
         };
-        "/var/tmp" = {
-          device = "none";
-          fsType = "tmpfs";
-          options = [ "mode=1777" "noatime" "nosuid" "nodev" ];
-        };
         "/home" = {
           device = "/dev/disk/by-label/data";
           fsType = "btrfs";
