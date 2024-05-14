@@ -34,6 +34,7 @@
     ryujinx
     webcord
     drawio
+    zed-editor
   ];
 
   programs = {
