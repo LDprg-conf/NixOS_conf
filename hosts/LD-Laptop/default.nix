@@ -1,4 +1,12 @@
-{ inputs, self, lib, pkgs, fenix, rust-overlay, ... }: {
+{ inputs
+, self
+, lib
+, pkgs
+, fenix
+, rust-overlay
+, ...
+}:
+{
   imports = [
     ../../modules/nixos/apparmor.nix
     ../../modules/nixos/firewall.nix
@@ -16,7 +24,10 @@
     ./hardware.nix
   ];
 
-  nixpkgs.overlays = [ fenix.overlays.default rust-overlay.overlays.default ];
+  nixpkgs.overlays = [
+    fenix.overlays.default
+    rust-overlay.overlays.default
+  ];
 
   xdg.portal = {
     enable = true;
@@ -31,7 +42,8 @@
 
   environment.shells = with pkgs; [ fish ];
 
-  environment.systemPackages = with pkgs;
+  environment.systemPackages =
+    with pkgs;
     [
       wayland-utils
       clinfo
@@ -53,7 +65,13 @@
       fira-code
       fira-code-nerdfont
       distrobox
-    ] ++ (with self.packages.${pkgs.system}; [ jdownload2 fdm vk_hdr_layer ])
+      # config.nur.repos.sikmir.mqtt-explorer
+    ]
+    ++ (with self.packages.${pkgs.system}; [
+      jdownload2
+      fdm
+      vk_hdr_layer
+    ])
     ++ (with self.inputs.nix-alien.packages.${system}; [ nix-alien ]);
 
   specialisation."VFIO".configuration = {
@@ -81,7 +99,10 @@
       enable = true;
       dnssec = "true";
       domains = [ "~." ];
-      fallbackDns = [ "1.1.1.1#one.one.one.one" "1.0.0.1#one.one.one.one" ];
+      fallbackDns = [
+        "1.1.1.1#one.one.one.one"
+        "1.0.0.1#one.one.one.one"
+      ];
       dnsovertls = "true";
     };
   };
@@ -91,8 +112,13 @@
 
     gamescope = {
       enable = true;
-      env = { ENABLE_HDR_WSI = "1"; };
-      args = [ "--hdr-enabled" "--hdr-debug-force-output" ];
+      env = {
+        ENABLE_HDR_WSI = "1";
+      };
+      args = [
+        "--hdr-enabled"
+        "--hdr-debug-force-output"
+      ];
     };
 
     gamemode.enable = true;
@@ -136,9 +162,10 @@
   };
   virtualisation.spiceUSBRedirection.enable = true;
 
-  networking.nameservers =
-    [ "1.1.1.1#one.one.one.one" "1.0.0.1#one.one.one.one" ];
+  networking.nameservers = [
+    "1.1.1.1#one.one.one.one"
+    "1.0.0.1#one.one.one.one"
+  ];
 
-  systemd.services.NetworkManager-wait-online.enable =
-    lib.mkForce false; # Decrease boot time by disabeling network wait
+  systemd.services.NetworkManager-wait-online.enable = lib.mkForce false; # Decrease boot time by disabeling network wait
 }

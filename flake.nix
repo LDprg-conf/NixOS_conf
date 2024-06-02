@@ -2,21 +2,17 @@
   description = "LDprg's Nixos config";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
     chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
+    nur.url = "github:nix-community/NUR";
 
     home-manager = {
-      url = "github:nix-community/home-manager";
+      url = "github:nix-community/home-manager/release-24.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     pre-commit-hooks = {
       url = "github:cachix/pre-commit-hooks.nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    auto-cpufreq = {
-      url = "github:AdnanHodzic/auto-cpufreq";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -45,9 +41,9 @@
     { self
     , nixpkgs
     , chaotic
+    , nur
     , home-manager
     , pre-commit-hooks
-    , auto-cpufreq
     , fenix
     , rust-overlay
     , spotx
@@ -133,8 +129,8 @@
                   };
                 };
               }
-              auto-cpufreq.nixosModules.default
               chaotic.nixosModules.default
+              nur.nixosModules.nur
             ];
           };
       };

@@ -25,7 +25,7 @@
     freeorion
     tor-browser
     ferdium
-    minecraft
+    # minecraft
     geogebra6
     ptouch-print
     obsidian
@@ -35,6 +35,7 @@
     webcord
     drawio
     zed-editor
+    google-chrome
   ];
 
   programs = {
