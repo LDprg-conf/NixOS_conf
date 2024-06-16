@@ -36,6 +36,7 @@
     drawio
     zed-editor
     google-chrome
+    osu-lazer-bin
   ];
 
   programs = {

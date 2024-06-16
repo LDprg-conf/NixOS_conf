@@ -91,6 +91,8 @@
   services = {
     udev.packages = [ pkgs.openrgb ];
 
+    xserver.wacom.enable = true;
+
     logmein-hamachi.enable = true;
 
     joycond.enable = true;
@@ -149,6 +151,7 @@
   };
 
   hardware.bluetooth.enable = true;
+  hardware.opentabletdriver.enable = true;
 
   virtualisation.libvirtd = {
     enable = true;
