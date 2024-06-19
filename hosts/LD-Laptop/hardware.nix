@@ -45,6 +45,7 @@
         initrd.verbose = false;
         loader.timeout = 2;
         plymouth.enable = true;
+        tmp.useTmpfs = true;
       };
 
       hardware = {
@@ -101,11 +102,6 @@
           device = "/dev/disk/by-label/nixos";
           fsType = "btrfs";
           options = [ "compress=zstd" "noatime" "ssd" ];
-        };
-        "/tmp" = {
-          device = "none";
-          fsType = "tmpfs";
-          options = [ "mode=1777" "noatime" "nosuid" "nodev" ];
         };
         "/home" = {
           device = "/dev/disk/by-label/data";
