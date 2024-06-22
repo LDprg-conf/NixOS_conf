@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
       gst-plugins-ugly
     ]);
 
-  autoPatchelfIgnoreMissingDeps = [ "libmysqlclient.so.21" ];
+  autoPatchelfIgnoreMissingDeps = [ "libmysqlclient.so.21" "libmimerapi.so" ];
 
   runtimeDependencies =
     [ (lib.getLib udev) openssl ffmpeg xdg-utils libtorrent-rasterbar ];

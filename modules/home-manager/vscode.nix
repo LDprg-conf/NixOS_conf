@@ -30,12 +30,12 @@
         ms-azuretools.vscode-docker
         ms-dotnettools.csharp
         ms-python.python
-        ms-python.vscode-pylance
+        # ms-python.vscode-pylance
         ms-vscode-remote.remote-containers
         ms-vscode-remote.remote-ssh
         ms-vscode.anycode
         ms-vscode.cmake-tools
-        ms-vscode.cpptools
+        # ms-vscode.cpptools
         ms-vscode.hexeditor
         ms-vscode.live-server
         ms-vscode.makefile-tools
