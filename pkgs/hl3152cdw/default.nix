@@ -12,8 +12,8 @@ let
     sha256 = "sha256-/cImJGaCBCw697L+j6JbWOnfZz0zyTiSx2+a2joWSF0=";
   };
   lprdeb = fetchurl {
-    url = "https://download.brother.com/welcome/dlf103925/hll3230cdwpdrv-1.0.2-0.i386.deb";
-    sha256 = "sha256-nUmrxYS/Irw4FRBhijQQfq1qsUVitRgx/v1gCZR6pak=";
+    url = "https://download.brother.com/welcome/dlf101632/hl3152cdwlpr-1.1.3-0.i386.deb";
+    sha256 = "sha256-gIn8nGl0j7intGBPIEXEXE9kjjsIdUDz8ZePtFu3I1A=";
   };
 in
 stdenv.mkDerivation {
