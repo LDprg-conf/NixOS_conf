@@ -73,7 +73,7 @@ stdenv.mkDerivation {
     homepage = "http://www.brother.com/";
     description = "Brother hl3152cdw printer driver";
     sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
-    license = lib.licenses.unfree;
+    # license = lib.licenses.unfree;
     platforms = lib.platforms.linux;
   };
 }
