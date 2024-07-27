@@ -4,16 +4,16 @@ let
   version = "1.1.4-0";
   cupsdeb = fetchurl {
     url = "https://download.brother.com/welcome/dlf101633/hl3152cdwcupswrapper-${version}.i386.deb";
-    sha256 = "";
+    sha256 = "sha256-hbtmF4c57j81m7Z9cbTqHmUjGaq4wtjlXbOblz6GzMk=";
   };
   srcdir = "hl3152cdw_cupswrapper_GPL_source_${version}";
   cupssrc = fetchurl {
     url = "https://download.brother.com/welcome/dlf101645/${srcdir}.tar.gz";
-    sha256 = "";
+    sha256 = "sha256-/cImJGaCBCw697L+j6JbWOnfZz0zyTiSx2+a2joWSF0=";
   };
   lprdeb = fetchurl {
     url = "https://download.brother.com/welcome/dlf103925/hll3230cdwpdrv-1.0.2-0.i386.deb";
-    sha256 = "";
+    sha256 = "sha256-nUmrxYS/Irw4FRBhijQQfq1qsUVitRgx/v1gCZR6pak=";
   };
 in
 stdenv.mkDerivation {
