@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ pkgs, self, ... }: {
   networking.networkmanager.enable = true;
 
   services = {
@@ -20,7 +20,9 @@
 
     printing = {
       enable = true;
-      drivers = [ pkgs.brlaser pkgs.samsung-unified-linux-driver ];
+      drivers = [ pkgs.samsung-unified-linux-driver ] ++ (with self.packages.${pkgs.system}; [
+        cups-brother-hl3152cdw
+      ]);
       browsing = true;
     };
 
