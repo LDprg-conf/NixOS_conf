@@ -20,6 +20,7 @@
 
     printing = {
       enable = true;
+      cups-pdf.enable = true;
       drivers = [ pkgs.samsung-unified-linux-driver ] ++ (with self.packages.${pkgs.system}; [
         cups-brother-hl3152cdw
       ]);

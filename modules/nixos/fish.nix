@@ -17,7 +17,13 @@
   programs.fish = {
     enable = true;
     promptInit = ''
-      nix-your-shell fish | source
+      # if command -v nix-your-shell > /dev/null
+      #   echo exist
+        nix-your-shell fish | source
+      # else
+      #   echo does not exist
+      #   fish | source
+      # end
     '';
   };
 }

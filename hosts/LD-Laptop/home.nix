@@ -5,11 +5,10 @@
     kate
     thunderbird
     helvum
-    easyeffects
+    # easyeffects
     protonup-qt
     whatsapp-for-linux
     signal-desktop
-    quickemu
     element-desktop
     telegram-desktop
     qbittorrent
@@ -25,7 +24,6 @@
     freeorion
     tor-browser
     ferdium
-    # minecraft
     geogebra6
     ptouch-print
     obsidian

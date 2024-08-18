@@ -149,8 +149,25 @@
     };
   };
 
-  hardware.bluetooth.enable = true;
-  hardware.opentabletdriver.enable = true;
+  hardware = {
+    bluetooth = {
+      enable = true;
+      settings = {
+        General = {
+          Enable = "Source,Sink,Media,Socket";
+          Experimental = true;
+        };
+      };
+    };
+
+
+    pulseaudio = {
+      enable = true;
+      package = pkgs.pulseaudioFull;
+    };
+
+    opentabletdriver.enable = true;
+  };
 
   virtualisation.libvirtd = {
     enable = true;
