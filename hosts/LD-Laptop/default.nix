@@ -69,6 +69,7 @@
       networkmanager-openconnect
       zoom-us
       jetbrains.idea-ultimate
+      jetbrains.idea-community-bin
       # config.nur.repos.sikmir.mqtt-explorer
     ]
     ++ (with self.packages.${pkgs.system}; [
