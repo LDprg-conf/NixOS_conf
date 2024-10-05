@@ -1,5 +1,6 @@
 { pkgs }: {
   jdownload2 = pkgs.callPackage ./jdownload2 { };
+  anyconnect = pkgs.callPackage ./anyconnect { };
   fdm = pkgs.callPackage ./fdm { };
   fish-abbreviation-tips =
     pkgs.callPackage ./fish-plugins/fish-abbreviation-tips.nix { };

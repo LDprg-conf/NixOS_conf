@@ -65,6 +65,10 @@
       fira-code
       fira-code-nerdfont
       distrobox
+      openconnect
+      networkmanager-openconnect
+      zoom-us
+      jetbrains.idea-ultimate
       # config.nur.repos.sikmir.mqtt-explorer
     ]
     ++ (with self.packages.${pkgs.system}; [
@@ -97,16 +101,16 @@
 
     joycond.enable = true;
 
-    resolved = {
-      enable = true;
-      dnssec = "true";
-      domains = [ "~." ];
-      fallbackDns = [
-        "1.1.1.1#one.one.one.one"
-        "1.0.0.1#one.one.one.one"
-      ];
-      dnsovertls = "true";
-    };
+    # resolved = {
+    #   enable = true;
+    #   dnssec = "true";
+    #   domains = [ "~." ];
+    #   fallbackDns = [
+    #     "1.1.1.1#one.one.one.one"
+    #     "1.0.0.1#one.one.one.one"
+    #   ];
+    #   dnsovertls = "true";
+    # };
   };
 
   programs = {
@@ -158,11 +162,6 @@
           Experimental = true;
         };
       };
-    };
-
-
-    pulseaudio = {
-      package = pkgs.pulseaudioFull;
     };
 
     opentabletdriver.enable = true;

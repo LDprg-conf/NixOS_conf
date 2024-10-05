@@ -1,6 +1,4 @@
 { pkgs, ... }: {
-  environment.systemPackages = with pkgs; [ pavucontrol ];
-
   security.rtkit.enable = true;
 
   services.pipewire = {
@@ -10,4 +8,11 @@
     pulse.enable = true;
   };
 
+  environment.systemPackages = with pkgs; [
+    pavucontrol
+    helvum
+    pulseaudioFull
+    pulsemixer
+    # easyeffects
+  ];
 }

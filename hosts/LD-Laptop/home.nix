@@ -4,8 +4,6 @@
   home.packages = with pkgs; [
     kate
     thunderbird
-    helvum
-    # easyeffects
     protonup-qt
     whatsapp-for-linux
     signal-desktop
